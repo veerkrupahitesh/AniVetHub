@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:id="@+id/lin_parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/img_video_chat"/>
+
+            <TextView
+                android:id="@+id/tv_currentCredits"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:text="@string/str_current_credits_of_calls"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sdp"/>
+
+            <TextView
+
+                android:id="@+id/tv_credits"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_20sdp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_select_package"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_15sdp"
+            android:paddingRight="@dimen/_15sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/str_select_a_package"
+            android:textColor="#161719"
+            android:textSize="@dimen/_15sdp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyler_subscription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</LinearLayout>

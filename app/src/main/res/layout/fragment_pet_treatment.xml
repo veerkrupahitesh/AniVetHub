@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_symptomps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/img_user"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#c4c4c4"/>
+
+            <Spinner
+                android:id="@+id/sp_disease"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:spinnerMode="dialog"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/lbl_frmtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/img_calender"/>
+
+            <TextView
+                android:id="@+id/tv_frmtime"
+                style="@style/editTextStyle"
+                android:gravity="left|center"
+                android:hint="From Date"
+                android:inputType="text"
+                android:maxLines="15"
+                android:onClick="onClick"
+                android:padding="@dimen/_5sdp"
+                android:spinnerMode="dialog"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/img_calender"/>
+
+            <TextView
+                android:id="@+id/tv_totime"
+                style="@style/editTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:hint="To Date"
+                android:inputType="text"
+                android:maxLines="15"
+                android:onClick="onClick"
+                android:padding="@dimen/_5sdp"
+                android:spinnerMode="dialog"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:src="@drawable/img_description"/>
+
+            <EditText
+                android:id="@+id/edt_treatment"
+                style="@style/editTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint="Pet Treatment"
+                android:inputType="textCapSentences"
+                android:maxLines="15"
+                android:paddingTop="@dimen/_10sdp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/buttonStyle"
+            android:onClick="onClick"
+            android:text="@string/str_save"/>
+    </LinearLayout>
+</LinearLayout>

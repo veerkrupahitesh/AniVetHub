@@ -1,0 +1,288 @@
+<resources>
+
+    <!--****************************************social login credentials*****************************************************-->
+    <!--gmail login: anivethub.uk@gmail.com , pass : -->
+    <string name="str_google_server_web_key" translatable="false">1060617274828-cekme37p02npeppkjr6js2i8mvsklf5m.apps.googleusercontent.com</string>
+    <!--facebook login: Anivethub Veternary , pass :AniVetHub_123 -->
+    <string name="facebook_app_id">686621228154109</string>
+    <!--*******************************************************************************************************************************-->
+
+
+    <string name="app_name">AniVetHub</string>
+    <string name="app_name_header">AniVet Hub</string>
+    <string name="str_no_internet_connection_available">No internet connection available</string>
+    <string name="next">NEXT</string>
+    <string name="str_skip">SKIP</string>
+    <string name="str_select_state">Select state</string>
+    <string name="str_select_city">Select city</string>
+    <string name="str_username">User Name</string>
+    <string name="str_password">Password</string>
+    <string name="str_remember_me">Remember Me</string>
+    <string name="str_forgot_your_password">Forgot Your Password?</string>
+    <string name="str_please_wait">Please wait a moment…</string>
+    <string name="str_name">Name</string>
+    <string name="str_email">Email Address</string>
+    <string name="str_mobile_number">Mobile Number</string>
+    <string name="str_retype_password">Retype Password</string>
+    <string name="str_login">LOG IN</string>
+    <string name="str_login_failed">Login failed! \nplease try again</string>
+    <string name="str_yes">YES</string>
+    <string name="str_submit">SUBMIT</string>
+    <string name="str_register">Register</string>
+
+    <!--Validation messages-->
+    <string name="str_enter_username">Please enter username</string>
+    <string name="str_enter_password">Please enter password</string>
+    <string name="str_enter_email">Please enter email address</string>
+    <string name="str_enter_mobile">Please enter mobile number</string>
+    <string name="str_select_role">Please select your role</string>
+    <string name="str_enter_retype_password">Please retype your password</string>
+    <string name="str_password_matches">Password must match with each other</string>
+    <string name="str_enter_name">Please enter your name</string>
+    <string name="str_enter_valid_email_address">Please enter valid email address</string>
+    <string name="str_user_already_exists">This username is already registered</string>
+    <string name="str_enter_clinic_title">Please enter clinic title</string>
+    <string name="str_select_degree">Please select education degree</string>
+    <string name="str_select_university">Please select university</string>
+    <string name="str_select_passing_year">Please select passing year</string>
+    <string name="str_enter_address">Please enter address</string>
+    <string name="str_select_country">Select country</string>
+    <string name="str_enter_pincode">Please enter pincode</string>
+    <string name="str_enter_phoneno">Please enter phone number</string>
+    <string name="str_enter_valid_phoneno">Please enter valid phone number</string>
+    <string name="str_enter_sessionrate">Please enter session rate</string>
+    <string name="str_select_expertise">Select Expertise</string>
+    <string name="str_enter_petname">Please enter pet name</string>
+    <string name="str_enter_petage">Please select pet\'s birhtdate</string>
+    <string name="str_select_gender">Please select pet\'s gender</string>
+    <string name="str_enter_petweight">Please enter pet\'s weight</string>
+    <string name="str_select_pettype">Please select pet type</string>
+    <string name="str_enter_old_password">Please enter old password</string>
+    <string name="str_select_date_of_appointment">Please select date of appointment</string>
+    <string name="str_enter_pet_symptomps">Select pet symptom</string>
+    <string name="str_enter_pet_treatment">Enter treatment</string>
+    <string name="str_enter_pet_treatment_From_time">Select FROM time of pet treatment</string>
+    <string name="str_enter_valid_pet_treatment_to_time">Enter valid pet treatment TO time</string>
+    <string name="str_enter_pet_treatment_to_time">Select TO time of pet treatment</string>
+    <string name="str_select_normal_from_time">Select normal hour\'s from time</string>
+    <string name="str_select_normal_to_time">Select normal hour\'s to time</string>
+    <string name="str_enter_normal_session_rate">Enter normal hour\'s session rate</string>
+    <string name="str_select_special_from_time">Select special hour\'s from time</string>
+    <string name="str_select_special_to_time">Select special hour\'s to time</string>
+    <string name="str_enter_special_session_rate">Enter special hour\'s session rate</string>
+    <string name="str_enter_valid_pincode">Please enter valid pincode</string>
+    <string name="str_enter_valid_to_date">Enter valid TO date</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="str_my_profile">My profile</string>
+    <string name="str_my_pets">My pets</string>
+    <string name="str_settings">Settings</string>
+    <string name="str_notifications">Notifications</string>
+    <string name="str_how_it_works">How it works</string>
+    <string name="str_logout">Logout</string>
+    <string name="str_pincode">Pincode</string>
+    <string name="str_address_one">Address 1</string>
+    <string name="str_address_two">Address 2</string>
+    <string name="str_phone_no">Phone Number</string>
+    <string name="str_add_basic_information">Add Basic Information</string>
+    <string name="str_vet_basic_information">Basic Information</string>
+    <string name="str_add_pet_information">Add pet information</string>
+    <string name="str_save">SAVE</string>
+    <string name="str_add_pet">Add Pet</string>
+    <string name="str_pet_name">Pet Name</string>
+    <string name="str_pet_type">Pet\'s Type Group</string>
+    <string name="str_pet_Type">Pet\'s Type </string>
+    <string name="str_pet_breed">Pets\'s Breed</string>
+    <string name="str_pet_age">Pet\'s Birthdate</string>
+    <string name="str_pet_gender">Pet\'s Gender</string>
+    <string name="action_notification">notification</string>
+    <string name="str_term_and_condition">Please read the below mentioned terms and conditions before using AniVet Hub mobile app,
+	if you click on agree you are agreeing to be bound with the AniVet Hub terms and conditions.
+	If you sign Up as veterinary surgeons you are agreeing to be bounded by the veterinary surgeons terms and conditions</string>
+    <string name="action_home">Profile</string>
+    <string name="str_rate_app">Rate app</string>
+    <string name="str_share_app_with_friends">Share app with friends</string>
+    <string name="str_change_password">Change password</string>
+    <string name="str_about_the_app">About us</string>
+    <string name="str_hope_understand">Hopefully you understood!</string>
+    <string name="str_agree">Agree</string>
+    <string name="str_terms_and_conditions"><u>Terms and conditions</u></string>
+    <string name="str_privacy_policy"><u>Our Privacy Policy</u></string>
+    <string name="str_filterby">Filter by</string>
+    <string name="str_sortby">Sort by</string>
+    <string name="str_search_result">Search results</string>
+    <string name="str_add_more_pets">Add more pets</string>
+    <string name="str_pet_weight">Pet\'s Weight</string>
+    <string name="str_previous">Prev</string>
+    <string name="str_select_profile_photo">Select your profile photo</string>
+    <string name="str_select_banner_photo">Select banner photo</string>
+    <string name="str_session_rate">Session rate</string>
+    <string name="str_vet_clinic_title">Title</string>
+    <string name="str_for_eg_sr_vet_xyz_clinic">For eg: Sr vet@xyz clinic</string>
+    <string name="str_remarks">Remarks</string>
+    <string name="str_description">Description</string>
+    <string name="str_add_education_info">Add education information</string>
+    <string name="str_edit_education_info">Edit education information</string>
+    <string name="str_passing_year">Passing Year</string>
+    <string name="str_add_experience_info">Add experience information</string>
+    <string name="str_edit_experience_info">Edit experience information</string>
+    <string name="str_add_specialization_info">Add specializations information</string>
+    <string name="str_edit_specialization_info">Edit specialization information</string>
+    <string name="str_edit_basic_info">Edit basic information</string>
+    <string name="str_add_vetpractise_info">Add veterinary practise information</string>
+    <string name="str_edit_vetpractise_info">Edit veterinary practise information</string>
+    <string name="str_edit_pets_info">Edit pet\'s information</string>
+    <string name="str_aboutus">We are happy to offer a number of resources that enable you to
+    learn about how to take better care for your pets and providing real time solution from
+    the experienced veterinarians, who are trusted, dedicated and certified. No need to travel
+    to the veterinary surgeons for pet problems, get suggestions on site and in case any need of personal
+    assistance book your appointment on site we always recommend taking a proactive approach to your pets care through AniVet Hub
+    </string>
+    <string name="str_video_chat">VIDEO CHAT</string>
+    <string name="str_book_appointment">BOOK\nAPPOINTMENT</string>
+    <string name="str_read_reviews">VIEW REVIEW &amp; RATINGS</string>
+    <string name="str_terms_of_use">Terms and conditions</string>
+    <string name="str_add_symptoms">Add other symptoms</string>
+    <string name="str_no_pets_info">No pets found\nAdd more pets</string>
+    <string name="str_education">Education</string>
+    <string name="str_sign_up">SIGN UP</string>
+    <string name="str_forgot_password">Forgot password</string>
+    <string name="str_specialization">Pet specializations</string>
+    <string name="str_experience">Experience</string>
+    <string name="str_vet_profile">Veterinary surgeon profile</string>
+    <string name="str_no">NO</string>
+    <string name="str_want_to_delete">Are you sure want to delete?</string>
+    <string name="str_delete_pet">Delete pet</string>
+    <string name="str_delete_education">Delete education information</string>
+    <string name="str_camera">CAMERA</string>
+    <string name="str_gallery">GALLERY</string>
+    <string name="str_password_changed_success">Password changed successfully</string>
+    <string name="str_select_symptoms">Select symptoms</string>
+    <string name="str_vet_name">Veterinary surgeon name</string>
+    <string name="str_vet_status">Status</string>
+    <string name="str_vet_status_online">Online</string>
+    <string name="str_vet_status_busy">Busy</string>
+    <string name="str_vet_status_offline">Offline</string>
+    <string name="str_vet_price">Session rate</string>
+    <string name="str_vet_distance">Distance</string>
+    <string name="str_vet_kilometer">Kilometer</string>
+    <string name="str_vet_search">FILTER SEARCH</string>
+    <string name="str_no_education_info">No education information found \n Add new</string>
+    <string name="str_no_experience_info">No experience information found \n Add new</string>
+    <string name="str_no_expertise_info">No specialization information found \n Add new</string>
+    <string name="str_from">From</string>
+    <string name="str_to">To</string>
+    <string name="str_appointment_date">Appointment Date</string>
+    <string name="str_sort_type">Sort Type</string>
+    <string name="str_two_minutes_remains">Two minutes remains</string>
+    <string name="str_paypal_information">PayPal information</string>
+    <string name="str_paypal_id">PayPal Id</string>
+    <string name="str_new_password">New Password</string>
+    <string name="str_old_password">Old Password</string>
+    <string name="str_current_credits_of_calls">Current credits of calls</string>
+    <string name="str_select_a_package">Select a package</string>
+    <string name="str_buy_more_credits">BUY MORE CREDITS</string>
+    <string name="str_subscription_info">Subscription information</string>
+    <string name="str_paypal_info">PayPal information</string>
+    <string name="str_session_summary">Session summary</string>
+    <string name="str_session_detail">Session details</string>
+    <string name="str_vet_busy_offline">Veterinary surgeon is offline or busy in another call</string>
+    <string name="str_place_appointment">Place appointment</string>
+    <string name="str_no_session_info">No video call session information found </string>
+    <string name="str_call_now">Call now</string>
+    <string name="str_select_pet">Select pet</string>
+    <string name="str_reviews">Reviews</string>
+    <string name="str_review_ratings">Reviews and ratings</string>
+    <string name="str_loading">Loading…</string>
+    <string name="str_first_review_and_rating">Be the first to give review and rating</string>
+    <string name="str_sort">SORT SEARCH</string>
+    <string name="str_decline">Decline</string>
+    <string name="str_answer">Answer</string>
+    <string name="str_incoming_call">Incoming call…</string>
+    <string name="str_appointment_detail">Appointment details</string>
+    <string name="str_time_slot_information">Time slot information</string>
+    <string name="str_add_time_slot">Add time slot</string>
+    <string name="str_server_error">The server could not be found. Please try again after some time!!</string>
+    <string name="str_no_time_slot_info">No time slot found! \n Add time slot to get appointment from client</string>
+
+    <!--Vet how it works-->
+    <string name="str_vet_hiw_first_vet">Create your profile. Add photos, experience, specialisation and bio</string>
+    <string name="str_vet_hiw_five_vet">Give your client a summary of the consult</string>
+    <string name="str_vet_hiw_four_vet">Video consults from the comfort of your home</string>
+    <string name="str_vet_hiw_three_vet">Make your presence known - stay online, or make appointments available to book.</string>
+    <string name="str_vet_hiw_two_vet">State the price of a video consult - Normal hours rates and Out of hours rates.</string>
+    <string name="str_vet_hiw_six_vet">Build up your ratings to attract more clients</string>
+
+    <!--Client how it works-->
+    <string name="str_hiw_first_client">Choose your veterinary surgeon from anywhere in the UK.
+                                        Filter by distance, ratings, price and specializations.</string>
+    <string name="str_hiw_sec_client">Help your pet - Have a video consult with your chosen veterinary surgeon from the comfort of your home</string>
+    <string name="str_hiw_third_client">If the veterinary surgeon is currently unavailable, choose another veterinary surgeon, or book an appointment with them.</string>
+    <string name="str_hiw_forth_client">"Have your say - Write a review and rate the veterinary surgeon"</string>
+    <string name="str_hiw_fifth_client">"Obtain a summary of your video consult to keep for your records, and to show your local veterinary surgeon."</string>
+
+    <string name="str_new">New</string>
+    <string name="str_appointment_rejection">Appointment rejection</string>
+    <string name="str_vet_address">Veterinary Surgeon Address</string>
+    <string name="str_vet_phone">Veterinary Surgeon Phone Number</string>
+    <string name="str_vet_surgeon_email_address">Veterinary Surgeon Email Address</string>
+    <string name="str_add_new_time_slot">ADD NEW TIME SLOT</string>
+    <string name="str_add_new_experience">Add New Experience Information</string>
+    <string name="str_add_new_specialization">Add New Specialization Information</string>
+    <string name="str_pet_weigth_history">Pet weight history</string>
+    <string name="str_generate_ticket">GENERATE TICKET</string>
+    <string name="str_treatment">Pet treatment</string>
+    <string name="str_treatment_detail">Treatment details</string>
+    <string name="str_no_notification">No notification found</string>
+    <string name="str_calling">Calling…</string>
+    <string name="str_delete_experience">Delete experience information</string>
+    <string name="str_delete_specialization">Delete specialization information</string>
+    <string name="str_delete_time_slot">Delete time slot</string>
+    <string name="str_feedback">Video call feedBack</string>
+    <string name="str_session_rate_information">Add session rate information</string>
+    <string name="str_add_session_rate">Add new Session rate</string>
+    <string name="str_delete_session_rate">Delete session rate</string>
+    <string name="str_normal_hours">Normal Hours</string>
+    <string name="str_special_hours">Special Hours</string>
+    <string name="str_other_days">Same schedule for the remaining days</string>
+    <string name="str_no_session_rate_info_">No session rate information found\nAdd new</string>
+    <string name="str_vet_practise">Vet practice</string>
+    <string name="str_add_paypal_info">Add PayPal information</string>
+    <string name="str_edit_paypal_info">Edit PayPal information</string>
+    <string name="str_add_new_practise_user">Add New Practice Information</string>
+    <string name="str_delete_vetpractiseuser">Delete vet practice</string>
+    <string name="str_vet_practise_user">Vet practice information</string>
+    <string name="str_vet_practise_user_detail">Add vet practice</string>
+    <string name="str_pet_detail">Pet details</string>
+
+
+    <array name="array_dot_active">
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorPrimaryDark</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/light_grey</item>
+        <item>@color/light_grey</item>
+        <item>@color/light_grey</item>
+        <item>@color/light_grey</item>
+        <item>@color/light_grey</item>
+        <item>@color/light_grey</item>
+    </array>
+
+    <string name="str_about_us">About us</string>
+    <string name="str_ticket_status">Ticket Status</string>
+    <string name="str_appointments_summary">Appointment summary</string>
+    <string name="str_no_vet_practise_info">No vet surgeon practice information found\nAdd new</string>
+    <string name="str_no_appointment_info_found_place_appointment">No appointment information found\nPlace appointment</string>
+    <string name="str_no_subscription">No subscription information found \n Buy more credits</string>
+    <string name="str_support_center">Support center</string>
+    <string name="str_vet_practise_name">Veterinary surgeon practice name</string>
+
+</resources>

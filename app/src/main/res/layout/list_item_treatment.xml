@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_3sdp"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lin_treatment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+        <!-- <ImageView
+             android:id="@+id/img_pet"
+             android:layout_width="@dimen/_10sdp"
+             android:layout_height="@dimen/_30sdp"/>-->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txv_symptomps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txv_treatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:src="@drawable/img_edit"/>
+
+
+        <ImageView
+            android:id="@+id/img_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:src="@drawable/img_delete"/>
+        <!--</LinearLayout>-->
+    </LinearLayout>
+
+
+</LinearLayout>

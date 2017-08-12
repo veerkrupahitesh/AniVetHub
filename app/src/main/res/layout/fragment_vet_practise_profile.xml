@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical"
+              tools:context="com.veeritsolution.android.anivethub.activity.HomeActivity">
+
+    <include layout="@layout/header"/>
+
+    <include layout="@layout/vet_profile_header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_10sdp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c4c4c4"/>
+            <LinearLayout
+                android:id="@+id/lin_addBasicInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colourListBack"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/tv_basicInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Basic information"
+                    android:textColor="@color/homeCategory"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <ImageView
+                    android:id="@+id/img_basicarrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/img_right_arrow"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c4c4c4"/>
+
+            <LinearLayout
+                android:id="@+id/lin_addPayPalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/tv_payPalInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5sdp"
+                    android:text="PayPal"
+                    android:textColor="@color/homeCategory"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/img_right_arrow"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c4c4c4"/>
+
+            <LinearLayout
+                android:id="@+id/lin_addSessionRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colourListBack"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/tv_sessionRate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Session rate"
+                    android:textColor="@color/homeCategory"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <ImageView
+                    android:id="@+id/img_basicarrow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/img_right_arrow"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c4c4c4"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+        <!--   <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/img_delete" />-->
+
+        <TextView
+            android:id="@+id/tv_actionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:text="Want to Approve or Reject?"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rbgroup_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <RadioButton
+            android:textColor="@color/homeCategory"
+            android:id="@+id/rbApprove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Approve"/>
+
+        <!--   <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:gravity="center"
+               android:padding="@dimen/_13sdp"
+               android:text="Approved"
+               android:textColor="@android:color/white"
+               android:textSize="@dimen/_20sdp" />-->
+
+        <RadioButton
+            android:textColor="@color/homeCategory"
+            android:id="@+id/rbReject"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Reject"/>
+
+        <!-- <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:gravity="center"
+             android:padding="@dimen/_13sdp"
+             android:text="Rejected"
+             android:textColor="@android:color/white"
+             android:textSize="@dimen/_20sdp" />-->
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/drw_round_corner_gradient_blue"
+            android:onClick="onClick"
+            android:text="@string/str_no"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_12sdp"/>
+
+        <Button
+            android:id="@+id/btn_statusOk"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/drw_round_corner_gradient_blue"
+            android:onClick="onClick"
+            android:text="@string/str_yes"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_12sdp"/>
+    </LinearLayout>
+</LinearLayout>

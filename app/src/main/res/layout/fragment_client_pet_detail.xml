@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/img_petProfilePic"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPetName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_12sdp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lbl_PetType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Type:"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/tvPetType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lbl_PetBreed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Breed :"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/tvPetBreed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lbl_PetBirthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Birthday:"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/tvPetBirthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lbl_PetGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender:"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lbl_PetWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Weight:"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/tvPetWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:maxLines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_symptomsAndTreatment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Symptoms and treatments"
+                    android:textColor="@color/homeCategory"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@color/homeCategory"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lv_petTreatment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:dividerHeight="0.5dp"/>
+
+        <TextView
+            android:textSize="@dimen/_15sdp"
+            android:id="@+id/tv_noTreatmentInfo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/_7sdp"
+            android:text="No treatments found \nAdd more "
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:id="@+id/lin_session"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/img_vetProfilePic"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_15sdp">
+
+            <TextView
+                android:id="@+id/tv_vetPractise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <TextView
+                android:id="@+id/tv_clientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <TextView
+                android:id="@+id/tv_session_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <TextView
+                android:id="@+id/tv_timeAndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_10sdp"/>
+        </LinearLayout>
+
+        <!-- <ImageView
+             android:id="@+id/img_supportCenter"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginEnd="@dimen/_10sdp"
+             android:layout_marginRight="@dimen/_10sdp"
+             android:onClick="onClick"
+             android:visibility="gone"/>-->
+
+        <ImageView
+            android:id="@+id/img_basicarrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/img_right_arrow"/>
+    </LinearLayout>
+</LinearLayout>

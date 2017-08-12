@@ -1,0 +1,74 @@
+{
+  "project_info": {
+    "project_number": "1060617274828",
+    "firebase_url": "https://anivethub-145618.firebaseio.com",
+    "project_id": "anivethub-145618",
+    "storage_bucket": "anivethub-145618.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060617274828:android:254c7136031995ad",
+        "android_client_info": {
+          "package_name": "com.veeritsolution.android.anivethub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060617274828-q7qbii7rpilvsujpk9lq5r2jjcn7ds4j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.veeritsolution.android.anivethub",
+            "certificate_hash": "9aa66776b38333e3780ac1b709aed1b0d975fde3"
+          }
+        },
+        {
+          "client_id": "1060617274828-3tnhg53u82tcuf6e15n0sjm5kd0ierpp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.veeritsolution.android.anivethub",
+            "certificate_hash": "42d7ee62308c1e91a4f6eb54dbfc40818b13881c"
+          }
+        },
+        {
+          "client_id": "1060617274828-cekme37p02npeppkjr6js2i8mvsklf5m.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1060617274828-8eph5u2cs9ov1qha5qq52ljl41369l91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7RKp0WmODfOq23FHKioWaYRrU6IgnL3A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060617274828-udpbabm8jqdjmplj9v5ovc52nl7lrr2v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vishal.AniVetHub"
+              }
+            },
+            {
+              "client_id": "1060617274828-cekme37p02npeppkjr6js2i8mvsklf5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

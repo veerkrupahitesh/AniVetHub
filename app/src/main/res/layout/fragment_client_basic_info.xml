@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_basic_info"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <include layout="@layout/client_profile_header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_state_city"/>
+
+                <EditText
+                    android:id="@+id/edt_addressOne"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_address_one"
+                    android:inputType="text"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_state_city"/>
+
+                <EditText
+                    android:id="@+id/edt_addressTwo"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_address_two"
+                    android:inputType="text"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_mobile"/>
+
+                <EditText
+                    android:id="@+id/edt_phoneNumber"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_phone_no"
+                    android:inputType="number"
+                    android:maxLength="20"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_email"/>
+
+                <EditText
+                    android:id="@+id/edt_email"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_country"/>
+
+                <!-- <View
+                     android:layout_width="1dp"
+                     android:layout_height="match_parent"
+                     android:background="#808080"/>
+ -->
+                <TextView
+                    android:freezesText="true"
+                    android:id="@+id/tv_country"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|start"
+                    android:hint="Select Country"
+                    android:onClick="onClick"/>
+
+                <!--<Spinner
+                    android:id="@+id/sp_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"/>-->
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_state_city"/>
+
+                <!--<View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#808080"/>-->
+
+                <!--<EditText
+                    android:id="@+id/edt_state"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_state"
+                    android:inputType="text" />-->
+                <TextView
+                    android:freezesText="true"
+                    android:id="@+id/tv_state"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|start"
+                    android:hint="Select State"
+                    android:onClick="onClick"/>
+
+                <!--<Spinner
+                    android:id="@+id/sp_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"/>-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_state_city"/>
+
+                <!-- <View
+                     android:layout_width="1dp"
+                     android:layout_height="match_parent"
+                     android:background="#808080"/>-->
+
+                <TextView
+                    android:freezesText="true"
+                    android:id="@+id/tv_city"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|start"
+                    android:hint="Select City"
+                    android:onClick="onClick"/>
+
+                <!--<Spinner
+                    android:id="@+id/sp_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"/>-->
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_pincode"/>
+
+                <EditText
+                    android:id="@+id/edt_pinCode"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_pincode"
+                    android:inputType="number"
+                    android:maxLength="10"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_user"/>
+
+                <EditText
+                    android:id="@+id/edt_vetname"
+                    style="@style/editTextStyle"
+                    android:hint="Veterinary Surgeon Name"
+                    android:inputType="textCapWords"
+                    android:maxLength="100"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_state_city"/>
+
+                <EditText
+                    android:id="@+id/edt_vet_address"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_vet_address"
+                    android:inputType="text"
+                    android:maxLength="200"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_mobile"/>
+
+                <EditText
+                    android:id="@+id/edt_vet_phnno"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_vet_phone"
+                    android:inputType="number"
+                    android:maxLength="20"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_email"/>
+
+                <EditText
+                    android:id="@+id/edt_vet_email"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_vet_surgeon_email_address"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                style="@style/newButtonStyle"
+                android:onClick="onClick"
+                android:text="@string/str_save"
+                android:textSize="@dimen/_12sdp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+

@@ -1,0 +1,184 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="0dip">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:background="@color/callNowBackColor"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_vetProfilePic"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"/>
+
+            <TextView
+                android:id="@+id/callName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_17sdp"/>
+
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/hint"
+                android:textSize="@dimen/_15sdp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_30sdp"
+            android:paddingRight="@dimen/_30sdp">
+
+            <Button
+                android:id="@+id/callButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/drw_round_corner_gradient_blue"
+                android:drawableLeft="@drawable/img_video_chat"
+                android:drawablePadding="@dimen/_10sdp"
+                android:gravity="start|center"
+                android:onClick="onClick"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:text="@string/str_call_now"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp"/>
+
+            <Button
+                android:id="@+id/stopButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/drw_round_corner_gradient_red"
+                android:onClick="onClick"
+                android:text="@string/str_no"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sdp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:id="@+id/numberInputLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+            <TextView
+                android:id="@+id/callName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/drw_inputbox"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/sinch_purple"
+                android:textSize="32sp">
+
+                <requestFocus />
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="To call click below button"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+        &lt;!&ndash;<LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/numberInputLayout"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/infoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logged in as: "
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/sinch_purple" />
+
+            <TextView
+                android:id="@+id/loggedInName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Someone"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/sinch_purple"
+                android:textStyle="bold" />
+        </LinearLayout>&ndash;&gt;
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/callButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/drw_btn_bg"
+                android:minHeight="56dp"
+                android:minWidth="132dp"
+                android:onClick="onClick"
+                android:text="call"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/stopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/callButton"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:onClick="onClick"
+                android:text="@string/str_cancel"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>-->
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@android:color/white"
+                  android:orientation="vertical">
+
+        <include layout="@layout/header"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/lv_session"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:divider="@color/colorListviewDivider"
+                android:dividerHeight="0.5dp"
+                android:scrollbars="vertical">
+
+            </ListView>
+
+            <TextView
+                android:id="@+id/tv_noSessionInfo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/_7sdp"
+                android:text="@string/str_no_session_info"
+                android:textSize="@dimen/_15sdp"
+                android:visibility="gone"/>
+            <!--     <Button
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginRight="@dimen/_20sdp"
+                     android:layout_marginLeft="@dimen/_20sdp"
+                     android:text="@string/str_msg"
+                     android:textAllCaps="false"
+                     android:textColor="@android:color/white"
+                     android:textSize="@dimen/_15sdp"
+                     android:background="@drawable/drw_btn_bg"
+                     android:layout_marginBottom="@dimen/_15sdp"
+                     />-->
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

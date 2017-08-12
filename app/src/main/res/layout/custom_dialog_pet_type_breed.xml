@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/parentDialog"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_titleDialog"
+        style="@style/txtCustomDialogHeaderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:text=""/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/lv_location"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorListviewDivider"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="vertical"/>
+
+        <TextView
+            android:id="@+id/tv_noRecord"
+            style="@style/txtNoRecordsStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_cancel"
+        style="@style/buttonStyle"
+        android:onClick="onClick"
+        android:text="Cancel"
+        />
+
+</LinearLayout>

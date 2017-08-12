@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_pet_details"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical"
+    >
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/client_profile_header"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_PetPics"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"/>
+
+                    <LinearLayout
+                        android:id="@+id/lin_addPetPhoto"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:onClick="onClick"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/_2sdp"
+                        android:paddingRight="@dimen/_2sdp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_more_pic"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/drw_round_corner_grey"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_pet_paw"/>
+
+                        <EditText
+                            android:id="@+id/edt_pet_name"
+                            style="@style/editTextStyle"
+                            android:hint="@string/str_pet_name"
+                            android:inputType="textCapWords"
+                            android:maxLength="50"
+                            android:maxLines="1"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/drw_round_corner_grey"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_pettype"/>
+
+                        <TextView
+                            android:freezesText="true"
+                            android:id="@+id/tv_petType"
+                            style="@style/editTextStyle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/str_pet_Type"
+                            android:maxLines="1"
+                            android:onClick="onClick"/>
+                        <!--  <View
+                              android:layout_width="1dp"
+                              android:layout_height="match_parent"
+                              android:background="#808080"/>
+
+                          <Spinner
+                              android:id="@+id/sp_petType"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:spinnerMode="dialog"/>-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/drw_round_corner_grey"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_pettype"/>
+
+                        <TextView
+                            android:freezesText="true"
+                            android:id="@+id/tv_petBreed"
+                            style="@style/editTextStyle"
+                            android:gravity="center_vertical"
+                            android:hint="@string/str_pet_breed"
+                            android:maxLines="1"
+                            android:onClick="onClick"/>
+                        <!-- <View
+                             android:layout_width="1dp"
+                             android:layout_height="match_parent"
+                             android:background="#808080"/>
+
+                         <Spinner
+                             android:id="@+id/sp_petBreed"
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent"
+                             android:spinnerMode="dialog"/>-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/drw_round_corner_grey"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_calender"/>
+
+                        <TextView
+                            android:freezesText="true"
+                            android:id="@+id/tv_petBirthDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/drw_edittext_bg"
+                            android:gravity="center|start"
+                            android:hint="@string/str_pet_age"
+                            android:maxLines="1"
+                            android:onClick="onClick"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@color/hint"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/drw_round_corner_grey"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_pet_gender"/>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#c4c4c4"/>
+
+                        <Spinner
+                            android:id="@+id/sp_petGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:spinnerMode="dialog"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/drw_round_corner_grey"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/img_pet_weight"/>
+
+                        <EditText
+                            android:id="@+id/edt_petWeight"
+                            style="@style/editTextStyle"
+                            android:hint="@string/str_pet_weight"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        style="@style/newButtonStyle"
+                        android:onClick="onClick"
+                        android:text="@string/str_save"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>
+

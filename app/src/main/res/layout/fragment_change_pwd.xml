@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_change_password"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="top|center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_anivethub_logo" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_password" />
+
+            <EditText
+                android:id="@+id/edt_old_pwd"
+                style="@style/editTextStyle"
+                android:hint="@string/str_old_password"
+                android:inputType="textPassword"
+                android:maxLength="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_password" />
+
+            <EditText
+                android:id="@+id/edt_new_pwd"
+                style="@style/editTextStyle"
+                android:hint="@string/str_new_password"
+                android:inputType="textPassword"
+                android:maxLength="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/drw_round_corner_grey"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_password" />
+
+            <EditText
+                android:id="@+id/edt_confirm_pwd"
+                style="@style/editTextStyle"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:maxLength="20" />
+        </LinearLayout>
+        <!--<LinearLayout
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_gravity="center|center_vertical"
+            android:gravity="start|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:text="Old Password :"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:background="@drawable/drw_border"
+                android:maxLines="1"
+                android:id="@+id/edt_old_pwd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:maxLength="20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:text="New Password :"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:background="@drawable/drw_border"
+                android:maxLines="1"
+                android:id="@+id/edt_confirm_pwd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:maxLength="20" />
+        </LinearLayout>-->
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/buttonStyle"
+            android:onClick="onClick"
+            android:text="@string/str_save" />
+    </LinearLayout>
+</LinearLayout>

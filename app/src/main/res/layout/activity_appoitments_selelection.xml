@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_vet_experience"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/vet_profile_header"/>
+
+        <!--  <ScrollView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_calender"/>
+
+                <TextView
+                    android:id="@+id/tv_timeSlotDate"
+                    style="@style/editTextStyle"
+                    android:gravity="center|start"
+                    android:hint="@string/str_appointment_date"
+                    android:onClick="onClick"/>
+                <!--  <View
+                      android:layout_width="1dp"
+                      android:layout_height="match_parent"
+                      android:background="#808080"/>
+
+                  <Spinner
+                      android:id="@+id/sp_vetTimeSlot"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:spinnerMode="dialog"/>-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_time"/>
+
+                <!--  <TextView
+                      android:id="@+id/tv_vetTimeSlot"
+                      style="@style/editTextStyle"
+                      android:gravity="center|start"
+                      android:hint="@string/str_select_appointment_time_slot"
+                      android:onClick="onClick"/>-->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#c4c4c4"/>
+
+                <Spinner
+                    android:id="@+id/sp_vetTimeSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog"/>
+
+            </LinearLayout>
+
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_border"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_pettype" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#808080" />
+
+                <Spinner
+                    android:id="@+id/sp_petBreed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>-->
+
+
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/_120sdp"
+                 android:layout_marginTop="@dimen/_10sdp"
+                 android:background="@drawable/drw_border"
+                 android:orientation="horizontal">
+
+                 <ImageView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="top"
+                     android:src="@drawable/img_description" />
+
+                 <EditText
+                     android:id="@+id/edt_vet_remarks"
+                     style="@style/editTextStyle"
+                     android:gravity="top|start"
+                     android:hint="@string/str_vet_remarks"
+                     android:inputType="text"
+                     android:maxLength="300"
+                     android:maxLines="6"
+                     android:paddingLeft="@dimen/_10sdp"
+                     android:paddingStart="@dimen/_10sdp"
+                     android:paddingTop="@dimen/_5sdp" />
+
+             </LinearLayout>-->
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/buttonStyle"
+            android:onClick="onClick"
+            android:text="@string/str_save"
+           />
+        <!--</ScrollView>-->
+    </LinearLayout>
+
+
+</LinearLayout>

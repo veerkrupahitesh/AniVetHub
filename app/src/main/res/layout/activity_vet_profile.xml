@@ -1,0 +1,220 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/vet_profile_header"/>
+
+
+        <LinearLayout
+            android:id="@+id/ll_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_85sdp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/lin_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|start"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="top|start"
+                            android:src="@drawable/img_pound"/>
+
+                        <TextView
+                            android:id="@+id/tv_sessionRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="top|start"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/homeCategory"
+                            android:textSize="@dimen/_11sdp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|start"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="top|start"
+                            android:src="@drawable/img_clinic_exp"/>
+
+                        <TextView
+                            android:id="@+id/tv_experienceYear"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="top|start"
+                            android:padding="@dimen/_2sdp"
+                            android:textColor="@color/homeCategory"
+                            android:textSize="@dimen/_11sdp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lin_address"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="top|start"
+                        android:src="@drawable/img_location"/>
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top|start"
+                        android:ellipsize="end"
+                        android:maxLines="7"
+                        android:textAllCaps="false"
+                        android:textColor="@color/homeCategory"
+                        android:textSize="@dimen/_11sdp"/>
+                </LinearLayout>
+                <!--</RelativeLayout>-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/_7sdp"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btn_videoChat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drw_round_corner_gradient_blue"
+                    android:drawableLeft="@drawable/img_video_chat"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:text="@string/str_video_chat"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <Button
+                    android:id="@+id/btn_bookAppointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drw_round_corner_purple"
+                    android:drawableLeft="@drawable/img_book_app"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:text="@string/str_book_appointment"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_3sdp">
+
+                <ExpandableListView
+                    android:id="@+id/listView_vetDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:groupIndicator="@null"/>
+
+                <!-- <android.support.v7.widget.RecyclerView
+                     android:id="@+id/recyclerview"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/lin_reviewAndRating"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorAccent"
+                        android:gravity="center"
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/_15sdp"
+                        android:paddingTop="@dimen/_15sdp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_read_review"/>
+
+                        <TextView
+                            android:id="@+id/tv_readReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="@string/str_read_reviews"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval"
+       android:visible="true">
+    <!-- you can use any color you want I used here gray color-->
+    <stroke android:color="@android:color/white"/>
+    <padding
+        android:bottom="@dimen/_3sdp"
+        android:left="@dimen/_3sdp"
+        android:right="@dimen/_3sdp"
+        android:top="@dimen/_3sdp"/>
+    <solid android:color="@android:color/white"/>
+</shape>

@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lin_profile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/img_client_banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_85sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_client_banner" />
+
+        <ProgressBar
+            android:id="@+id/prg_imageUpload1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_clientProfilePic"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:background="@drawable/drw_circle_white"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_client_profile" />
+
+        <ProgressBar
+            android:id="@+id/prg_imageUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_70sdp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_selectBannerPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_client_banner"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_13sdp"
+            android:layout_marginRight="@dimen/_13sdp"
+            android:onClick="onClick"
+            android:src="@drawable/img_select_photo" />
+
+        <ImageView
+            android:id="@+id/img_selectProfilePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_clientProfilePic"
+            android:layout_alignLeft="@+id/img_clientProfilePic"
+            android:layout_alignStart="@+id/img_clientProfilePic"
+            android:onClick="onClick"
+            android:src="@drawable/img_select_photo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_client_banner"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/img_clientProfilePic"
+            android:layout_toRightOf="@+id/img_clientProfilePic"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_clientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_13sdp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/tv_clientUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_10sdp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

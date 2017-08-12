@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/lin_vetReviewList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/img_clientProfilePic"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"/>
+
+        <!--  <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/_10sdp"
+              android:paddingRight="@dimen/_5sdp"
+              android:weightSum="2">-->
+
+        <LinearLayout
+            android:id="@+id/lin_reviewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toEndOf="@+id/img_clientProfilePic"
+            android:layout_toRightOf="@+id/img_clientProfilePic"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_clientName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/rating"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:isIndicator="true"
+                android:numStars="5"/>
+
+            <!-- <RatingBar
+                 android:id="@+id/rating"
+                 style="?android:attr/ratingBarStyleSmall"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:isIndicator="true"
+                 android:numStars="5"
+                 android:progressDrawable="@drawable/custom_ratingbar_small"
+                 android:stepSize="0.5"/>-->
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lin_reviewTitle"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/img_clientProfilePic"
+            android:layout_toRightOf="@+id/img_clientProfilePic"
+            android:textColor="@color/homeCategory"/>
+    </RelativeLayout>
+
+
+    <!--  </RelativeLayout>-->
+
+</LinearLayout>

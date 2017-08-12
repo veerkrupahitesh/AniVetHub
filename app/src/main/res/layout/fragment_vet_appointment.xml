@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <include layout="@layout/header"/>
+
+        <ListView
+            android:id="@+id/lstappointment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_noAppointmentInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_7sdp"
+            android:text="No appointment information found \n
+Complete or update your profile to get Appointments"
+            android:textSize="@dimen/_15sdp"
+            android:visibility="gone"/>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

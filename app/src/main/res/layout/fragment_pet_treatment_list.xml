@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <ListView
+        android:id="@+id/lv_petTreatment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/colorListviewDivider"
+        android:dividerHeight="0.5dp"/>
+
+    <TextView
+        android:textSize="@dimen/_15sdp"
+        android:id="@+id/tv_noTreatmentInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="@dimen/_7sdp"
+        android:text="No treatments found \nAdd more "
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_addTreatments"
+        style="@style/buttonStyle"
+        android:drawableLeft="@drawable/img_pluse"
+        android:onClick="onClick"
+        android:padding="@dimen/_5sdp"
+        android:text="Add new Treatments"
+        />
+</LinearLayout>

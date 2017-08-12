@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_calender"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#c4c4c4"/>
+
+                <Spinner
+                    android:id="@+id/sp_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/str_session_rate"
+                    android:inputType="text"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_normal_hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/str_normal_hours"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drw_round_corner_grey"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_time"/>
+
+                    <TextView
+                        android:id="@+id/tv_normalFromDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/drw_edittext_bg"
+                        android:gravity="center|start"
+                        android:hint="@string/str_from"
+                        android:maxLines="1"
+                        android:onClick="onClick"
+                        android:textColorHint="@color/hint"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drw_round_corner_grey"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_time"/>
+
+                    <TextView
+                        android:id="@+id/tv_normalToDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/drw_edittext_bg"
+                        android:gravity="center|start"
+                        android:hint="@string/str_to"
+                        android:maxLength="100"
+                        android:onClick="onClick"
+                        android:textColorHint="@color/hint"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_pound_big"/>
+
+                <EditText
+                    android:id="@+id/edt_normalSessionRate"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_session_rate"
+                    android:inputType="numberDecimal"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_special_hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_special_hours"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drw_round_corner_grey"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_time"/>
+
+                    <TextView
+                        android:id="@+id/tv_specialFromDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/drw_edittext_bg"
+                        android:gravity="center|start"
+                        android:hint="@string/str_from"
+                        android:maxLines="1"
+                        android:onClick="onClick"
+                        android:textColorHint="@color/hint"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drw_round_corner_grey"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_time"/>
+
+                    <TextView
+                        android:id="@+id/tv_specialToDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/drw_edittext_bg"
+                        android:gravity="center|start"
+                        android:hint="@string/str_to"
+                        android:maxLength="100"
+                        android:onClick="onClick"
+                        android:textColorHint="@color/hint"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_pound_big"/>
+
+                <EditText
+                    android:id="@+id/edt_specialSessionRate"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_session_rate"
+                    android:inputType="numberDecimal"
+                    android:maxLength="100"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_label_otherDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_other_days"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/chk_Monday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Monday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/chk_Wednesday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Wednesday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/chk_friday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Friday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/chk_sunday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Sunday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/chk_Tuesday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Tuesday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/chk_Thrusday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Thursday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <CheckBox
+                        android:id="@+id/chk_saturday"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Saturday"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/_12sdp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                style="@style/newButtonStyle"
+                android:onClick="onClick"
+                android:text="@string/str_save"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">AniVetHub</string>
+    <string name="text_skip"><u>Skip</u></string>
+    <string name="setting_rd1">Restaurant</string>
+    <string name="setting_rd2">Chain retailer</string>
+    <string name="str_donshow">Dont show again</string>
+    <string name="str_choosetype">Choose business type</string>
+    <string name="volley_error">Network error. Try again</string>
+    <string name="btn_save">Save</string>
+    <string name="font_regular">AvenirNextLTPro-Regular.otf</string>
+    <string name="font_bold">AvenirNextLTPro-Bold.otf</string>
+    <string name="font_starto">Pacifico.ttf</string>
+    <string name="str_url">Enter Server Url</string>
+    <string name="connection_lost">Connection lost!</string>
+    <string name="err_msg_email">Enter valid username</string>
+    <string name="err_msg_password">Enter the password</string>
+</resources>

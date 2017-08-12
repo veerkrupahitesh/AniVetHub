@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lv_supportCenter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/white"
+            android:transcriptMode="alwaysScroll"/>
+
+        <Button
+            android:id="@+id/btn_createTicket"
+            style="@style/buttonStyle"
+            android:onClick="onClick"
+            android:text="reply"/>
+    </LinearLayout>
+</LinearLayout>

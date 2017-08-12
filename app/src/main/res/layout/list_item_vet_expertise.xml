@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/lin_expertiseList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Expertise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLength="40"
+                android:maxLines="1"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_12sdp"/>
+
+            <!--<android.support.v7.widget.AppCompatRatingBar-->
+                <!--android:id="@+id/rating_specialisation"-->
+                <!--style="@style/Widget.AppCompat.RatingBar.Small"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="start|center"-->
+                <!--android:isIndicator="true"-->
+                <!--android:numStars="3"/>-->
+
+            <!--  <RatingBar
+                  android:id="@+id/rating_specialisation"
+                  style="?android:attr/ratingBarStyleSmall"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:layout_marginTop="@dimen/_5sdp"
+                  android:layout_weight="1"
+                  android:numStars="3"
+                  android:progressDrawable="@drawable/custom_ratingbar_small"/>-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!--<ImageView-->
+                <!--android:id="@+id/img_Edit"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/img_edit"-->
+                <!--android:onClick="onClick"/>-->
+
+
+            <ImageView
+                android:id="@+id/img_Delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@drawable/img_delete"
+                android:onClick="onClick"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="JazzyListView">
+        <attr name="effect" format="enum">
+            <enum name="standard" value="0"/>
+        </attr>
+
+        <attr name="only_animate_new_items" format="boolean"/>
+        <attr name="only_animate_fling" format="boolean"/>
+        <attr name="simulate_grid_with_list" format="boolean"/>
+        <attr name="max_velocity" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="TextViewPlus">
+        <attr name="customFont" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="RangeBar">
+        <attr name="tickCount" format="integer"/>
+        <attr name="tickHeight" format="dimension"/>
+        <attr name="barWeight" format="dimension"/>
+        <attr name="barColor" format="reference|color"/>
+        <attr name="connectingLineWeight" format="dimension"/>
+        <attr name="connectingLineColor" format="reference|color"/>
+        <attr name="thumbRadius" format="dimension"/>
+        <attr name="thumbImageNormal" format="reference"/>
+        <attr name="thumbImagePressed" format="reference"/>
+        <attr name="thumbColorNormal" format="reference|color"/>
+        <attr name="thumbColorPressed" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="RangeSeekBar">
+        <attr name="absoluteMinValue" format="integer|float"/>
+        <attr name="absoluteMaxValue" format="integer|float"/>
+        <attr name="singleThumb" format="boolean"/>
+    </declare-styleable>
+</resources>

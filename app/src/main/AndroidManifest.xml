@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.veeritsolution.android.anivethub">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:compatibleWidthLimitDp="320"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/img_launcher_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:logo="@drawable/img_launcher_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <!-- <activity
+             android:name=".activity.SearchVetActivity"
+             android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".activity.VetDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider686621228154109"
+            android:exported="false"
+            tools:ignore="ExportedContentProvider" />
+
+        <meta-data
+            android:name="google-signin-client_id"
+            android:value="377832924519-1u2bcmt344at4uubhg79bb0gku6v2as1.apps.googleusercontent.com" />
+
+        <activity
+            android:name=".activity.ClientPetsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SymptomsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AppointmentsSelectionActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.VetCallFeedbackActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".sinch.IncomingCallScreenActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sinch.PlaceCallActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".sinch.SinchService" />
+
+        <!-- paypal activities -->
+        <!-- <service -->
+        <!-- android:name="com.paypal.android.sdk.payments.PayPalService" -->
+        <!-- android:exported="false"/> -->
+
+
+        <!-- <activity android:name="com.paypal.android.sdk.payments.PaymentActivity"/> -->
+        <!-- <activity android:name="com.paypal.android.sdk.payments.LoginActivity"/> -->
+        <!-- <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity"/> -->
+        <!-- <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity"/> -->
+        <!-- <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity"/> -->
+        <!-- <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity"/> -->
+        <!-- <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity"/> -->
+
+        <activity
+            android:name=".activity.ReviewAndRatingActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
+        <!-- about the fire base push notification -->
+        <service android:name=".firebaseNotification.FirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebaseNotification.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!--
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/img_notification_icon" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <activity
+            android:name=".activity.SearchVetPractiseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ClientCallFeedbackActivity"
+            android:screenOrientation="portrait">
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
+        <receiver android:name=".receivers.NotificationReceiver" />
+
+        <activity
+            android:name="com$paypal$android$MEP$PayPalActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activity.TabActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ListView
+            android:id="@+id/lv_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorListviewDivider"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="vertical">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/tv_noNotificationInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_7sdp"
+            android:text="@string/str_no_notification"
+            android:textSize="@dimen/_15sdp"
+            android:visibility="gone"/>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

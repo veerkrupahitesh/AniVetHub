@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/tv_search_filterBy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:paddingLeft="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"/>
+
+        <ImageView
+            android:id="@+id/img_filterCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/img_close"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_15sdp"
+            android:paddingRight="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/tv_labelVetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_vet_name"
+                android:textColor="@color/homeCategory"
+                android:textSize="@dimen/_15sdp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/drw_round_corner_grey"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_user"/>
+
+                <EditText
+                    android:id="@+id/edt_vetName"
+                    style="@style/editTextStyle"
+                    android:hint="@string/str_name"
+                    android:inputType="textCapWords"
+                    android:maxLength="50"/>
+            </LinearLayout>
+
+            <!-- <EditText
+                 android:id="@+id/edt_vetName"
+                 style="@style/editTextStyle"
+                 android:layout_marginTop="@dimen/_5sdp"
+                 android:background="@drawable/drw_round_corner_grey"
+                 android:hint="@string/str_name"
+                 android:padding="@dimen/_5sdp"
+                 android:textColorHint="@color/hint"
+                 android:textSize="@dimen/_15sdp" />-->
+
+            <LinearLayout
+                android:id="@+id/lin_onlineStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_vet_status"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/drw_square_grey"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/drw_square_grey"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <CheckBox
+                            android:id="@+id/chk_online"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:checked="true"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/drw_circle_gradient_green"/>
+
+                            <TextView
+                                android:id="@+id/tv_online"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="start|center"
+                                android:paddingLeft="@dimen/_5sdp"
+                                android:paddingStart="@dimen/_5sdp"
+                                android:text="@string/str_vet_status_online"
+                                android:textColor="@color/hint"
+                                android:textSize="@dimen/_12sdp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/drw_square_grey"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <CheckBox
+                            android:id="@+id/chk_busy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView12"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/drw_circle_gradient_grey"/>
+
+                            <TextView
+                                android:id="@+id/tv_busy"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="start|center"
+                                android:paddingLeft="@dimen/_8sdp"
+                                android:text="@string/str_vet_status_busy"
+                                android:textColor="@color/hint"
+                                android:textSize="@dimen/_12sdp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/drw_square_grey"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <CheckBox
+                            android:id="@+id/chk_Offline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/drw_circle_gradient_red"/>
+
+                            <TextView
+                                android:id="@+id/tv_offline"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="start|center"
+                                android:paddingLeft="@dimen/_5sdp"
+                                android:paddingStart="@dimen/_5sdp"
+                                android:text="@string/str_vet_status_offline"
+                                android:textColor="@color/hint"
+                                android:textSize="@dimen/_12sdp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_session_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_vet_price"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_15sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_mimPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/homeCategory"/>
+
+                <TextView
+                    android:id="@+id/tv_maxPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textColor="@color/homeCategory"/>
+            </LinearLayout>
+
+            <com.crystal.crystalrangeseekbar.widgets.BubbleThumbRangeSeekbar
+                android:id="@+id/range_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_color="@color/colorAccent"
+                app:bar_highlight_color="@color/colorAccent"
+                app:data_type="_float"
+                app:left_thumb_image="@drawable/img_seek_thumb_normal"
+                app:left_thumb_image_pressed="@drawable/img_seek_thumb_pressed"
+                app:right_thumb_image="@drawable/img_seek_thumb_normal"
+                app:right_thumb_image_pressed="@drawable/img_seek_thumb_pressed"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/str_vet_distance"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroup_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_kilometer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/str_vet_kilometer"
+                        android:textColor="@color/hint"
+                        android:textSize="15sp"/>
+
+                    <!--   <TextView
+                           android:id="@+id/textView10"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center"
+                           android:layout_marginLeft="@dimen/_4sdp"
+                           android:gravity="center"
+                           android:text="@string/str_vet_kilometer"
+                           android:textColor="@color/grey"
+                           android:textSize="@dimen/_15sdp" />
+           -->
+                    <!-- <RadioButton
+                         android:id="@+id/rb_meter"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="center"
+                         android:layout_marginLeft="@dimen/_5sdp"
+                         android:layout_marginStart="@dimen/_5sdp"
+                         android:gravity="center"
+                         android:padding="@dimen/_5sdp"
+                         android:text="@string/str_vet_meter"
+                         android:textColor="@color/hint"
+                         android:textSize="15sp"/>-->
+                </RadioGroup>
+
+                <!--  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:layout_marginLeft="@dimen/_4sdp"
+                      android:gravity="center"
+                      android:text="@string/str_vet_meter"
+                      android:textColor="@color/grey"
+                      android:textSize="@dimen/_15sdp" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_mimDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/homeCategory"/>
+
+                <TextView
+                    android:id="@+id/tv_maxDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textColor="@color/homeCategory"/>
+            </LinearLayout>
+
+            <com.crystal.crystalrangeseekbar.widgets.BubbleThumbRangeSeekbar
+                android:id="@+id/range_kilometer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_color="@color/colorAccent"
+                app:bar_highlight_color="@color/colorAccent"
+                app:data_type="_float"
+                app:left_thumb_image="@drawable/img_seek_thumb_normal"
+                app:left_thumb_image_pressed="@drawable/img_seek_thumb_pressed"
+                app:right_thumb_image="@drawable/img_seek_thumb_normal"
+                app:right_thumb_image_pressed="@drawable/img_seek_thumb_pressed"/>
+
+            <!-- <Button
+                 android:id="@+id/btn_filterSearch"
+                 style="@style/newButtonStyle"
+                 android:onClick="onClick"
+                 android:text="@string/str_vet_search"/>-->
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_filterSearch"
+        style="@style/newButtonStyle"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:onClick="onClick"
+        android:text="@string/str_vet_search"/>
+</LinearLayout>
+

@@ -22,6 +22,7 @@ public class VetBio extends Fragment {
     private View rootView;
     private TextView tvBio;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

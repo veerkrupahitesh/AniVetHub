@@ -7,7 +7,9 @@
               android:orientation="vertical"
               tools:context="com.veeritsolution.android.anivethub.activity.HomeActivity">
 
-    <include layout="@layout/header"/>
+    <include
+        android:id="@+id/header"
+        layout="@layout/header"/>
 
     <include
         android:id="@+id/headerView"

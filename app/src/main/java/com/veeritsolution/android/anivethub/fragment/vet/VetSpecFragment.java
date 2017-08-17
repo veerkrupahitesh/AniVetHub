@@ -165,7 +165,7 @@ public class VetSpecFragment extends Fragment implements OnBackPressedEvent, OnC
                         if (!vetSpecializationList.isEmpty()) {
                             tvNoSpecializationInfo.setVisibility(View.GONE);
                             listViewExpertise.setVisibility(View.VISIBLE);
-                            adpExpertise = new AdpVetSpecialisation(getActivity(), vetSpecializationList);
+                            adpExpertise = new AdpVetSpecialisation(getActivity(), vetSpecializationList, false);
                             listViewExpertise.setAdapter(adpExpertise);
                         } else {
                             tvNoSpecializationInfo.setVisibility(View.VISIBLE);

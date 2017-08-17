@@ -77,7 +77,7 @@ public class SearchVetPractiseFragment extends Fragment implements /*OnClickEven
     //private int apiCallType = Constants.NORMAL_SEARCH_VET;
     private int totalRecords = 0;
     //private int page = 2;
-    private int totalPage;
+    //private int totalPage;
     private Dialog mDialog;
     private int isOnline = 1, isBusy = 1, isOffline = 1, minRate = 0, maxRate = 0, minDistance = 0,
             maxDistance = 0, sortBy = 0, sortType = 0;
@@ -185,7 +185,7 @@ public class SearchVetPractiseFragment extends Fragment implements /*OnClickEven
                             searchVetModel = normalVetList.get(0);
                             //tvSearchResult.setText(searchVetModel.getTotalRowNo() + " results");
                             totalRecords = searchVetModel.getTotalRowNo();
-                            totalPage = searchVetModel.getTotalPage();
+                            //totalPage = searchVetModel.getTotalPage();
                             //pageNo = searchVetModel.getTotalPage();
                             adpSearchVetList.refreshList(normalVetList);
                             //adpSearchVetList.notifyDataSetChanged();
@@ -212,7 +212,7 @@ public class SearchVetPractiseFragment extends Fragment implements /*OnClickEven
                             searchVetModel = list.get(0);
                             // tvSearchResult.setText(searchVetModel.getTotalRowNo() + " results");
                             totalRecords = searchVetModel.getTotalRowNo();
-                            totalPage = searchVetModel.getTotalPage();
+                            //totalPage = searchVetModel.getTotalPage();
                             adpSearchVetList.refreshList(normalVetList);
                             //adpSearchVetList.notifyDataSetChanged();
                             //   setAdapter(filterVetList);
@@ -240,7 +240,7 @@ public class SearchVetPractiseFragment extends Fragment implements /*OnClickEven
                             searchVetModel = list.get(0);
                             // tvSearchResult.setText(searchVetModel.getTotalRowNo() + " results");
                             totalRecords = searchVetModel.getTotalRowNo();
-                            totalPage = searchVetModel.getTotalPage();
+                            //totalPage = searchVetModel.getTotalPage();
                             adpSearchVetList.refreshList(normalVetList);
                             //adpSearchVetList.notifyDataSetChanged();
                             //  setAdapter(sortVetList);

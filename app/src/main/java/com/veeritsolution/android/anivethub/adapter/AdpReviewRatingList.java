@@ -88,7 +88,7 @@ public class AdpReviewRatingList extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void setList(List<ReviewRatingModel> reviewRatingList) {
+    public void refreshList(List<ReviewRatingModel> reviewRatingList) {
         this.reviewRatingList = reviewRatingList;
         notifyDataSetChanged();
     }

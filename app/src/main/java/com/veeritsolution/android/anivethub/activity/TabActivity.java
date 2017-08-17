@@ -19,7 +19,7 @@ import com.veeritsolution.android.anivethub.utility.ZoomOutPageTransformer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabActivity extends AppCompatActivity /*implements OnClickEvent*/ {
+public class TabActivity extends AppCompatActivity /*implements ActionBar.TabListener*//*implements OnClickEvent*/ {
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -31,7 +31,7 @@ public class TabActivity extends AppCompatActivity /*implements OnClickEvent*/ {
     // private CoordinatorLayout snackBarView;
     private View rootView;
     // private OnClickEvent onClickEvent;
-
+    //private ActionBar actionBar;
     private int[] tabIcons = {
             R.drawable.img_docter,
             R.drawable.img_hospital
@@ -66,13 +66,32 @@ public class TabActivity extends AppCompatActivity /*implements OnClickEvent*/ {
         //setupViewpager(mViewPager);
         setupViewpager(mViewPager);
         // setupTabIcons();
-
+      /*  actionBar = getSupportActionBar();
+        actionBar.addTab(actionBar.newTab().setText("Vet surgeons").setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText("Vet practices").setTabListener(this));
+*/
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
-            tabLayout.setupWithViewPager(mViewPager);
+            tabLayout.setupWithViewPager(mViewPager, true);
         }
 
         setupTabIcons();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setupTabIcons() {
@@ -89,7 +108,40 @@ public class TabActivity extends AppCompatActivity /*implements OnClickEvent*/ {
 
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // on changing the page
+                // make respected tab selected
+                // actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
+  /*  @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }*/
 
 
     /**
@@ -110,9 +162,8 @@ public class TabActivity extends AppCompatActivity /*implements OnClickEvent*/ {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment fragment = mFragmentList.get(position);
             //onClickEvent = (OnClickEvent) fragment;
-            return fragment;
+            return mFragmentList.get(position);
         }
 
         @Override

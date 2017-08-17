@@ -163,7 +163,7 @@ public class VetEduFragment extends Fragment implements OnBackPressedEvent, OnCl
 
                         if (!vetEducationList.isEmpty()) {
                             tvNoEducationInfo.setVisibility(View.GONE);
-                            adpEducationList = new AdpEducationList(getActivity(), vetEducationList);
+                            adpEducationList = new AdpEducationList(getActivity(), vetEducationList, false);
                             listViewEducation.setAdapter(adpEducationList);
                         } else {
                             tvNoEducationInfo.setVisibility(View.VISIBLE);

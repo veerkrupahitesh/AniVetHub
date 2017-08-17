@@ -56,7 +56,7 @@ public class VetExpFragment extends Fragment implements OnBackPressedEvent, OnCl
     private View headerView;
     private View rootView;
 
-   // object and variable declaration
+    // object and variable declaration
     private JSONObject params;
     private List<VetExperience> vetExpertiseList;
     private AdpExperienceList adpExpertise;
@@ -175,7 +175,7 @@ public class VetExpFragment extends Fragment implements OnBackPressedEvent, OnCl
 
                         if (!vetExpertiseList.isEmpty()) {
                             tvNoExperienceInfo.setVisibility(View.GONE);
-                            adpExpertise = new AdpExperienceList(getActivity(), vetExpertiseList);
+                            adpExpertise = new AdpExperienceList(getActivity(), vetExpertiseList, false);
                             listViewExpertise.setAdapter(adpExpertise);
                         } else {
                             tvNoExperienceInfo.setVisibility(View.VISIBLE);

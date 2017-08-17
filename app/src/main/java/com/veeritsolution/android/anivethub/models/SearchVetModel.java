@@ -92,7 +92,7 @@ public class SearchVetModel implements Serializable, Comparable<SearchVetModel> 
     @SerializedName("OnlineStatus")
     @Expose
     private int onlineStatus = 0;
-    @SerializedName("VetExpertise")
+    @SerializedName("VetExperience")
     @Expose
     private String vetExpertise = "";
     @SerializedName("VetEducation")

@@ -24,10 +24,12 @@ public class AdpEducationList extends BaseAdapter {
 
     private Context context;
     private List<VetEducation> vetEducationList;
+    private boolean isFromActivity;
 
-    public AdpEducationList(Context context, List<VetEducation> vetEducationList) {
+    public AdpEducationList(Context context, List<VetEducation> vetEducationList, boolean isFromActivity) {
         this.context = context;
         this.vetEducationList = vetEducationList;
+        this.isFromActivity = isFromActivity;
     }
 
     @Override
@@ -70,6 +72,14 @@ public class AdpEducationList extends BaseAdapter {
 
         viewHolder.imgEdit.setTag(vetEducation);
         viewHolder.imgDelete.setTag(vetEducation);
+
+        if (isFromActivity) {
+            viewHolder.imgEdit.setVisibility(View.GONE);
+            viewHolder.imgDelete.setVisibility(View.GONE);
+        } else {
+            viewHolder.imgEdit.setVisibility(View.VISIBLE);
+            viewHolder.imgDelete.setVisibility(View.VISIBLE);
+        }
 
         viewHolder.tvEducation.setText(vetEducation.getDegreeName());
         viewHolder.tvYear.setText(vetEducation.getPassingYear());

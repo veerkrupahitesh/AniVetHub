@@ -131,18 +131,15 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
 
             mUserId = ClientLoginModel.getClientCredentials().getClientName();
 
-            mSinchClient = Sinch.getSinchClientBuilder().context(MyApplication.getInstance()).userId(mUserId)
+            mSinchClient = Sinch.getSinchClientBuilder().context(this)
+                    .userId(mUserId)
                     .applicationKey(Constants.APP_KEY)
                     .applicationSecret(Constants.APP_SECRET)
                     .environmentHost(Constants.ENVIRONMENT).build();
 
-
             mSinchClient.setSupportCalling(true);
-
             mSinchClient.getVideoController().setResizeBehaviour(VideoScalingType.ASPECT_FILL);
-
             mSinchClient.addSinchClientListener(this);
-
             mSinchClient.setSupportMessaging(true);
             //  mSinchClient.getCallClient().addCallClientListener(new SinchService.SinchCallClientListener());
             mSinchClient.start();
@@ -220,6 +217,7 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
                     callButtonClicked();
                 } else {
                     ToastHelper.getInstance().showMessage("Please wait!");
+                    startClientForVideo();
                 }
                 break;
 
@@ -249,7 +247,7 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
 
     @Override
     public void onClientStopped(SinchClient sinchClient) {
-
+        startClientForVideo();
     }
 
     @Override
@@ -317,7 +315,7 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     sessionId = jsonObject.getInt("DataId");
 
-                    WritableMessage msg = new WritableMessage(vetLoginModel.getUserName(),String.valueOf(sessionId));
+                    WritableMessage msg = new WritableMessage(vetLoginModel.getUserName(), String.valueOf(sessionId));
                     mSinchClient.getMessageClient().send(msg);
 
                 } catch (JSONException e) {
@@ -345,6 +343,17 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
     }
 
     @Override
+    public void onVideoTrackPaused(Call call) {
+
+        call.pauseVideo();
+    }
+
+    @Override
+    public void onVideoTrackResumed(Call call) {
+        call.resumeVideo();
+    }
+
+    @Override
     public void onCallProgressing(Call call) {
         Debug.trace(TAG, "Call progressing");
         mAudioPlayer.playProgressTone();
@@ -352,6 +361,7 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
 
     @Override
     public void onCallEstablished(Call call) {
+
         mTimer.schedule(mDurationTask, 0, 500);
         mCallStart = System.currentTimeMillis();
 
@@ -424,6 +434,7 @@ public class PlaceCallActivity extends AppCompatActivity implements OnClickEvent
 
                 break;
         }
+        mSinchClient.stop();
     }
 
     private void calEndUncertainReason() {

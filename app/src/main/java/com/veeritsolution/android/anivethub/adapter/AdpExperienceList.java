@@ -26,10 +26,12 @@ public class AdpExperienceList extends BaseAdapter {
 
     private Context context;
     private List<VetExperience> vetExpertiseList;
+    private boolean isFromActivity;
 
-    public AdpExperienceList(Context context, List<VetExperience> vetExpertiseList) {
+    public AdpExperienceList(Context context, List<VetExperience> vetExpertiseList, boolean isFromActivity) {
         this.context = context;
         this.vetExpertiseList = vetExpertiseList;
+        this.isFromActivity = isFromActivity;
     }
 
     @Override
@@ -74,6 +76,13 @@ public class AdpExperienceList extends BaseAdapter {
         viewHolder.imgEdit.setTag(vetExpertise);
         viewHolder.imgDelete.setTag(vetExpertise);
 
+        if (isFromActivity){
+            viewHolder.imgEdit.setVisibility(View.GONE);
+            viewHolder.imgDelete.setVisibility(View.GONE);
+        }else {
+            viewHolder.imgEdit.setVisibility(View.VISIBLE);
+            viewHolder.imgDelete.setVisibility(View.VISIBLE);
+        }
         viewHolder.tvExpertise.setText(vetExpertise.getTitle());
 
         viewHolder.tvYear.setText(Utils.formatDate(vetExpertise.getFromDate(), Constants.DATE_MM_DD_YYYY, Constants.DATE_YYYY)

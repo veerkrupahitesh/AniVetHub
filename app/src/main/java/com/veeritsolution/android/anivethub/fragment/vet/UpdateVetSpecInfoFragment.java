@@ -62,7 +62,7 @@ public class UpdateVetSpecInfoFragment extends Fragment implements OnClickEvent,
     private int petTypeId = 0, proficiencyId;
     private ArrayAdapter<String> adpProficiency;
     private ArrayList<String> proficiency;
-    // private VetSpecialization vetExpertise;
+    // private VetExperience vetExpertise;
     // private boolean fromSignUp;
     private Dialog mDialog;
     private ArrayList<PetTypeModel> petTypeList;
@@ -79,7 +79,6 @@ public class UpdateVetSpecInfoFragment extends Fragment implements OnClickEvent,
         proficiency.add("Basic");
         proficiency.add("Intermediate");
         proficiency.add("Expert");
-
     }
 
 
@@ -92,12 +91,12 @@ public class UpdateVetSpecInfoFragment extends Fragment implements OnClickEvent,
         // rootView.setVisibility(View.INVISIBLE);
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeActivity.popBackFragment();
+                homeActivity.finish();
             }
         });
 

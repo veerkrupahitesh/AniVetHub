@@ -85,7 +85,7 @@ public class VetLoginModel implements Serializable {
     @SerializedName("OnlineStatus")
     @Expose
     private int onlineStatus;
-    @SerializedName("VetSpecialization")
+    @SerializedName("VetExperience")
     @Expose
     private String vetExpertise;
     @SerializedName("VetEducation")
@@ -484,7 +484,7 @@ public class VetLoginModel implements Serializable {
     }
 
     /**
-     * @param vetExpertise The VetSpecialization
+     * @param vetExpertise The VetExperience
      */
     public void setVetExpertise(String vetExpertise) {
         this.vetExpertise = vetExpertise;

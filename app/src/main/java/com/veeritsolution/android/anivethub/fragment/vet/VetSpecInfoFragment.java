@@ -221,7 +221,7 @@ public class VetSpecInfoFragment extends Fragment implements OnClickEvent, OnBac
 //            case GetVetExpertiseInfo:
 //
 //                rootView.setVisibility(View.VISIBLE);
-//                vetSpecialization = (VetSpecialization) mObject;
+//                vetSpecialization = (VetExperience) mObject;
 //                setData(vetSpecialization);
 //                break;
 

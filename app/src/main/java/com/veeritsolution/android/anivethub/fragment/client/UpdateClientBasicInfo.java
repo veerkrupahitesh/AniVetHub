@@ -103,7 +103,6 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
         super.onCreate(savedInstanceState);
 
         homeActivity = (HomeActivity) getActivity();
-
     }
 
     @Override
@@ -113,12 +112,12 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
 
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeActivity.popBackFragment();
+                homeActivity.finish();
             }
         });
 
@@ -404,7 +403,7 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
 
     @Override
     public void onBackPressed() {
-         homeActivity.finish();
+        homeActivity.finish();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

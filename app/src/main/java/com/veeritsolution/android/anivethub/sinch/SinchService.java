@@ -247,11 +247,12 @@ public class SinchService extends Service implements MessageClientListener {
         public void onIncomingCall(CallClient callClient, Call call) {
 
             Debug.trace(TAG, "Incoming call");
-
-            Intent intent = new Intent(SinchService.this, IncomingCallScreenActivity.class);
-            intent.putExtra(Constants.CALL_ID, call.getCallId());
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            SinchService.this.startActivity(intent);
+            if (call.getDetails().isVideoOffered()) {
+                Intent intent = new Intent(SinchService.this, IncomingCallScreenActivity.class);
+                intent.putExtra(Constants.CALL_ID, call.getCallId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                SinchService.this.startActivity(intent);
+            }
         }
     }
 

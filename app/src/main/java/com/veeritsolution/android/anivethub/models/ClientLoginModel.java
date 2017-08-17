@@ -116,7 +116,6 @@ public class ClientLoginModel implements Serializable {
     public static void saveClientCredentials(String loginResponse) {
 
         PrefHelper.getInstance().setString(PrefHelper.CLIENT_LOGIN_CREDENTIALS, loginResponse);
-
     }
 
     public static ClientLoginModel getClientCredentials() {

@@ -24,10 +24,12 @@ public class AdpVetSpecialisation extends BaseAdapter {
 
     private Context context;
     private List<VetSpecialization> vetSpecializationList;
+    private boolean isFromActivity;
 
-    public AdpVetSpecialisation(Context context, List<VetSpecialization> vetSpecializationList) {
+    public AdpVetSpecialisation(Context context, List<VetSpecialization> vetSpecializationList, boolean isFromActivity) {
         this.context = context;
         this.vetSpecializationList = vetSpecializationList;
+        this.isFromActivity = isFromActivity;
     }
 
     @Override
@@ -71,10 +73,14 @@ public class AdpVetSpecialisation extends BaseAdapter {
         if (vetSpecialization != null) {
 //            viewHolder.imgEdit.setTag(vetSpecialization);
             viewHolder.imgDelete.setTag(vetSpecialization);
-
             viewHolder.tvExpertise.setText(vetSpecialization.getPetTypeGroupName());
 
-           // viewHolder.ratings.setRating(vetSpecialization.getProficiency());
+            if (isFromActivity) {
+                viewHolder.imgDelete.setVisibility(View.GONE);
+            } else {
+                viewHolder.imgDelete.setVisibility(View.VISIBLE);
+            }
+            // viewHolder.ratings.setRating(vetSpecialization.getProficiency());
           /*  if (vetSpecialization.getPetBreedName()==null) {
                 viewHolder.tvYear.setText("No Breed");
             } else {
@@ -93,7 +99,7 @@ public class AdpVetSpecialisation extends BaseAdapter {
 
         public LinearLayout linearLayout;
         TextView tvExpertise/*, tvYear*/;
-      //  RatingBar ratings;
+        //  RatingBar ratings;
         ImageView imgEdit, imgDelete;
 
         public ViewHolder(View view) {
@@ -101,12 +107,12 @@ public class AdpVetSpecialisation extends BaseAdapter {
             tvExpertise = (TextView) view.findViewById(R.id.tv_Expertise);
             tvExpertise.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
 
-           // ratings = (RatingBar) view.findViewById(R.id.rating_specialisation);
+            // ratings = (RatingBar) view.findViewById(R.id.rating_specialisation);
 
             //tvYear = (TextView) view.findViewById(R.id.tv_desc);
             //tvYear.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
 
-            // = (ImageView) view.findViewById(R.id.img_Edit);
+            // imgEdit= (ImageView) view.findViewById(R.id.img_Edit);
             imgDelete = (ImageView) view.findViewById(R.id.img_Delete);
             linearLayout = (LinearLayout) view.findViewById(R.id.lin_expertiseList);
         }

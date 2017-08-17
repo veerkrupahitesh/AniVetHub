@@ -212,6 +212,16 @@ public class IncomingCallScreenActivity extends BaseActivity implements DataObse
     }
 
     @Override
+    public void onVideoTrackPaused(Call call) {
+        call.pauseVideo();
+    }
+
+    @Override
+    public void onVideoTrackResumed(Call call) {
+        call.resumeVideo();
+    }
+
+    @Override
     public void onCallProgressing(Call call) {
         Debug.trace("Call progressing");
         mAudioPlayer.playRingtone();

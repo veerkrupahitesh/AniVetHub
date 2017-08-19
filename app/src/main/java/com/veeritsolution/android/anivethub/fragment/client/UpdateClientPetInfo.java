@@ -71,7 +71,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created by veerk on 3/22/2017.
+ * Created by veer on 3/22/2017.
  */
 
 public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBackPressedEvent, DataObserver {
@@ -172,7 +172,6 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
         imgClientBannerPhoto = (ImageView) rootView.findViewById(R.id.img_client_banner);
         Utils.setBannerImage(getActivity(), ClientLoginModel.getClientCredentials().getBannerPic(),
                 R.drawable.img_client_banner, imgClientBannerPhoto);
-
 
         tvName = (TextView) rootView.findViewById(R.id.tv_clientName);
         tvName.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
@@ -293,23 +292,16 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
 
         switch (mRequestCode) {
 
-
             case GetPetTypeInfo:
-
                 ToastHelper.getInstance().showMessage(mError);
-
                 break;
 
             case GetPetBreedInfo:
-
                 ToastHelper.getInstance().showMessage(mError);
-
                 break;
 
             case ClientPetInsert:
-
                 ToastHelper.getInstance().showMessage(mError);
-
                 break;
 
         }
@@ -419,7 +411,6 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                     break;
 
                 case Constants.REQUEST_FILE_PROFILE:
-
                     apiType = Constants.API_REQUEST_PROFILE_FILE;
                     selectedImageUri = data.getData();
                     //  Uri imageUri = data.getData();
@@ -428,7 +419,6 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                     break;
 
                 case Crop.REQUEST_CROP:
-
                     handleCrop(resultCode, data);
                     break;
             }
@@ -442,14 +432,12 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
         switch (apiType) {
 
             case Constants.API_REQUEST_PROFILE_CAMERA:
-
                 Crop.of(source, destination)
                         .asSquare()
                         .start(getActivity(), this);
                 break;
 
             case Constants.API_REQUEST_PROFILE_FILE:
-
                 Crop.of(source, destination)
                         .asSquare()
                         .start(getActivity(), this);
@@ -462,12 +450,10 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
         switch (apiType) {
 
             case Constants.API_REQUEST_PROFILE_CAMERA:
-
                 uploadPetPhoto(result);
                 break;
 
             case Constants.API_REQUEST_PROFILE_FILE:
-
                 uploadPetPhoto(result);
                 break;
         }

@@ -118,7 +118,6 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        homeActivity = (HomeActivity) getActivity();
        /* bundle = getArguments();
         if (bundle != null) {
             fromSignUp = bundle.getBoolean(Constants.IS_FROM_SIGN_UP);
@@ -138,6 +137,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
 
         rootView = inflater.inflate(R.layout.fragment_client_pet_info, container, false);
 
+        homeActivity = (HomeActivity) getActivity();
         //  rootView.setVisibility(View.INVISIBLE);
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

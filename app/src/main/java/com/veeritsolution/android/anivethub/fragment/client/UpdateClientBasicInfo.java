@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -52,23 +51,17 @@ import com.veeritsolution.android.anivethub.models.CountryModel;
 import com.veeritsolution.android.anivethub.models.ErrorModel;
 import com.veeritsolution.android.anivethub.models.StateModel;
 import com.veeritsolution.android.anivethub.utility.Constants;
-import com.veeritsolution.android.anivethub.utility.Debug;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by veerk on 3/22/2017.
@@ -297,11 +290,9 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                 clientLoginModel.setIsClientProfile(1);
                 ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
                 homeActivity.popBackFragment();
-
                 break;
 
             case GetCountry:
-
                 rootView.setVisibility(View.VISIBLE);
                 try {
                     if (mObject instanceof ErrorModel) {
@@ -314,12 +305,9 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
                 break;
 
             case GetState:
-
                 try {
                     if (mObject instanceof ErrorModel) {
                         ErrorModel errorModel = (ErrorModel) mObject;
@@ -331,11 +319,9 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
 
             case GetCity:
-
                 try {
                     if (mObject instanceof ErrorModel) {
                         ErrorModel errorModel = (ErrorModel) mObject;
@@ -352,26 +338,40 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                 break;
 
             case ClientProfilePhotoUpdate:
-
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
-                ClientLoginModel clientLoginModel1 = (ClientLoginModel) mObject;
-                progressBar.setVisibility(View.VISIBLE);
-                Utils.setProfileImage(getActivity(), clientLoginModel1.getProfilePic(), R.drawable.img_client_profile,
-                        imgClientProfilePhoto, progressBar);
-                ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel1));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
+                    // progressBar.setVisibility(View.VISIBLE);
+                    Utils.setProfileImage(getActivity(), photoPath, R.drawable.img_client_profile,
+                            imgClientProfilePhoto, progressBar);
+                    ClientLoginModel clientLoginModel1 = ClientLoginModel.getClientCredentials();
+                    clientLoginModel1.setProfilePic(photoPath);
+                    //ClientLoginModel.getClientCredentials().setProfilePic(photoPath);
+                    ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel1));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case ClientBannerPhotoUpdate:
-
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
-                ClientLoginModel clientLoginModel2 = (ClientLoginModel) mObject;
-                progressBar1.setVisibility(View.VISIBLE);
-                Utils.setBannerImage(getActivity(), clientLoginModel2.getBannerPic(), R.drawable.img_client_banner,
-                        imgClientBannerPhoto, progressBar1);
-                ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel2));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
+                    //ClientLoginModel clientLoginModel1 = (ClientLoginModel) mObject;
+                    //  progressBar1.setVisibility(View.VISIBLE);
+                    Utils.setBannerImage(getActivity(), photoPath, R.drawable.img_client_banner,
+                            imgClientBannerPhoto, progressBar1);
+                    ClientLoginModel clientLoginModel1 = ClientLoginModel.getClientCredentials();
+                    clientLoginModel1.setBannerPic(photoPath);
+                    //clientLoginModel.setBannerPic(photoPath);
+                    ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
-
     }
 
     @Override
@@ -380,7 +380,6 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
         switch (mRequestCode) {
 
             case GetClientInfo:
-
                 ToastHelper.getInstance().showMessage(mError);
                 homeActivity.popBackFragment();
                 break;
@@ -421,7 +420,6 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                     break;
 
                 case Constants.REQUEST_FILE_PROFILE:
-
                     apiType = Constants.API_REQUEST_PROFILE_FILE;
                     selectedImageUri = data.getData();
                     //  Uri imageUri = data.getData();
@@ -430,7 +428,6 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                     break;
 
                 case Constants.REQUEST_CAMERA_BANNER:
-
                     apiType = Constants.API_REQUEST_BANNER_CAMERA;
                     thumbnail = (Bitmap) data.getExtras().get("data");
                     selectedImageUri = Utils.getImageUri(getActivity(), thumbnail);
@@ -439,7 +436,6 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                     break;
 
                 case Constants.REQUEST_FILE_BANNER:
-
                     apiType = Constants.API_REQUEST_BANNER_FILE;
                     selectedImageUri = data.getData();
                     beginCrop(selectedImageUri);
@@ -447,7 +443,6 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                     break;
 
                 case Crop.REQUEST_CROP:
-
                     handleCrop(resultCode, data);
                     break;
             }
@@ -518,10 +513,19 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
     }
 
     private void uploadBannerPhoto(Intent result) {
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        // CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientBanner);
 
-        new AsyncTask<Void, Void, Void>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.CLIENT_BANNER_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
+        params.put("sBannerPic", image64Base);
+
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.CLIENT_BANNER_PIC_UPDATE,
+                true, RequestCode.ClientBannerPhotoUpdate, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -549,15 +553,24 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void uploadProfilePhoto(Intent result) {
 
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        // CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
 
-        new AsyncTask<Void, Void, Void>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.CLIENT_PROFILE_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
+        params.put("sProfilePic", image64Base);
+
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.CLIENT_PROFILE_PIC_UPDATE,
+                true, RequestCode.ClientProfilePhotoUpdate, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -585,10 +598,10 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
-    private void getUserInfo() {
+   /* private void getUserInfo() {
         try {
             JSONObject params = new JSONObject();
             params.put("op", "GetClientInfo");
@@ -606,7 +619,7 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private boolean validateForm() {
 

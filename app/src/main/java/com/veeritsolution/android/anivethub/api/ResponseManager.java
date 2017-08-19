@@ -217,26 +217,6 @@ public class ResponseManager {
                     object = jsonArray;
                     break;
 
-                case ClientProfilePicUpdate:
-
-                    object = mResponse;
-                    break;
-
-                case ClientBannerPicUpdate:
-
-                    object = jsonArray;
-                    break;
-
-                case VetProfilePicUpdate:
-
-                    object = jsonArray;
-                    break;
-
-                case VetBannerPicUpdate:
-
-                    object = jsonArray;
-                    break;
-
                 case GetUniversityInfo:
 
                     object = mGson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<UniversityModel>>() {
@@ -658,36 +638,36 @@ public class ResponseManager {
                 case ClientProfilePhotoUpdate:
 
                     jsonObject = jsonArray.getJSONObject(0);
-                    object = mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());
+                    object = jsonObject;/*mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());*/
                     break;
 
                 case ClientBannerPhotoUpdate:
 
                     jsonObject = jsonArray.getJSONObject(0);
-                    object = mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());
+                    object = jsonObject;
                     break;
 
                 case VetProfilePhotoUpdate:
 
                     jsonObject = jsonArray.getJSONObject(0);
-                    object = mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());
+                    object = jsonObject;/* mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());*/
                     break;
 
                 case VetBannerPhotoUpdate:
 
                     jsonObject = jsonArray.getJSONObject(0);
-                    object = mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());
+                    object = jsonObject; /*mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());*/
                     break;
 
-                case VetPractiseBannerPhotoUpload:
+                case PractiseBannerPhotoUpload:
                     jsonObject = jsonArray.getJSONObject(0);
-                    object = mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());
+                    object = jsonObject;
                     break;
 
-                case VetPractiseProfilePhotoUpload:
+                case PractiseProfilePhotoUpload:
 
                     jsonObject = jsonArray.getJSONObject(0);
-                    object = mGson.fromJson(jsonObject.toString(), mRequestCode.getLocalClass());
+                    object = jsonObject;
                     break;
 
                 case GetPetPicsInfo:
@@ -757,6 +737,31 @@ public class ResponseManager {
 
                     object = jsonArray;
                     break;
+
+                case ClientPetPicInsert:
+                    object = jsonArray;
+                    break;
+
+              /*  case ClientProfilePicUpdate:
+
+                    object = mResponse;
+                    break;
+
+                case ClientBannerPicUpdate:
+
+                    object = jsonArray;
+                    break;
+
+                case VetProfilePicUpdate:
+
+                    object = jsonArray;
+                    break;
+
+                case VetBannerPicUpdate:
+
+                    object = jsonArray;
+                    break;*/
+
                /* case GetVetClinicInfoAll:
 
                     object = mGson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<VetClinic>>() {

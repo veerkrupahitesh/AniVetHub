@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -55,23 +54,17 @@ import com.veeritsolution.android.anivethub.models.CountryModel;
 import com.veeritsolution.android.anivethub.models.ErrorModel;
 import com.veeritsolution.android.anivethub.models.StateModel;
 import com.veeritsolution.android.anivethub.utility.Constants;
-import com.veeritsolution.android.anivethub.utility.Debug;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, DataObserver,
@@ -92,7 +85,7 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
     private HomeActivity homeActivity;
     private Bundle bundle;
     private ClientLoginModel clientLoginModel;
-    private JSONObject params1;
+    private JSONObject params;
     private ArrayList<CountryModel> countryList;
     private ArrayList<StateModel> stateList;
     private ArrayList<CityModel> cityList;
@@ -276,7 +269,6 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                     uploadProfilePhoto = false;
                     //     selectPhoto(getString(R.string.str_select_banner_photo), Constants.REQUEST_CAMERA_BANNER,
                     //            Constants.REQUEST_FILE_BANNER);
-
                 }
                 break;
 
@@ -325,7 +317,6 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
         switch (mRequestCode) {
 
             case GetClientInfo:
-
                 rootView.setVisibility(View.VISIBLE);
                 if (!(mObject instanceof ErrorModel)) {
                     clientLoginModel = (ClientLoginModel) mObject;
@@ -336,8 +327,7 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 break;
 
             case ClientUpdate:
-
-                ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
+                clientLoginModel = ClientLoginModel.getClientCredentials();
                 clientLoginModel.setIsClientProfile(1);
                 ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
 
@@ -351,9 +341,7 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 break;
 
             case GetCountry:
-
                 rootView.setVisibility(View.VISIBLE);
-
                 try {
                     if (mObject instanceof ErrorModel) {
                         ErrorModel errorModel = (ErrorModel) mObject;
@@ -365,7 +353,6 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
 
             case GetState:
@@ -380,7 +367,6 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
 
             case GetCity:
@@ -395,28 +381,40 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
                 break;
 
             case ClientProfilePhotoUpdate:
-
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
-                ClientLoginModel clientLoginModel2 = (ClientLoginModel) mObject;
-                progressBar.setVisibility(View.VISIBLE);
-                Utils.setProfileImage(getActivity(), clientLoginModel2.getProfilePic(), R.drawable.img_client_profile,
-                        imgClientProfilePhoto, progressBar);
-                ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel2));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
+                    // progressBar.setVisibility(View.VISIBLE);
+                    Utils.setProfileImage(getActivity(), photoPath, R.drawable.img_client_profile,
+                            imgClientProfilePhoto, progressBar);
+                    ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
+                    clientLoginModel.setProfilePic(photoPath);
+                    ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // clientLoginModel = (ClientLoginModel) mObject;
                 break;
 
             case ClientBannerPhotoUpdate:
-
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
-                ClientLoginModel clientLoginModel1 = (ClientLoginModel) mObject;
-                progressBar1.setVisibility(View.VISIBLE);
-                Utils.setBannerImage(getActivity(), clientLoginModel1.getBannerPic(), R.drawable.img_client_banner,
-                        imgClientBannerPhoto, progressBar1);
-                ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel1));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
+                    //ClientLoginModel clientLoginModel1 = (ClientLoginModel) mObject;
+                    //  progressBar1.setVisibility(View.VISIBLE);
+                    Utils.setBannerImage(getActivity(), photoPath, R.drawable.img_client_banner,
+                            imgClientBannerPhoto, progressBar1);
+                    ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
+                    clientLoginModel.setBannerPic(photoPath);
+                    ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -427,7 +425,6 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
         switch (mRequestCode) {
 
             case GetClientInfo:
-
                 ToastHelper.getInstance().showMessage(mError);
                 homeActivity.popBackFragment();
                 break;
@@ -441,6 +438,14 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 break;
 
             case GetCity:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case ClientProfilePhotoUpdate:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case ClientBannerPhotoUpdate:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
         }
@@ -515,14 +520,14 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
             case Constants.API_REQUEST_PROFILE_CAMERA:
 
                 Crop.of(source, destination)
-                        .withAspect(imgClientProfilePhoto.getWidth(), imgClientProfilePhoto.getHeight())
+                        .withAspect(imgClientProfilePhoto.getLayoutParams().width, imgClientProfilePhoto.getLayoutParams().height)
                         .start(getActivity(), this);
                 break;
 
             case Constants.API_REQUEST_PROFILE_FILE:
 
                 Crop.of(source, destination)
-                        .withAspect(imgClientProfilePhoto.getWidth(), imgClientProfilePhoto.getHeight())
+                        .withAspect(imgClientProfilePhoto.getLayoutParams().width, imgClientProfilePhoto.getLayoutParams().height)
                         .start(getActivity(), this);
                 break;
 
@@ -569,10 +574,24 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
     }
 
     private void uploadBannerPhoto(Intent result) {
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
-        image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientBanner);
+        try {
+            //CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+            image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientBanner);
 
-        new AsyncTask<Void, Void, Void>() {
+            Map<String, String> params = new HashMap<>();
+            params.put("op", ApiList.CLIENT_BANNER_PIC_UPDATE);
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
+            params.put("sBannerPic", image64Base);
+
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.CLIENT_BANNER_PIC_UPDATE,
+                    true, RequestCode.ClientBannerPhotoUpdate, this);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -601,15 +620,24 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void uploadProfilePhoto(Intent result) {
 
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        //CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
 
-        new AsyncTask<Void, Void, Void>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.CLIENT_PROFILE_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
+        params.put("sProfilePic", image64Base);
+
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.CLIENT_PROFILE_PIC_UPDATE,
+                true, RequestCode.ClientProfilePhotoUpdate, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -638,10 +666,10 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
-    private void getUserInfo() {
+    /*private void getUserInfo() {
         try {
             JSONObject params = new JSONObject();
             params.put("op", "GetClientInfo");
@@ -674,7 +702,7 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -788,42 +816,42 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
 
     private void saveData() {
         try {
-            params1 = new JSONObject();
-            params1.put("AuthKey", ApiList.AUTH_KEY);
-            params1.put("op", "ClientUpdate");
-            params1.put("ClientId", ClientLoginModel.getClientCredentials().getClientId());
-            params1.put("ClientName", ClientLoginModel.getClientCredentials().getClientName());
-            params1.put("Address1", addressOne);
-            params1.put("Address2", addressTwo);
+            params = new JSONObject();
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("op", "ClientUpdate");
+            params.put("ClientId", ClientLoginModel.getClientCredentials().getClientId());
+            params.put("ClientName", ClientLoginModel.getClientCredentials().getClientName());
+            params.put("Address1", addressOne);
+            params.put("Address2", addressTwo);
 
             if (cityId.equals("")) {
-                params1.put("City", clientLoginModel.getCityId());
+                params.put("City", clientLoginModel.getCityId());
             } else {
-                params1.put("City", cityId);
+                params.put("City", cityId);
             }
 
             if (stateId.equals("")) {
-                params1.put("State", clientLoginModel.getStateId());
+                params.put("State", clientLoginModel.getStateId());
             } else {
-                params1.put("State", stateId);
+                params.put("State", stateId);
             }
 
             if (countryId.equals("")) {
-                params1.put("Country", clientLoginModel.getCountryId());
+                params.put("Country", clientLoginModel.getCountryId());
             } else {
-                params1.put("Country", countryId);
+                params.put("Country", countryId);
             }
 
-            params1.put("POBox", pinCode);
-            params1.put("PhoneNo", phoneno);
-            params1.put("EmailId", email);
-            params1.put("AcTokenId", "");
-            params1.put("VetName", vetName);
-            params1.put("VetAddress", vetAddress);
-            params1.put("VetContactNo", vetContactNo);
-            params1.put("VetEmailId", vetEmailId);
+            params.put("POBox", pinCode);
+            params.put("PhoneNo", phoneno);
+            params.put("EmailId", email);
+            params.put("AcTokenId", "");
+            params.put("VetName", vetName);
+            params.put("VetAddress", vetAddress);
+            params.put("VetContactNo", vetContactNo);
+            params.put("VetEmailId", vetEmailId);
 
-            RestClient.getInstance().post(getActivity(), Request.Method.POST, params1, ApiList.CLIENT_UPDATE, true,
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.CLIENT_UPDATE, true,
                     RequestCode.ClientUpdate, this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -858,12 +886,12 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
 
     private void getClientInfo() {
         try {
-            params1 = new JSONObject();
-            params1.put("op", "GetClientInfo");
-            params1.put("AuthKey", ApiList.AUTH_KEY);
-            params1.put("ClientId", ClientLoginModel.getClientCredentials().getClientId());
+            params = new JSONObject();
+            params.put("op", "GetClientInfo");
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("ClientId", ClientLoginModel.getClientCredentials().getClientId());
 
-            RestClient.getInstance().post(getActivity(), Request.Method.POST, params1, ApiList.GET_CLIENT_INFO,
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.GET_CLIENT_INFO,
                     true, RequestCode.GetClientInfo, this);
 
         } catch (JSONException e) {
@@ -874,11 +902,11 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
     private void getCountryInfo(boolean requireDialog) {
 
         try {
-            params1 = new JSONObject();
-            params1.put("op", "GetCountryInfo");
-            params1.put("AuthKey", ApiList.AUTH_KEY);
+            params = new JSONObject();
+            params.put("op", "GetCountryInfo");
+            params.put("AuthKey", ApiList.AUTH_KEY);
 
-            RestClient.getInstance().post(getActivity(), Request.Method.POST, params1,
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
                     ApiList.GET_COUNTRY_INFO, requireDialog, RequestCode.GetCountry, this);
 
         } catch (JSONException e) {
@@ -889,12 +917,12 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
     private void getStateInfo(String countryId) {
 
         try {
-            params1 = new JSONObject();
-            params1.put("AuthKey", ApiList.AUTH_KEY);
-            params1.put("op", "GetStateInfo");
-            params1.put("CountryId", countryId);
+            params = new JSONObject();
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("op", "GetStateInfo");
+            params.put("CountryId", countryId);
 
-            RestClient.getInstance().post(getActivity(), Request.Method.POST, params1, ApiList.GET_STATE_INFO,
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.GET_STATE_INFO,
                     true, RequestCode.GetState,
                     this);
         } catch (JSONException e) {
@@ -905,12 +933,12 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
     private void getCityInfo(String stateId) {
 
         try {
-            params1 = new JSONObject();
-            params1.put("AuthKey", ApiList.AUTH_KEY);
-            params1.put("op", "GetCityInfo");
-            params1.put("StateId", stateId);
+            params = new JSONObject();
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("op", "GetCityInfo");
+            params.put("StateId", stateId);
 
-            RestClient.getInstance().post(getActivity(), Request.Method.POST, params1, ApiList.GET_CITY_INFO,
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.GET_CITY_INFO,
                     true, RequestCode.GetCity,
                     this);
         } catch (JSONException e) {

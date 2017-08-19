@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -59,7 +58,6 @@ import com.veeritsolution.android.anivethub.models.PetDetailsModel;
 import com.veeritsolution.android.anivethub.models.PetPicsModel;
 import com.veeritsolution.android.anivethub.models.PetTypeModel;
 import com.veeritsolution.android.anivethub.utility.Constants;
-import com.veeritsolution.android.anivethub.utility.Debug;
 import com.veeritsolution.android.anivethub.utility.DecimalDigitsInputFilter;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
@@ -67,19 +65,14 @@ import com.veeritsolution.android.anivethub.utility.Utils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Veer on 06/10/2016.
@@ -97,7 +90,7 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
     private RecyclerView recyclerPetPics;
 
     // object and variable declaration
-    private String petName, petBirthdate, petWeight, petType,petBreedName;
+    private String petName, petBirthdate, petWeight, petType, petBreedName;
     private int petTypeId, petBreedId, petGender;
     private Bundle bundle;
     private JSONObject params;
@@ -119,6 +112,7 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
     private int apiType;
     private String image64Base;
     private PetPicsModel petPicsModel;
+    // private int uploadImage = 1;
 
 
     @Override
@@ -243,7 +237,7 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
         petPicsList = new ArrayList<>();
 
         if (addEditSignUp == Constants.FROM_EDIT) {
-            CustomDialog.getInstance().showProgress(getActivity(), getString(R.string.str_please_wait), false);
+            //CustomDialog.getInstance().showProgress(getActivity(), getString(R.string.str_please_wait), false);
             getClientPetInfo();
         }
     }
@@ -296,22 +290,41 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
 
             case ClientPetInsert:
 
-                ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
-                clientLoginModel.setIsClientPetProfile(1);
-                ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
+                try {
+                    JSONArray jsonArray = (JSONArray) mObject;
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    int dataId = jsonObject.getInt("DataId");
+                    ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
+                    clientLoginModel.setIsClientPetProfile(1);
+                    ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
 
-                switch (addEditSignUp) {
-                    case Constants.FROM_ADD:
-                        homeActivity.popBackFragment();
-                        break;
-                    case Constants.FROM_EDIT:
-                        homeActivity.popBackFragment();
-                        break;
-                    case Constants.FROM_SIGN_UP:
-                        homeActivity.removeAllFragment();
-                        //PrefHelper.getInstance().setBoolean(PrefHelper.IS_LOGIN, true);
-                        homeActivity.pushFragment(new ClientHomeFragment(), true, false, null);
-                        break;
+                    for (int i = 0; i < petPicsList.size(); i++) {
+
+                        Map<String, String> params = new HashMap<>();
+                        params.put("op", ApiList.CLIENT_PET_PICS_INSERT);
+                        params.put("AuthKey", ApiList.AUTH_KEY);
+                        params.put("ClientPetId", String.valueOf(dataId));
+                        params.put("PicTitle", String.valueOf(System.currentTimeMillis()));
+                        params.put("sPic", petPicsList.get(i).getBase64image());
+
+                        RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
+                                ApiList.CLIENT_PET_PICS_INSERT, false, RequestCode.ClientPetPicInsert, this);
+                    }
+                    switch (addEditSignUp) {
+                        case Constants.FROM_ADD:
+                            homeActivity.popBackFragment();
+                            break;
+                        case Constants.FROM_EDIT:
+                            homeActivity.popBackFragment();
+                            break;
+                        case Constants.FROM_SIGN_UP:
+                            homeActivity.removeAllFragment();
+                            //PrefHelper.getInstance().setBoolean(PrefHelper.IS_LOGIN, true);
+                            homeActivity.pushFragment(new ClientHomeFragment(), true, false, null);
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 break;
 
@@ -345,6 +358,24 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+                break;
+
+            case ClientPetPicInsert:
+
+                switch (addEditSignUp) {
+
+                    case Constants.FROM_ADD:
+
+                        break;
+
+                    case Constants.FROM_EDIT:
+                        getPetPicsInfo();
+                        break;
+
+                    case Constants.FROM_SIGN_UP:
+
+                        break;
                 }
                 break;
         }
@@ -434,26 +465,27 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
             case R.id.lin_addPetPhoto:
 
                 Utils.buttonClickEffect(view);
-                if (petDetailsModel == null) {
+                /*if (petDetailsModel == null) {
 
                     CustomDialog.getInstance().showAlert(getActivity(), "First insert pet then after add pet photos", false);
+                } else {*/
+                if (petPicsList.size() == 3) {
+                    CustomDialog.getInstance().showAlert(getActivity(), "Maximum three photos of pet allowed to upload", true);
                 } else {
-                    if (petPicsList.size() == 3) {
-                        CustomDialog.getInstance().showAlert(getActivity(), "Maximum three photos of pet allowed to upload", true);
-                    } else {
-                        if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
-                                Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                        Manifest.permission.CAMERA))) {
-                            showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), false);
-                        }
+                    if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
+                            Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.CAMERA))) {
+                        showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), false);
                     }
                 }
+                // }
                 break;
 
             case R.id.img_petPicDelete:
                 Utils.buttonClickEffect(view);
                 petPicsModel = (PetPicsModel) view.getTag();
                 if (petPicsModel != null) {
+
                     CustomDialog.getInstance().showActionDialog(getActivity(), "Delete pet photo", getString(R.string.str_want_to_delete), false);
                 }
                 break;
@@ -462,7 +494,25 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
 
                 Utils.buttonClickEffect(view);
                 CustomDialog.getInstance().dismiss();
-                deletePetPic(petPicsModel);
+                switch (addEditSignUp) {
+
+                    case Constants.FROM_ADD:
+                        petPicsList.remove(petPicsModel);
+                        adpPetPics = new AdpPetPics(getActivity(), petPicsList);
+                        recyclerPetPics.setAdapter(adpPetPics);
+                        break;
+
+                    case Constants.FROM_EDIT:
+                        deletePetPic(petPicsModel);
+                        break;
+
+                    case Constants.FROM_SIGN_UP:
+                        petPicsList.remove(petPicsModel);
+                        adpPetPics = new AdpPetPics(getActivity(), petPicsList);
+                        recyclerPetPics.setAdapter(adpPetPics);
+                        break;
+                }
+
                 break;
 
             case R.id.btn_actionCancel:
@@ -546,7 +596,7 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
             params.put("AuthKey", ApiList.AUTH_KEY);
             params.put("ClientPetId", petDetailsModel.getClientPetId());
 
-            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.GET_CLIENT_PET_INFO, false,
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.GET_CLIENT_PET_INFO, true,
                     RequestCode.GetClientPetInfo, this);
 
         } catch (JSONException e) {
@@ -572,11 +622,11 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
             params = new JSONObject();
             params.put("AuthKey", ApiList.AUTH_KEY);
             params.put("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
-          //  params.put("ClientName", ClientLoginModel.getClientCredentials().getClientName());
+            //  params.put("ClientName", ClientLoginModel.getClientCredentials().getClientName());
             params.put("PetName", petName);
             params.put("PetTypeId", petTypeId);
             params.put("PetBreedId", petBreedId);
-            params.put("PetBreedName",petBreedName);
+            params.put("PetBreedName", petBreedName);
 
             switch (petGender) {
 
@@ -954,7 +1004,42 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
 
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
 
-        new AsyncTask<Void, Void, Void>() {
+        switch (addEditSignUp) {
+
+            case Constants.FROM_ADD:
+
+                PetPicsModel petPicsModel = new PetPicsModel();
+                petPicsModel.setPicPath(Crop.getOutput(result).getPath());
+                petPicsModel.setBase64image(image64Base);
+                petPicsList.add(petPicsModel);
+                adpPetPics = new AdpPetPics(getActivity(), petPicsList);
+                recyclerPetPics.setAdapter(adpPetPics);
+                break;
+
+            case Constants.FROM_EDIT:
+
+                Map<String, String> params = new HashMap<>();
+                params.put("op", ApiList.CLIENT_PET_PICS_INSERT);
+                params.put("AuthKey", ApiList.AUTH_KEY);
+                params.put("ClientPetId", String.valueOf(petDetailsModel.getClientPetId()));
+                params.put("PicTitle", String.valueOf(System.currentTimeMillis()));
+                params.put("sPic", image64Base);
+
+                RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
+                        ApiList.CLIENT_PET_PICS_INSERT, false, RequestCode.ClientPetPicInsert, this);
+                break;
+
+            case Constants.FROM_SIGN_UP:
+                petPicsModel = new PetPicsModel();
+                petPicsModel.setPicPath(Crop.getOutput(result).getPath());
+                petPicsModel.setBase64image(image64Base);
+                petPicsList.add(petPicsModel);
+                adpPetPics = new AdpPetPics(getActivity(), petPicsList);
+                recyclerPetPics.setAdapter(adpPetPics);
+                break;
+        }
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -992,7 +1077,7 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
                 super.onPostExecute(aVoid);
                 // CustomDialog.getInstance().dismiss();
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void getPetPicsInfo() {

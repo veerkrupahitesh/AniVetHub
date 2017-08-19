@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -55,23 +54,17 @@ import com.veeritsolution.android.anivethub.models.ErrorModel;
 import com.veeritsolution.android.anivethub.models.StateModel;
 import com.veeritsolution.android.anivethub.models.VetLoginModel;
 import com.veeritsolution.android.anivethub.utility.Constants;
-import com.veeritsolution.android.anivethub.utility.Debug;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by admin on 12/17/2016.
@@ -298,7 +291,6 @@ public class VetBasicInfoFragment extends Fragment implements OnClickEvent, OnBa
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
 
             case GetCity:
@@ -313,27 +305,38 @@ public class VetBasicInfoFragment extends Fragment implements OnClickEvent, OnBa
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 break;
 
             case VetProfilePhotoUpdate:
-
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
-                VetLoginModel vetLoginModel2 = (VetLoginModel) mObject;
-                progressBar.setVisibility(View.VISIBLE);
-                Utils.setProfileImage(getActivity(), vetLoginModel2.getProfilePic(), R.drawable.img_vet_profile,
-                        imgVetProfilePhoto, progressBar);
-                VetLoginModel.saveVetCredentials(RestClient.getGsonInstance().toJson(vetLoginModel2));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
+                    // progressBar.setVisibility(View.VISIBLE);
+                    Utils.setProfileImage(getActivity(), photoPath, R.drawable.img_vet_profile,
+                            imgVetProfilePhoto, progressBar);
+                    vetLoginModel = VetLoginModel.getVetCredentials();
+                    vetLoginModel.setProfilePic(photoPath);
+                    VetLoginModel.saveVetCredentials(RestClient.getGsonInstance().toJson(vetLoginModel));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case VetBannerPhotoUpdate:
-
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
-                VetLoginModel vetLoginModel1 = (VetLoginModel) mObject;
-                progressBar1.setVisibility(View.VISIBLE);
-                Utils.setBannerImage(getActivity(), vetLoginModel1.getBannerPic(), R.drawable.img_vet_banner,
-                        imgVetBannerPhoto, progressBar1);
-                VetLoginModel.saveVetCredentials(RestClient.getGsonInstance().toJson(vetLoginModel1));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
+                    // progressBar.setVisibility(View.VISIBLE);
+                    Utils.setBannerImage(getActivity(), photoPath, R.drawable.img_vet_banner,
+                            imgVetBannerPhoto, progressBar1);
+                    vetLoginModel = VetLoginModel.getVetCredentials();
+                    vetLoginModel.setBannerPic(photoPath);
+                    VetLoginModel.saveVetCredentials(RestClient.getGsonInstance().toJson(vetLoginModel));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -566,10 +569,20 @@ public class VetBasicInfoFragment extends Fragment implements OnClickEvent, OnBa
     }
 
     private void uploadBannerPhoto(Intent result) {
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        //  CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientBanner);
 
-        new AsyncTask<Void, Void, Void>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.VET_BANNER_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("VetId", String.valueOf(VetLoginModel.getVetCredentials().getVetId()));
+        params.put("sBannerPic", image64Base);
+
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.VET_BANNER_PIC_UPDATE,
+                true, RequestCode.VetBannerPhotoUpdate, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -598,15 +611,24 @@ public class VetBasicInfoFragment extends Fragment implements OnClickEvent, OnBa
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void uploadProfilePhoto(Intent result) {
 
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        //CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
 
-        new AsyncTask<Void, Void, Void>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.VET_PROFILE_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("VetId", String.valueOf(VetLoginModel.getVetCredentials().getVetId()));
+        params.put("sProfilePic", image64Base);
+
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.VET_PROFILE_PIC_UPDATE,
+                true, RequestCode.VetProfilePhotoUpdate, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -635,7 +657,7 @@ public class VetBasicInfoFragment extends Fragment implements OnClickEvent, OnBa
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void getUserInfo() {

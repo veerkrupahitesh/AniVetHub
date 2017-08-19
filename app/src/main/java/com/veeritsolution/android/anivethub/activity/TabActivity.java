@@ -1,5 +1,6 @@
 package com.veeritsolution.android.anivethub.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
+import com.veeritsolution.android.anivethub.utility.Utils;
 import com.veeritsolution.android.anivethub.utility.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
@@ -126,6 +128,19 @@ public class TabActivity extends AppCompatActivity /*implements ActionBar.TabLis
 
             }
         });
+    }
+
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.img_mapView:
+                Utils.buttonClickEffect(view);
+                Intent intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
     }
 
   /*  @Override

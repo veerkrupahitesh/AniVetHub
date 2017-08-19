@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -52,23 +51,17 @@ import com.veeritsolution.android.anivethub.models.PractiseLoginModel;
 import com.veeritsolution.android.anivethub.models.StateModel;
 import com.veeritsolution.android.anivethub.models.VetLoginModel;
 import com.veeritsolution.android.anivethub.utility.Constants;
-import com.veeritsolution.android.anivethub.utility.Debug;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by veerk on 3/27/2017.
@@ -236,24 +229,38 @@ public class UpdatePracBasicInfoFragment extends Fragment implements OnClickEven
                 showLocationListDialog(getActivity(), cityList, tvCity, "Select City");
                 break;
 
-            case VetPractiseProfilePhotoUpload:
+            case PractiseProfilePhotoUpload:
 
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
-                PractiseLoginModel vetLoginModel2 = (PractiseLoginModel) mObject;
-                progressBar.setVisibility(View.VISIBLE);
-                Utils.setProfileImage(getActivity(), vetLoginModel2.getProfilePic(), R.drawable.img_vet_profile,
-                        imgVetProfilePhoto, progressBar);
-                PractiseLoginModel.savePractiseCredentials(RestClient.getGsonInstance().toJson(vetLoginModel2));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_PROFILE, System.currentTimeMillis());
+                    // progressBar.setVisibility(View.VISIBLE);
+                    Utils.setProfileImage(getActivity(), photoPath, R.drawable.img_vet_profile,
+                            imgVetProfilePhoto, progressBar);
+                    practiseLoginModel = PractiseLoginModel.getPractiseCredentials();
+                    practiseLoginModel.setProfilePic(photoPath);
+                    PractiseLoginModel.savePractiseCredentials(RestClient.getGsonInstance().toJson(practiseLoginModel));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
-            case VetPractiseBannerPhotoUpload:
+            case PractiseBannerPhotoUpload:
 
-                PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
-                PractiseLoginModel vetLoginModel1 = (PractiseLoginModel) mObject;
-                progressBar1.setVisibility(View.VISIBLE);
-                Utils.setBannerImage(getActivity(), vetLoginModel1.getBannerPic(), R.drawable.img_vet_banner,
-                        imgVetBannerPhoto, progressBar1);
-                PractiseLoginModel.savePractiseCredentials(RestClient.getGsonInstance().toJson(vetLoginModel1));
+                try {
+                    JSONObject jsonObject = (JSONObject) mObject;
+                    String photoPath = jsonObject.getString("Error");
+                    PrefHelper.getInstance().setLong(PrefHelper.IMAGE_CACHE_FLAG_BANNER, System.currentTimeMillis());
+                    // progressBar.setVisibility(View.VISIBLE);
+                    Utils.setBannerImage(getActivity(), photoPath, R.drawable.img_vet_banner,
+                            imgVetBannerPhoto, progressBar1);
+                    practiseLoginModel = PractiseLoginModel.getPractiseCredentials();
+                    practiseLoginModel.setBannerPic(photoPath);
+                    PractiseLoginModel.savePractiseCredentials(RestClient.getGsonInstance().toJson(practiseLoginModel));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -280,11 +287,11 @@ public class UpdatePracBasicInfoFragment extends Fragment implements OnClickEven
                 ToastHelper.getInstance().showMessage(mError);
                 break;
 
-            case VetPractiseProfilePhotoUpload:
+            case PractiseProfilePhotoUpload:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
 
-            case VetPractiseBannerPhotoUpload:
+            case PractiseBannerPhotoUpload:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
         }
@@ -477,10 +484,18 @@ public class UpdatePracBasicInfoFragment extends Fragment implements OnClickEven
     }
 
     private void uploadBannerPhoto(Intent result) {
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        // CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientBanner);
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.VET_BANNER_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("VetId", String.valueOf(PractiseLoginModel.getPractiseCredentials().getVetId()));
+        params.put("sBannerPic", image64Base);
 
-        new AsyncTask<Void, Void, Void>() {
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.VET_BANNER_PIC_UPDATE,
+                true, RequestCode.PractiseBannerPhotoUpload, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -509,15 +524,24 @@ public class UpdatePracBasicInfoFragment extends Fragment implements OnClickEven
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void uploadProfilePhoto(Intent result) {
 
-        CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
+        // CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
         image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
 
-        new AsyncTask<Void, Void, Void>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("op", ApiList.VET_PROFILE_PIC_UPDATE);
+        params.put("AuthKey", ApiList.AUTH_KEY);
+        params.put("VetId", String.valueOf(PractiseLoginModel.getPractiseCredentials().getVetId()));
+        params.put("sProfilePic", image64Base);
+
+        RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.VET_PROFILE_PIC_UPDATE,
+                true, RequestCode.PractiseProfilePhotoUpload, this);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
 
@@ -544,7 +568,7 @@ public class UpdatePracBasicInfoFragment extends Fragment implements OnClickEven
                 getUserInfo();
                 return null;
             }
-        }.execute();
+        }.execute();*/
     }
 
     private void getUserInfo() {
@@ -556,10 +580,10 @@ public class UpdatePracBasicInfoFragment extends Fragment implements OnClickEven
 
             if (apiType == Constants.API_REQUEST_PROFILE_CAMERA || apiType == Constants.API_REQUEST_PROFILE_FILE) {
                 RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                        ApiList.GET_VET_INFO, false, RequestCode.VetPractiseProfilePhotoUpload, this);
+                        ApiList.GET_VET_INFO, false, RequestCode.PractiseProfilePhotoUpload, this);
             } else if (apiType == Constants.API_REQUEST_BANNER_CAMERA || apiType == Constants.API_REQUEST_BANNER_FILE) {
                 RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                        ApiList.GET_VET_INFO, false, RequestCode.VetPractiseBannerPhotoUpload, this);
+                        ApiList.GET_VET_INFO, false, RequestCode.PractiseBannerPhotoUpload, this);
             }
 
         } catch (JSONException e) {

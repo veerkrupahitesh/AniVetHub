@@ -13,25 +13,27 @@ public class PetPicsModel implements Serializable {
 
     @SerializedName("DataId")
     @Expose
-    private long dataId;
+    private long dataId = 0;
     @SerializedName("ClientPetPicsId")
     @Expose
-    private long clientPetPicsId;
+    private long clientPetPicsId = 0;
     @SerializedName("ClientPetId")
     @Expose
-    private long clientPetId;
+    private long clientPetId = 0;
     @SerializedName("PicTitle")
     @Expose
-    private String picTitle;
+    private String picTitle = "";
     @SerializedName("PicPath")
     @Expose
-    private String picPath;
+    private String picPath = "";
     @SerializedName("CreatedOn")
     @Expose
-    private Object createdOn;
+    private String createdOn = "";
     @SerializedName("EndDate")
     @Expose
-    private String endDate;
+    private String endDate = "";
+
+    private String base64image = "";
 
 
     public long getDataId() {
@@ -74,11 +76,11 @@ public class PetPicsModel implements Serializable {
         this.picPath = picPath;
     }
 
-    public Object getCreatedOn() {
+    public String getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Object createdOn) {
+    public void setCreatedOn(String createdOn) {
         this.createdOn = createdOn;
     }
 
@@ -88,6 +90,14 @@ public class PetPicsModel implements Serializable {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getBase64image() {
+        return base64image;
+    }
+
+    public void setBase64image(String base64image) {
+        this.base64image = base64image;
     }
 }
 

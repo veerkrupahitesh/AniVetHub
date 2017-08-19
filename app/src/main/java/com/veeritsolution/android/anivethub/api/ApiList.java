@@ -289,4 +289,6 @@ public class ApiList {
     public static final String VET_CHANGE_PASSWORD = "VetChangePassword";
 
     public static final String GET_PET_TYPE_GROUP_INFO = "GetPetTypeGroupInfo";
+
+    public static String CLIENT_PET_PICS_INSERT = "ClientPetPicsInsert";
 }

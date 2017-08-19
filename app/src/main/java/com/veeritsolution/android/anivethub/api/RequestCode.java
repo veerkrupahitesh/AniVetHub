@@ -61,10 +61,10 @@ public enum RequestCode {
     GetCountryInfo(CountryModel[].class),
     GetStateInfo(StateModel[].class),
     GetCityInfo(CityModel[].class),
-    ClientProfilePicUpdate(null),
-    ClientBannerPicUpdate(null),
-    VetProfilePicUpdate(null),
-    VetBannerPicUpdate(null),
+    // ClientProfilePicUpdate(null),
+    // ClientBannerPicUpdate(null),
+    // VetProfilePicUpdate(null),
+    // VetBannerPicUpdate(null),
     VetUpdate(VetLoginModel.class),
     GetUniversityInfo(UniversityModel[].class),
     GetDegreeInfo(DegreeModel[].class),
@@ -156,8 +156,8 @@ public enum RequestCode {
     ClientBannerPhotoUpdate(ClientLoginModel.class),
     VetProfilePhotoUpdate(VetLoginModel.class),
     VetBannerPhotoUpdate(VetLoginModel.class),
-    VetPractiseProfilePhotoUpload(PractiseLoginModel.class),
-    VetPractiseBannerPhotoUpload(PractiseLoginModel.class),
+    PractiseProfilePhotoUpload(PractiseLoginModel.class),
+    PractiseBannerPhotoUpload(PractiseLoginModel.class),
     VetSessionUpdateVideoConsultSummary(null),
     GetPetPicsInfo(PetPicsModel[].class),
     PetPicDelete(null),
@@ -165,7 +165,8 @@ public enum RequestCode {
     VetAppointmentConform(null),
     VetAppointmentCancel(null),
     ClientAppointmentConfirm(null),
-    ClientAppointmentCancel(null);
+    ClientAppointmentCancel(null),
+    ClientPetPicInsert(null);
 
 
     Class mLocalClass;

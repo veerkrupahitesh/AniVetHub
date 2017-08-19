@@ -178,10 +178,15 @@ public class RestClient {
                     public void onResponse(String response) {
 
                         CustomDialog.getInstance().dismiss();
+                        try {
+                            checkResponse(new JSONArray(response), dataObserver, mRequestCode);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                        Object object = ResponseManager.parseResponse(response, mRequestCode, getGsonInstance());
+                        //Object object = ResponseManager.parseResponse(response, mRequestCode, getGsonInstance());
 
-                        dataObserver.onSuccess(mRequestCode, object);
+                        //dataObserver.onSuccess(mRequestCode, object);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -208,8 +213,6 @@ public class RestClient {
 
                         return mapParams;
                     }
-
-
                 };
 
                 MyApplication.getInstance().addToRequestQueue(mPostRequest, mContext.getClass().getSimpleName());

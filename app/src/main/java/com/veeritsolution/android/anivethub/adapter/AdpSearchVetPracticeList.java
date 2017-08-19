@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.models.SearchVetModel;
-import com.veeritsolution.android.anivethub.utility.Constants;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
 import java.util.ArrayList;
@@ -96,7 +95,10 @@ public class AdpSearchVetPracticeList extends BaseAdapter {
         //myViewHolder.tvDegree.setText(searchVetModel.getVetEducation());
         myViewHolder.ratingBar.setRating(searchVetModel.getRating());
 
-        int onlineStatus = searchVetModel.getOnlineStatus();
+        myViewHolder.tvOnlineStatus.setVisibility(View.INVISIBLE);
+
+/*        int onlineStatus = searchVetModel.getOnlineStatus();
+
 
         if (onlineStatus == Constants.OFFLINE_STATUS) {
             myViewHolder.tvOnlineStatus.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.drw_circle_gradient_red, null));
@@ -104,10 +106,15 @@ public class AdpSearchVetPracticeList extends BaseAdapter {
             myViewHolder.tvOnlineStatus.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.drw_circle_gradient_green, null));
         } else {
             myViewHolder.tvOnlineStatus.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.drw_circle_gradient_grey, null));
-        }
+        }*/
 
         myViewHolder.tvDistance.setText(String.format("%s km", String.valueOf(searchVetModel.getDistance())));
         return view;
+    }
+
+    public void refreshList(ArrayList<SearchVetModel> vetList) {
+        this.vetList = vetList;
+        notifyDataSetChanged();
     }
 
     private class MyViewHolder {
@@ -140,10 +147,5 @@ public class AdpSearchVetPracticeList extends BaseAdapter {
             tvDistance = (TextView) itemView.findViewById(R.id.tv_distance);
             tvDistance.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
         }
-    }
-
-    public void refreshList(ArrayList<SearchVetModel> vetList) {
-        this.vetList = vetList;
-        notifyDataSetChanged();
     }
 }

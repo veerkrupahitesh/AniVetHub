@@ -1,15 +1,20 @@
 package com.veeritsolution.android.anivethub.fragment.client;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -26,9 +31,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.soundcloud.android.crop.Crop;
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
+import com.veeritsolution.android.anivethub.adapter.AdpPetPics;
 import com.veeritsolution.android.anivethub.adapter.AdpPetTypeGroupList;
 import com.veeritsolution.android.anivethub.adapter.SpinnerAdapter;
 import com.veeritsolution.android.anivethub.api.ApiList;
@@ -36,6 +43,7 @@ import com.veeritsolution.android.anivethub.api.DataObserver;
 import com.veeritsolution.android.anivethub.api.RequestCode;
 import com.veeritsolution.android.anivethub.api.RestClient;
 import com.veeritsolution.android.anivethub.customdialog.CustomDialog;
+import com.veeritsolution.android.anivethub.enums.ImageUpload;
 import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
 import com.veeritsolution.android.anivethub.listener.OnClickEvent;
@@ -50,13 +58,17 @@ import com.veeritsolution.android.anivethub.utility.DecimalDigitsInputFilter;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by veerk on 3/22/2017.
@@ -72,6 +84,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
     private Spinner spPetGender;
     private ImageView imgClientProfilePhoto, imgClientBannerPhoto, imgSelectBannerPhoto, imgSelectProfilePhoto, imgBack;
     private View rootView;
+    private RecyclerView recyclerPetPics;
 
     // object and variable declaration
     private String petName, petBirthdate, petWeight, petType;
@@ -97,6 +110,9 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
     private ArrayList<PetBreedModel> petBreedList;
     private ArrayList<PetPicsModel> petPicsList;
     private PetPicsModel petPicsModel;
+    private AdpPetPics adpPetPics;
+    private int apiType;
+    private String image64Base;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -150,6 +166,8 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
         Utils.setProfileImage(getActivity(), ClientLoginModel.getClientCredentials().getProfilePic(),
                 R.drawable.img_client_profile, imgClientProfilePhoto);
 
+        recyclerPetPics = (RecyclerView) rootView.findViewById(R.id.recycler_PetPics);
+        recyclerPetPics.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         imgClientBannerPhoto = (ImageView) rootView.findViewById(R.id.img_client_banner);
         Utils.setBannerImage(getActivity(), ClientLoginModel.getClientCredentials().getBannerPic(),
@@ -200,7 +218,6 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         Utils.setupOutSideTouchHideKeyboard(rootView);
         petPicsList = new ArrayList<>();
     }
@@ -212,7 +229,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
         switch (mRequestCode) {
 
             case GetPetTypeInfo:
-                rootView.setVisibility(View.VISIBLE);
+                //rootView.setVisibility(View.VISIBLE);
                 // setPetTypeInfoSpinner(mObject);
                 try {
                     if (mObject instanceof ErrorModel) {
@@ -242,11 +259,30 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                 break;
 
             case ClientPetInsert:
+                try {
+                    JSONArray jsonArray = (JSONArray) mObject;
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    int dataId = jsonObject.getInt("DataId");
+                    ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
+                    clientLoginModel.setIsClientPetProfile(1);
+                    ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
 
-                ClientLoginModel clientLoginModel = ClientLoginModel.getClientCredentials();
-                clientLoginModel.setIsClientPetProfile(1);
-                ClientLoginModel.saveClientCredentials(RestClient.getGsonInstance().toJson(clientLoginModel));
-                homeActivity.popBackFragment();
+                    for (int i = 0; i < petPicsList.size(); i++) {
+
+                        Map<String, String> params = new HashMap<>();
+                        params.put("op", ApiList.CLIENT_PET_PICS_INSERT);
+                        params.put("AuthKey", ApiList.AUTH_KEY);
+                        params.put("ClientPetId", String.valueOf(dataId));
+                        params.put("PicTitle", String.valueOf(System.currentTimeMillis()));
+                        params.put("sPic", petPicsList.get(i).getBase64image());
+
+                        RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
+                                ApiList.CLIENT_PET_PICS_INSERT, false, RequestCode.ClientPetPicInsert, this);
+                    }
+                    homeActivity.popBackFragment();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -312,6 +348,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                 dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 dialog.show();
                 break;
+
             case R.id.tv_petType:
 
                 getPetTypeInfo();
@@ -324,26 +361,24 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                 } else {
                     ToastHelper.getInstance().showMessage("Select first Pet Type");
                 }
-
                 break;
 
             case R.id.lin_addPetPhoto:
-
                 Utils.buttonClickEffect(view);
-                if (petDetailsModel == null) {
+               /* if (petDetailsModel == null) {
 
                     CustomDialog.getInstance().showAlert(getActivity(), "First insert pet then after add pet photos", false);
+                } else {*/
+                if (petPicsList.size() == 3) {
+                    CustomDialog.getInstance().showAlert(getActivity(), "Maximum three photos of pet allowed to upload", true);
                 } else {
-                    if (petPicsList.size() == 3) {
-                        CustomDialog.getInstance().showAlert(getActivity(), "Maximum three photos of pet allowed to upload", true);
-                    } else {
-                        if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
-                                Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                        Manifest.permission.CAMERA))) {
-                            showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), false);
-                        }
+                    if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
+                            Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.CAMERA))) {
+                        showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), false);
                     }
                 }
+                // }
                 break;
 
             case R.id.img_petPicDelete:
@@ -355,23 +390,103 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                 break;
 
             case R.id.btn_actionOk:
-
                 Utils.buttonClickEffect(view);
                 CustomDialog.getInstance().dismiss();
-                deletePetPic(petPicsModel);
+                petPicsList.remove(petPicsModel);
+                adpPetPics = new AdpPetPics(getActivity(), petPicsList);
+                recyclerPetPics.setAdapter(adpPetPics);
+                //deletePetPic(petPicsModel);
                 break;
 
             case R.id.btn_actionCancel:
-
                 CustomDialog.getInstance().dismiss();
                 break;
         }
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == Activity.RESULT_OK) {
+
+            switch (requestCode) {
+
+                case Constants.REQUEST_CAMERA_PROFILE:
+                    apiType = Constants.API_REQUEST_PROFILE_CAMERA;
+                    Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                    Uri selectedImageUri = Utils.getImageUri(getActivity(), thumbnail);
+                    beginCrop(selectedImageUri);
+                    //  cropProfilePhotoFromCamera(data);
+                    break;
+
+                case Constants.REQUEST_FILE_PROFILE:
+
+                    apiType = Constants.API_REQUEST_PROFILE_FILE;
+                    selectedImageUri = data.getData();
+                    //  Uri imageUri = data.getData();
+                    beginCrop(selectedImageUri);
+                    //cropProfilePhotoFromGallery(data);
+                    break;
+
+                case Crop.REQUEST_CROP:
+
+                    handleCrop(resultCode, data);
+                    break;
+            }
+        }
+    }
+
+    private void beginCrop(Uri source) {
+
+        Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "cropped"));
+
+        switch (apiType) {
+
+            case Constants.API_REQUEST_PROFILE_CAMERA:
+
+                Crop.of(source, destination)
+                        .asSquare()
+                        .start(getActivity(), this);
+                break;
+
+            case Constants.API_REQUEST_PROFILE_FILE:
+
+                Crop.of(source, destination)
+                        .asSquare()
+                        .start(getActivity(), this);
+                break;
+        }
+    }
+
+    private void handleCrop(int resultCode, final Intent result) {
+
+        switch (apiType) {
+
+            case Constants.API_REQUEST_PROFILE_CAMERA:
+
+                uploadPetPhoto(result);
+                break;
+
+            case Constants.API_REQUEST_PROFILE_FILE:
+
+                uploadPetPhoto(result);
+                break;
+        }
+    }
+
+    private void uploadPetPhoto(Intent result) {
+
+        image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
+        PetPicsModel petPicsModel = new PetPicsModel();
+        petPicsModel.setPicPath(Crop.getOutput(result).getPath());
+        petPicsModel.setBase64image(image64Base);
+        petPicsList.add(petPicsModel);
+        adpPetPics = new AdpPetPics(getActivity(), petPicsList);
+        recyclerPetPics.setAdapter(adpPetPics);
+    }
+
     private void saveData() {
 
         try {
-
             params = new JSONObject();
             params.put("op", ApiList.CLIENT_PET_INSERT);
             params.put("AuthKey", ApiList.AUTH_KEY);
@@ -407,7 +522,6 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
 
             RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
                     ApiList.CLIENT_PET_INSERT, true, RequestCode.ClientPetInsert, this);
-
 
         } catch (JSONException e) {
             e.printStackTrace();

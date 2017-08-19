@@ -290,5 +290,5 @@ public class ApiList {
 
     public static final String GET_PET_TYPE_GROUP_INFO = "GetPetTypeGroupInfo";
 
-    public static String CLIENT_PET_PICS_INSERT = "ClientPetPicsInsert";
+    public static final String CLIENT_PET_PICS_INSERT = "ClientPetPicsInsert";
 }

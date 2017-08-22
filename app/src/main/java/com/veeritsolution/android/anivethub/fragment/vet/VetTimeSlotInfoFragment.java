@@ -65,8 +65,9 @@ public class VetTimeSlotInfoFragment extends Fragment implements OnBackPressedEv
     private TimeSlotModel timeSlotModel;
     private View rootView;
     private ArrayList<String> spDayList;
-    private int dayNo;
-    private SpinnerAdapter adapter;
+    private int dayNo = 0;
+    private SpinnerAdapter adpDay;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,31 +137,6 @@ public class VetTimeSlotInfoFragment extends Fragment implements OnBackPressedEv
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
                 dayNo = pos;
-
-                /*setEnableCheckbox();
-                switch (pos) {
-                    case 1:
-                        chkMonday.setEnabled(false);
-                        break;
-                    case 2:
-                        chkTuesday.setEnabled(false);
-                        break;
-                    case 3:
-                        chkWednesday.setEnabled(false);
-                        break;
-                    case 4:
-                        chkThursday.setEnabled(false);
-                        break;
-                    case 5:
-                        chkFriday.setEnabled(false);
-                        break;
-                    case 6:
-                        chkSaturday.setEnabled(false);
-                        break;
-                    case 7:
-                        chkSunday.setEnabled(false);
-                        break;
-                }*/
             }
 
             @Override
@@ -178,8 +154,8 @@ public class VetTimeSlotInfoFragment extends Fragment implements OnBackPressedEv
         spDayList.add(5, "Friday");
         spDayList.add(6, "Saturday");
         spDayList.add(7, "Sunday");
-        adapter = new SpinnerAdapter(getActivity(), R.layout.spinner_row_list, spDayList);
-        spDay.setAdapter(adapter);
+        adpDay = new SpinnerAdapter(getActivity(), R.layout.spinner_row_list, spDayList);
+        spDay.setAdapter(adpDay);
 
         getTimeSlotData();
     }
@@ -245,7 +221,11 @@ public class VetTimeSlotInfoFragment extends Fragment implements OnBackPressedEv
 
             case R.id.btn_save:
                 Utils.buttonClickEffect(view);
-                if (spVetTimeSlot.getSelectedItemPosition() == 0) {
+                if (spDay.getSelectedItemPosition() == 0) {
+                    spDay.requestFocus();
+                    ToastHelper.getInstance().showMessage("please select day");
+                    return;
+                } else if (spVetTimeSlot.getSelectedItemPosition() == 0) {
                     spVetTimeSlot.requestFocus();
                     ToastHelper.getInstance().showMessage("please select time slot");
                     return;
@@ -253,8 +233,6 @@ public class VetTimeSlotInfoFragment extends Fragment implements OnBackPressedEv
                     insetTimeSlot();
                 }
                 break;
-
-
         }
     }
 
@@ -307,6 +285,7 @@ public class VetTimeSlotInfoFragment extends Fragment implements OnBackPressedEv
             params.put("AuthKey", ApiList.AUTH_KEY);
             params.put("VetId", VetLoginModel.getVetCredentials().getVetId());
             params.put("TimeSlotId", timeSlotModel.getTimeSlotId());
+            params.put("DayNo", spDay.getSelectedItemPosition());
 
             RestClient.getInstance().post(homeActivity, Request.Method.POST, params, ApiList.VET_TIME_SLOT_INSERT,
                     true, RequestCode.VetTimeSlotInsert, this);

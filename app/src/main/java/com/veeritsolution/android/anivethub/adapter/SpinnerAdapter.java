@@ -38,8 +38,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, parent);
-
+        return dropDownView(position, parent);
     }
 
     private View getCustomView(int position, ViewGroup parent) {
@@ -61,5 +60,25 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
         return convertView;
 
+    }
+
+    private View dropDownView(int position, ViewGroup parent) {
+
+        View convertView = LayoutInflater.from(context).inflate(R.layout.spinner_drop_down_view, parent, false);
+
+        TextView spinnerItem = (TextView) convertView.findViewById(R.id.spinnerItem);
+        spinnerItem.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
+
+        if (position == 0) {
+            // spinnerItem.setBackgroundColor(Color.parseColor("#b0a3fc"));
+            spinnerItem.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.hint, null));
+        }/* else {
+            spinnerItem.setBackgroundColor(Color.parseColor("#faebd7"));
+            spinnerItem.setTextColor(Color.BLACK);
+        }*/
+
+        spinnerItem.setText(spinnerList.get(position));
+
+        return convertView;
     }
 }

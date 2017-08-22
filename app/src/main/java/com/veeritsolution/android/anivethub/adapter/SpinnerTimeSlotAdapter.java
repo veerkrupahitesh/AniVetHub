@@ -40,7 +40,7 @@ public class SpinnerTimeSlotAdapter extends ArrayAdapter<TimeSlotModel> {
 
     @Override
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, parent);
+        return dropDownView(position, parent);
 
     }
 
@@ -65,4 +65,23 @@ public class SpinnerTimeSlotAdapter extends ArrayAdapter<TimeSlotModel> {
         // return null;
     }
 
+    private View dropDownView(int position, ViewGroup parent) {
+
+        View convertView = LayoutInflater.from(context).inflate(R.layout.spinner_drop_down_view, parent, false);
+        convertView.setTag(timeSlotModelList.get(position));
+
+        TextView spinnerItem = (TextView) convertView.findViewById(R.id.spinnerItem);
+        spinnerItem.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
+
+        if (position == 0) {
+            // spinnerItem.setBackgroundColor(Color.parseColor("#b0a3fc"));
+            spinnerItem.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.hint, null));
+        }/* else {
+            spinnerItem.setBackgroundColor(Color.parseColor("#faebd7"));
+            spinnerItem.setTextColor(Color.BLACK);
+        }*/
+        spinnerItem.setText(timeSlotModelList.get(position).getTimeSlotName());
+
+        return convertView;
+    }
 }

@@ -39,7 +39,7 @@ public class SpinnerSymptomsAdapter extends ArrayAdapter<PetSymptomsModel> {
 
     @Override
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, parent);
+        return dropDownView(position, parent);
 
     }
 
@@ -62,5 +62,24 @@ public class SpinnerSymptomsAdapter extends ArrayAdapter<PetSymptomsModel> {
 
         return convertView;
         // return null;
+    }
+
+    private View dropDownView(int position, ViewGroup parent) {
+
+        View convertView = LayoutInflater.from(context).inflate(R.layout.spinner_drop_down_view, parent, false);
+        PetSymptomsModel petSymptomsModel = petSymptomsModelList.get(position);
+        convertView.setTag(petSymptomsModel);
+
+        TextView spinnerItem = (TextView) convertView.findViewById(R.id.spinnerItem);
+        spinnerItem.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
+
+        if (position == 0) {
+            // spinnerItem.setBackgroundColor(Color.parseColor("#b0a3fc"));
+            spinnerItem.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.hint, null));
+        }
+
+        spinnerItem.setText(petSymptomsModelList.get(position).getSymptomsName());
+
+        return convertView;
     }
 }

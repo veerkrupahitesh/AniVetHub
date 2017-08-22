@@ -87,9 +87,8 @@ public class VetPractiseUserInfoFragment extends Fragment implements OnClickEven
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                TextView tvSpinnerItem = (TextView) view.findViewById(R.id.spinnerItem);
-                if (tvSpinnerItem != null) {
-                    vetPracticeUserModel = (VetPracticeUserModel) tvSpinnerItem.getTag();
+                if (view != null) {
+                    vetPracticeUserModel = (VetPracticeUserModel) view.getTag();
                 }
             }
 
@@ -120,6 +119,7 @@ public class VetPractiseUserInfoFragment extends Fragment implements OnClickEven
 
     @Override
     public void onSuccess(RequestCode mRequestCode, Object mObject) {
+
         switch (mRequestCode) {
 
             case GetVetPractiseInfo:
@@ -132,7 +132,7 @@ public class VetPractiseUserInfoFragment extends Fragment implements OnClickEven
                     VetPracticeUserModel vetPracticeUserModel = new VetPracticeUserModel();
                     vetPracticeUserModel.setVetPractiseName("Select Vet Practice");
                     vetPractiselist.add(0, vetPracticeUserModel);
-                    adapter = new SpinnerUserAdapter(getActivity(), vetPractiselist);
+                    adapter = new SpinnerUserAdapter(getActivity(), R.layout.spinner_row_list, vetPractiselist);
                     spVetPractiseUser.setAdapter(adapter);
 
                 }
@@ -146,13 +146,12 @@ public class VetPractiseUserInfoFragment extends Fragment implements OnClickEven
                     homeActivity.popBackFragment();
                 }
                 break;
-
-
         }
     }
 
     @Override
     public void onFailure(RequestCode mRequestCode, String mError) {
+
         switch (mRequestCode) {
 
             case GetVetPractiseInfo:
@@ -185,8 +184,6 @@ public class VetPractiseUserInfoFragment extends Fragment implements OnClickEven
                     VetPractiseInsert();
                 }
                 break;
-
-
         }
     }
 

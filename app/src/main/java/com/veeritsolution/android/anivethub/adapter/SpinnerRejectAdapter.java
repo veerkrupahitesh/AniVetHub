@@ -40,7 +40,7 @@ public class SpinnerRejectAdapter extends ArrayAdapter<AppointmentRejectModel> {
 
     @Override
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, parent);
+        return dropDownView(position, parent);
 
     }
 
@@ -61,5 +61,23 @@ public class SpinnerRejectAdapter extends ArrayAdapter<AppointmentRejectModel> {
 
         return convertView;
         // return null;
+    }
+
+    private View dropDownView(int position, ViewGroup parent) {
+
+        View convertView = LayoutInflater.from(context).inflate(R.layout.spinner_drop_down_view, parent, false);
+        convertView.setTag(appointmentRejectModelList.get(position));
+
+        TextView spinnerItem = (TextView) convertView.findViewById(R.id.spinnerItem);
+        spinnerItem.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
+
+        if (position == 0) {
+            // spinnerItem.setBackgroundColor(Color.parseColor("#b0a3fc"));
+            spinnerItem.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.hint, null));
+        }
+
+        spinnerItem.setText(appointmentRejectModelList.get(position).getRejectReasonName());
+
+        return convertView;
     }
 }

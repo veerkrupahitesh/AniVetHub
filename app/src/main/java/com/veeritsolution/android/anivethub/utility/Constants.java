@@ -259,4 +259,6 @@ public class Constants {
     public static final int PHONE_LENGTH = 10;
     public static final int PINCODE_LENGTH = 4;
     public static final java.lang.String TAG = MyApplication.TAG;
+    public static int VET_ACCEPTED = 1;
+    public static int VET_REJECTED = 2;
 }

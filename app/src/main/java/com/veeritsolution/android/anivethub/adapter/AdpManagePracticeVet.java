@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.models.PracticeModel;
+import com.veeritsolution.android.anivethub.utility.Constants;
 
 import java.util.List;
 
@@ -69,11 +70,16 @@ public class AdpManagePracticeVet extends BaseAdapter {
         holder.tvVetName.setText(obj.getVetName());
         int flag = obj.getFlag();
         if (flag == 0) {
-            holder.imgAcceptVet.setImageResource(R.drawable.);
-        } else if (flag == 1) {
+            holder.imgAcceptVet.setImageResource(R.drawable.img_accept_gray);
+            holder.imgRejectVet.setImageResource(R.drawable.img_reject_gray);
 
-        } else if (flag == 2) {
+        } else if (flag == Constants.VET_ACCEPTED) {
+            holder.imgAcceptVet.setImageResource(R.drawable.img_accept_green);
+            holder.imgRejectVet.setImageResource(R.drawable.img_reject_gray);
 
+        } else if (flag == Constants.VET_REJECTED) {
+            holder.imgAcceptVet.setImageResource(R.drawable.img_accept_gray);
+            holder.imgRejectVet.setImageResource(R.drawable.img_reject_red);
         }
         return view;
     }

@@ -21,10 +21,12 @@
             android:background="@android:color/white"
             android:orientation="vertical"
             android:paddingTop="@dimen/_10sdp">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#c4c4c4"/>
+
             <LinearLayout
                 android:id="@+id/lin_addBasicInfo"
                 android:layout_width="match_parent"
@@ -129,6 +131,44 @@
 
                 <ImageView
                     android:id="@+id/img_basicarrow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/img_right_arrow"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c4c4c4"/>
+
+            <LinearLayout
+                android:id="@+id/lin_addVet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/tv_addVet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Manage Veterinary Surgeons"
+                    android:textColor="@color/homeCategory"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

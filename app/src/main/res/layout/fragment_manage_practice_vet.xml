@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header"/>
+
+    <ListView
+        android:id="@+id/listView_vetInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_noVetInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="@dimen/_7sdp"
+        android:text="@string/str_no_education_info"
+        android:textSize="@dimen/_15sdp"
+        android:visibility="gone"/>
+
+    <!-- <Button
+         android:id="@+id/btn_addNewEduInfo"
+         style="@style/buttonStyle"
+         android:drawableLeft="@drawable/img_pluse"
+         android:onClick="onClick"
+         android:padding="@dimen/_5sdp"
+         android:text="Add New Education Information"
+         />-->
+</LinearLayout>

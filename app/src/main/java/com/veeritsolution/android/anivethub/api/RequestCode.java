@@ -16,6 +16,7 @@ import com.veeritsolution.android.anivethub.models.PetDetailsModel;
 import com.veeritsolution.android.anivethub.models.PetPicsModel;
 import com.veeritsolution.android.anivethub.models.PetSymptomsModel;
 import com.veeritsolution.android.anivethub.models.PetWeightModel;
+import com.veeritsolution.android.anivethub.models.PracticeModel;
 import com.veeritsolution.android.anivethub.models.PractiseLoginModel;
 import com.veeritsolution.android.anivethub.models.ReviewRatingModel;
 import com.veeritsolution.android.anivethub.models.SearchVetModel;
@@ -166,7 +167,7 @@ public enum RequestCode {
     VetAppointmentCancel(null),
     ClientAppointmentConfirm(null),
     ClientAppointmentCancel(null),
-    ClientPetPicInsert(null);
+    ClientPetPicInsert(null), GetPracticeVet(PracticeModel.class);
 
 
     Class mLocalClass;

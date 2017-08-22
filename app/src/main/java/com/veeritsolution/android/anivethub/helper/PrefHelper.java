@@ -39,6 +39,15 @@ public class PrefHelper {
     // public static final String FIRST_TIME_APP_OPEN = "isFirstTime";
     public static final String SESSION_ID = "sessionId";
 
+    // location related
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String ALTITUDE = "altitude";
+    // public static String ALTITUDE = "Altitude";
+    // public static String LATITUDE = "Latitude";
+    // public static String LONGITUDE = "Longitude";
+    public static final String GENERAL_SETTINGS = "generalSetting";
+    public static final String FIREBASE_DEVICE_TOKEN = "firebaseTokenKey";
     // shared pref mode
     private static final int PRIVATE_MODE = 0;
     // Shared preferences file name
@@ -47,11 +56,6 @@ public class PrefHelper {
     private static final char[] SEKRIT = "Hitesh".toCharArray();
     // Faster pref saving for high performance
     private static final Method sApplyMethod = findApplyMethod();
-    // public static String ALTITUDE = "Altitude";
-    // public static String LATITUDE = "Latitude";
-    // public static String LONGITUDE = "Longitude";
-    public static final String GENERAL_SETTINGS = "generalSetting";
-    public static final String FIREBASE_DEVICE_TOKEN = "firebaseTokenKey";
     private static PrefHelper prefHelper;
     private static SharedPreferences pref;
     private static SharedPreferences.Editor editor;
@@ -66,11 +70,6 @@ public class PrefHelper {
             prefHelper = new PrefHelper();
         }
         return prefHelper;
-    }
-
-    public boolean containKey(String key) {
-
-        return pref.contains(key);
     }
 
     public static void deletePreference(final String key) {
@@ -100,25 +99,6 @@ public class PrefHelper {
         }
     }
 
-    /*Delete all preference of app except passed argument*/
-    public void deletePreferencesExcept(final ArrayList<String> keysNotDelete) {
-
-        //SharedPreferences pref=PreferenceManager.getDefaultSharedPreferences(MyApplication.appInstance);
-        Map<String, ?> keys = pref.getAll();
-
-        for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            Debug.trace("map values", entry.getKey() + ": " +
-                    entry.getValue().toString());
-            if (!keysNotDelete.contains(entry.getKey())) {
-                //final SharedPreferences.Editor editor = pref.edit();
-                editor.remove(entry.getKey());
-                editor.apply();
-                // editor.apply();
-            }
-        }
-
-    }
-
     private static Method findApplyMethod() {
         try {
             final Class<SharedPreferences.Editor> cls = SharedPreferences.Editor.class;
@@ -140,6 +120,30 @@ public class PrefHelper {
             }
         }
         editor.commit();
+    }
+
+    public boolean containKey(String key) {
+
+        return pref.contains(key);
+    }
+
+    /*Delete all preference of app except passed argument*/
+    public void deletePreferencesExcept(final ArrayList<String> keysNotDelete) {
+
+        //SharedPreferences pref=PreferenceManager.getDefaultSharedPreferences(MyApplication.appInstance);
+        Map<String, ?> keys = pref.getAll();
+
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            Debug.trace("map values", entry.getKey() + ": " +
+                    entry.getValue().toString());
+            if (!keysNotDelete.contains(entry.getKey())) {
+                //final SharedPreferences.Editor editor = pref.edit();
+                editor.remove(entry.getKey());
+                editor.apply();
+                // editor.apply();
+            }
+        }
+
     }
 
     public void setString(String key, String value) {

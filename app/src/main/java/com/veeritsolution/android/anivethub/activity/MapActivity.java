@@ -2,6 +2,8 @@ package com.veeritsolution.android.anivethub.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +16,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
@@ -22,10 +26,12 @@ import com.veeritsolution.android.anivethub.api.ApiList;
 import com.veeritsolution.android.anivethub.api.DataObserver;
 import com.veeritsolution.android.anivethub.api.RequestCode;
 import com.veeritsolution.android.anivethub.api.RestClient;
+import com.veeritsolution.android.anivethub.helper.PrefHelper;
 import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.models.ClientLoginModel;
 import com.veeritsolution.android.anivethub.models.ErrorModel;
 import com.veeritsolution.android.anivethub.models.SearchVetModel;
+import com.veeritsolution.android.anivethub.utility.Constants;
 import com.veeritsolution.android.anivethub.utility.PermissionClass;
 import com.veeritsolution.android.anivethub.utility.Utils;
 
@@ -47,6 +53,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             maxDistance = 0, sortBy = 0, sortType = 0;
     private String vetName = "";
     private ArrayList<SearchVetModel> normalVetList;
+    private float latitude;
+    private float longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +84,43 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
         mGoogleMap = googleMap;
-
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(22, 72)));
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        if (PrefHelper.getInstance().containKey(PrefHelper.LATITUDE)) {
+            latitude = PrefHelper.getInstance().getFloat(PrefHelper.LATITUDE, 0);
+        }
+        if (PrefHelper.getInstance().containKey(PrefHelper.LONGITUDE)) {
+            longitude = PrefHelper.getInstance().getFloat(PrefHelper.LONGITUDE, 0);
+        }
+        // mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(getString(R.string.your_location)));
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                new LatLng(22, 72), 5);
+                new LatLng(latitude, longitude), 15);
         mGoogleMap.animateCamera(cameraUpdate);
+
         mGoogleMap.setTrafficEnabled(true);
         mGoogleMap.setIndoorEnabled(true);
         mGoogleMap.setBuildingsEnabled(true);
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
+
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                SearchVetModel searchVetModel = (SearchVetModel) marker.getTag();
+                if (searchVetModel != null) {
+                    if (searchVetModel.getIsVetPractise() == 0) {
+                        Intent intent = new Intent(MapActivity.this, VetDetailActivity.class);
+                        intent.putExtra(Constants.VET_ID, searchVetModel);
+                        startActivity(new Intent(intent));
+                        // getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        Intent intent = new Intent(MapActivity.this, SearchVetPractiseActivity.class);
+                        intent.putExtra(Constants.VET_ID, searchVetModel);
+                        startActivity(new Intent(intent));
+                        // getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                }
+                return true;
+            }
+        });
 
         List<String> permission = new ArrayList<>();
         permission.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -138,7 +174,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             normalVetList.addAll(list);
 
                             for (SearchVetModel searchVetModel : normalVetList) {
-                                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(searchVetModel.getLatitude(), searchVetModel.getLongitude())));
+
+                                if (searchVetModel.getIsVetPractise() == 0) {
+                                    Bitmap result = BitmapFactory.decodeResource(getResources(), R.drawable.img_vet_pin);
+                                    result = Bitmap.createScaledBitmap(result, 70, 90, true);
+                                    mGoogleMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(searchVetModel.getLatitude(), searchVetModel.getLongitude()))
+                                            .title("Distance " + searchVetModel.getDistance() + "Km")
+                                            // .snippet(searchVetModel.getFirstName() + " " + arViewModel[0].getLastName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(result)))
+                                            .setTag(searchVetModel);
+                                } else {
+
+                                    Bitmap result = BitmapFactory.decodeResource(getResources(), R.drawable.img_vet_practice_pin);
+                                    result = Bitmap.createScaledBitmap(result, 70, 90, true);
+                                    mGoogleMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(searchVetModel.getLatitude(), searchVetModel.getLongitude()))
+                                            .title("Distance " + searchVetModel.getDistance() + "Km")
+                                            // .snippet(arViewModel[0].getFirstName() + " " + arViewModel[0].getLastName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(result)))
+                                            .setTag(searchVetModel);
+                                }
+                                // mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(searchVetModel.getLatitude(), searchVetModel.getLongitude())));
                             }
                         }
 

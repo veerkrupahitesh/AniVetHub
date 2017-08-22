@@ -17,6 +17,7 @@ import com.veeritsolution.android.anivethub.models.PetSymptomsModel;
 import com.veeritsolution.android.anivethub.models.PetTypeGroupModel;
 import com.veeritsolution.android.anivethub.models.PetTypeModel;
 import com.veeritsolution.android.anivethub.models.PetWeightModel;
+import com.veeritsolution.android.anivethub.models.PracticeModel;
 import com.veeritsolution.android.anivethub.models.PractiseLoginModel;
 import com.veeritsolution.android.anivethub.models.SearchVetModel;
 import com.veeritsolution.android.anivethub.models.StateModel;
@@ -727,8 +728,6 @@ public class ResponseManager {
                     break;
 
                 case GetPetTypeGroupInfo:
-
-
                     object = mGson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<PetTypeGroupModel>>() {
                     }.getType());
                     break;
@@ -742,6 +741,10 @@ public class ResponseManager {
                     object = jsonArray;
                     break;
 
+                case GetPracticeVet:
+                    object = mGson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<PracticeModel>>() {
+                    }.getType());
+                    break;
               /*  case ClientProfilePicUpdate:
 
                     object = mResponse;

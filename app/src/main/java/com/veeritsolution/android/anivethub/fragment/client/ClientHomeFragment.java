@@ -550,6 +550,10 @@ public class ClientHomeFragment extends Fragment implements ResultCallback<Locat
             lon = location.getLongitude();
             altitude = location.getAltitude();
 
+            PrefHelper.getInstance().setFloat(PrefHelper.LATITUDE, (float) lat);
+            PrefHelper.getInstance().setFloat(PrefHelper.LONGITUDE, (float) lon);
+            PrefHelper.getInstance().setFloat(PrefHelper.ALTITUDE, (float) altitude);
+
             updateClientLocation();
 
         } else {

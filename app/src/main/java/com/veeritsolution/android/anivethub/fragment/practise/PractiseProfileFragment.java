@@ -40,6 +40,7 @@ public class PractiseProfileFragment extends Fragment implements OnClickEvent, O
     // object and variable declaration
     private HomeActivity homeActivity;
     private Bundle bundle;
+    private TextView tvManageVet;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +108,8 @@ public class PractiseProfileFragment extends Fragment implements OnClickEvent, O
         tvSessionRateInfo = (TextView) getView().findViewById(R.id.tv_sessionRate);
         tvSessionRateInfo.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
 
+        tvManageVet = (TextView) getView().findViewById(R.id.tv_addVet);
+        tvManageVet.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
     }
 
     @Override
@@ -136,6 +139,14 @@ public class PractiseProfileFragment extends Fragment implements OnClickEvent, O
                 bundle = new Bundle();
                 bundle.putBoolean(Constants.IS_FROM_SIGN_UP, false);
                 homeActivity.pushFragment(new VetSessionRateFragment(), true, true, bundle);
+                break;
+
+            case R.id.lin_addVet:
+
+                Utils.buttonClickEffect(view);
+                bundle = new Bundle();
+                bundle.putBoolean(Constants.IS_FROM_SIGN_UP, false);
+                homeActivity.pushFragment(new ManagePracticeVetFragment(), true, true, bundle);
                 break;
 
             case R.id.btn_alertOk:

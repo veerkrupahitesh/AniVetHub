@@ -1026,7 +1026,7 @@ public class ClientPetInfoFragment extends Fragment implements OnClickEvent, OnB
                 params.put("sPic", image64Base);
 
                 RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                        ApiList.CLIENT_PET_PICS_INSERT, false, RequestCode.ClientPetPicInsert, this);
+                        ApiList.CLIENT_PET_PICS_INSERT, true, RequestCode.ClientPetPicInsert, this);
                 break;
 
             case Constants.FROM_SIGN_UP:

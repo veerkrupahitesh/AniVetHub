@@ -10,6 +10,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.MapsInitializer;
 import com.veeritsolution.android.anivethub.utility.Constants;
 
 /**
@@ -38,7 +39,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-
+        MapsInitializer.initialize(this);
         //  FONT_ROBOTO_BLACK = getTypeFace(Constants.FONT_ROBOTO_BLACK);
         //  FONT_ROBOTO_BLACK_ITALIC = getTypeFace(Constants.FONT_ROBOTO_BLACK_ITALIC);
         FONT_ROBOTO_BOLD = getTypeFace(Constants.FONT_ROBOTO_BOLD);

@@ -366,6 +366,14 @@ public class VetBasicInfoFragment extends Fragment implements OnClickEvent, OnBa
             case GetCity:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
+
+            case VetProfilePhotoUpdate:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case VetBannerPhotoUpdate:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
         }
     }
 

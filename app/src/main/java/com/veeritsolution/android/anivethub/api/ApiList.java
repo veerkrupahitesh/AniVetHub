@@ -293,4 +293,8 @@ public class ApiList {
     public static final String CLIENT_PET_PICS_INSERT = "ClientPetPicsInsert";
 
     public static final String GET_PRACTICE_VET = "GetVetPractiseInfoAll_VetPractise";
+
+    public static final String ACCEPT_VET = "SetVetPractise_Vet_Accept";
+
+    public static final String REJECT_VET = "SetVetPractise_Vet_Reject";
 }

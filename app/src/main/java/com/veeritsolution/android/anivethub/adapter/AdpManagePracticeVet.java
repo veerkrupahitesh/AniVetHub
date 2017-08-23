@@ -15,6 +15,7 @@ import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.models.PracticeModel;
 import com.veeritsolution.android.anivethub.utility.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +66,10 @@ public class AdpManagePracticeVet extends BaseAdapter {
             holder.linearLayout.setBackgroundColor(Color.WHITE);
         }
         PracticeModel obj = list.get(position);
+        obj.setPosition(position);
         holder.tvVetName.setTag(obj);
+        holder.imgAcceptVet.setTag(obj);
+        holder.imgRejectVet.setTag(obj);
 //        holder.linearLayout.setTag(obj);
         holder.tvVetName.setText(obj.getVetName());
         int flag = obj.getFlag();
@@ -82,6 +86,11 @@ public class AdpManagePracticeVet extends BaseAdapter {
             holder.imgRejectVet.setImageResource(R.drawable.img_reject_red);
         }
         return view;
+    }
+
+    public void refreshList(ArrayList<PracticeModel> practiceList) {
+        this.list = practiceList;
+        notifyDataSetChanged();
     }
 
     private class Holder {

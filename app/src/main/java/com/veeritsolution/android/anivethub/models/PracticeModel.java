@@ -11,6 +11,9 @@ import java.io.Serializable;
 
 public class PracticeModel implements Serializable {
 
+
+    private int position = 0;
+
     @SerializedName("DataId")
     @Expose
     private int dataId = 0;
@@ -87,5 +90,13 @@ public class PracticeModel implements Serializable {
 
     public void setFlagDisp(String flagDisp) {
         this.flagDisp = flagDisp;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

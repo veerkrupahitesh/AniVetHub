@@ -84,7 +84,6 @@ public class AppointmentsSelectionActivity extends AppCompatActivity implements 
         init();
 
         getVetTimeSlotData();
-
     }
 
 

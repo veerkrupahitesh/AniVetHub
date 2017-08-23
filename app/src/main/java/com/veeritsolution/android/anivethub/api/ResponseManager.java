@@ -745,6 +745,15 @@ public class ResponseManager {
                     object = mGson.fromJson(jsonArray.toString(), new TypeToken<ArrayList<PracticeModel>>() {
                     }.getType());
                     break;
+
+                case AcceptVet:
+                    object = jsonArray.getJSONObject(0);
+                    break;
+
+                case RejectVet:
+                    object = jsonArray.getJSONObject(0);
+                    break;
+
               /*  case ClientProfilePicUpdate:
 
                     object = mResponse;

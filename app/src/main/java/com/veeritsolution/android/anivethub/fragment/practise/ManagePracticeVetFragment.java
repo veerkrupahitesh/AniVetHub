@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +20,7 @@ import com.veeritsolution.android.anivethub.api.ApiList;
 import com.veeritsolution.android.anivethub.api.DataObserver;
 import com.veeritsolution.android.anivethub.api.RequestCode;
 import com.veeritsolution.android.anivethub.api.RestClient;
+import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
 import com.veeritsolution.android.anivethub.listener.OnClickEvent;
 import com.veeritsolution.android.anivethub.models.PracticeModel;
@@ -39,12 +38,12 @@ import java.util.ArrayList;
 public class ManagePracticeVetFragment extends Fragment implements OnBackPressedEvent, OnClickEvent, DataObserver {
 
     // xml components
-    private Button btnAddNewEduInfo;
-    private TextView tvHeader, tvName, tvUserName, tvNoEducationInfo, tvPassingYear, navHeaderName, navHeaderLocation;
+    //private Button btnAddNewEduInfo;
+    private TextView tvHeader/*, tvName, tvUserName, tvNoEducationInfo, tvPassingYear, navHeaderName, navHeaderLocation*/;
     private Toolbar toolbar;
-    private ImageView imgVetProfilePhoto, imgVetBannerPhoto, imgSelectBannerPhoto, imgSelectProfilePhoto;
+    // private ImageView imgVetProfilePhoto, imgVetBannerPhoto, imgSelectBannerPhoto, imgSelectProfilePhoto;
     private ListView listViewVetInfo;
-    private View headerView;
+    // private View headerView;
     private View rootView;
 
     // object and variable declaration
@@ -52,7 +51,8 @@ public class ManagePracticeVetFragment extends Fragment implements OnBackPressed
     private ArrayList<PracticeModel> practiceList;
     private AdpManagePracticeVet adpManagePracticeVet;
     private HomeActivity homeActivity;
-    private Bundle bundle;
+    private PracticeModel practiceModel;
+    // private Bundle bundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,12 +117,24 @@ public class ManagePracticeVetFragment extends Fragment implements OnBackPressed
                     listViewVetInfo.setAdapter(adpManagePracticeVet);
                 }
                 break;
+
+            case AcceptVet:
+                practiceModel.setFlag(1);
+                practiceList.set(practiceModel.getPosition(), practiceModel);
+                adpManagePracticeVet.refreshList(practiceList);
+                break;
+
+            case RejectVet:
+                practiceModel.setFlag(2);
+                practiceList.set(practiceModel.getPosition(), practiceModel);
+                adpManagePracticeVet.refreshList(practiceList);
+                break;
         }
     }
 
     @Override
     public void onFailure(RequestCode mRequestCode, String mError) {
-
+        ToastHelper.getInstance().showMessage(mError);
     }
 
     @Override
@@ -133,5 +145,57 @@ public class ManagePracticeVetFragment extends Fragment implements OnBackPressed
     @Override
     public void onClick(View view) {
 
+        switch (view.getId()) {
+
+            case R.id.img_acceptVet:
+                Object object = view.getTag();
+                if (object != null) {
+                    practiceModel = (PracticeModel) object;
+                    doAcceptVet(practiceModel);
+                }
+                break;
+
+            case R.id.img_rejectVet:
+                object = view.getTag();
+                if (object != null) {
+                    practiceModel = (PracticeModel) object;
+                    doRejectVet(practiceModel);
+                }
+                break;
+        }
+    }
+
+    private void doRejectVet(PracticeModel practiceModel) {
+        try {
+            params = new JSONObject();
+            params.put("op", ApiList.REJECT_VET);
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("VetPractiseId", PractiseLoginModel.getPractiseCredentials().getVetId());
+            params.put("VetId", practiceModel.getVetId());
+
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.REJECT_VET,
+                    true, RequestCode.RejectVet, this);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void doAcceptVet(PracticeModel practiceModel) {
+
+        try {
+            params = new JSONObject();
+            params.put("op", ApiList.ACCEPT_VET);
+            params.put("AuthKey", ApiList.AUTH_KEY);
+            params.put("VetPractiseId", PractiseLoginModel.getPractiseCredentials().getVetId());
+            params.put("VetId", practiceModel.getVetId());
+
+            RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.ACCEPT_VET,
+                    true, RequestCode.AcceptVet, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

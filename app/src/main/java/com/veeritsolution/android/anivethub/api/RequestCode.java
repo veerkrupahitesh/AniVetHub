@@ -41,6 +41,7 @@ import com.veeritsolution.android.anivethub.models.VetTimeSlotModel;
  */
 
 public enum RequestCode {
+    //int dataId = 0;
     // Default(null),
     GetUser(null),
     ClientInsert(ClientLoginModel.class),
@@ -167,7 +168,10 @@ public enum RequestCode {
     VetAppointmentCancel(null),
     ClientAppointmentConfirm(null),
     ClientAppointmentCancel(null),
-    ClientPetPicInsert(null), GetPracticeVet(PracticeModel.class);
+    ClientPetPicInsert(null),
+    GetPracticeVet(PracticeModel.class),
+    AcceptVet(null),
+    RejectVet(null);
 
 
     Class mLocalClass;

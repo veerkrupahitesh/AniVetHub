@@ -127,7 +127,7 @@ public class ManagePracticeVetFragment extends Fragment implements OnBackPressed
 
     @Override
     public void onBackPressed() {
-
+        homeActivity.popBackFragment();
     }
 
     @Override

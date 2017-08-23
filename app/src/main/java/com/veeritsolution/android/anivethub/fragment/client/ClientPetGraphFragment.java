@@ -1,7 +1,6 @@
 package com.veeritsolution.android.anivethub.fragment.client;
 
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -55,11 +54,11 @@ import java.util.List;
 
 public class ClientPetGraphFragment extends Fragment implements OnClickEvent, OnBackPressedEvent, DataObserver {
 
+    private static String TAG = " ANIVETHUB";
     // xml components
     private GraphView graph;
     private Toolbar toolbar;
     private TextView tvHeader;
-
     // object and variable declaration
     private JSONObject params;
     private ArrayList<PetWeightModel> petWeightList;
@@ -72,15 +71,9 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
     // private LineGraphSeries<DataPoint> lineGraphSeries;
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser)
-            homeActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
         homeActivity = (HomeActivity) getActivity();
 
@@ -91,16 +84,6 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            homeActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            homeActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-    }
 
     @Nullable
     @Override
@@ -244,9 +227,9 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
 
 
         // set manual x bounds to have nice steps
-       // graph.getViewport().setMinX(dateList.get(0).getTime());
-       // graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
-       // graph.getViewport().setXAxisBoundsManual(true);
+        // graph.getViewport().setMinX(dateList.get(0).getTime());
+        // graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
+        // graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setDrawBorder(true);
 
         // custom paint to make a dotted line
@@ -265,6 +248,8 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
         lineGraphSeries.setDrawBackground(true);
         lineGraphSeries.setThickness(10);
         lineGraphSeries.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.graphBackColor, null));
+
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
     }
 

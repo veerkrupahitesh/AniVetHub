@@ -43,8 +43,8 @@
 
                     <LinearLayout
                         android:id="@+id/lin_addPetPhoto"
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_margin="@dimen/_5sdp"
                         android:gravity="center"
                         android:onClick="onClick"
@@ -102,9 +102,9 @@
                             android:src="@drawable/img_pettype"/>
 
                         <TextView
-                            android:freezesText="true"
                             android:id="@+id/tv_petType"
                             style="@style/editTextStyle"
+                            android:freezesText="true"
                             android:gravity="center_vertical"
                             android:hint="@string/str_pet_Type"
                             android:maxLines="1"
@@ -135,9 +135,9 @@
                             android:src="@drawable/img_pettype"/>
 
                         <TextView
-                            android:freezesText="true"
                             android:id="@+id/tv_petBreed"
                             style="@style/editTextStyle"
+                            android:freezesText="true"
                             android:gravity="center_vertical"
                             android:hint="@string/str_pet_breed"
                             android:maxLines="1"
@@ -168,11 +168,11 @@
                             android:src="@drawable/img_calender"/>
 
                         <TextView
-                            android:freezesText="true"
                             android:id="@+id/tv_petBirthDate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/drw_edittext_bg"
+                            android:freezesText="true"
                             android:gravity="center|start"
                             android:hint="@string/str_pet_age"
                             android:maxLines="1"

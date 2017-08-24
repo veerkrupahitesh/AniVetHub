@@ -1,6 +1,5 @@
 package com.veeritsolution.android.anivethub.fragment.client;
 
-import android.content.pm.ActivityInfo;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -55,6 +54,7 @@ import java.util.List;
 public class ClientPetGraphFragment extends Fragment implements OnClickEvent, OnBackPressedEvent, DataObserver {
 
     private static String TAG = " ANIVETHUB";
+    LineGraphSeries lineGraphSeries;
     // xml components
     private GraphView graph;
     private Toolbar toolbar;
@@ -67,7 +67,6 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
     private PetDetailsModel petDetailsModel;
     private Bundle bundle;
     private View rootView;
-    private Calendar calendar = Calendar.getInstance();
     // private LineGraphSeries<DataPoint> lineGraphSeries;
 
     @Override
@@ -106,13 +105,45 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
 
         tvHeader = (TextView) rootView.findViewById(R.id.tv_headerTitle);
         tvHeader.setTypeface(MyApplication.getInstance().FONT_ROBOTO_REGULAR);
-        tvHeader.setText(getString(R.string.str_pet_weigth_history));
+        tvHeader.setText(petDetailsModel.getPetName() + "'s" + " weight history");
 
         graph = (GraphView) rootView.findViewById(R.id.graph);
         petWeightList = new ArrayList<>();
-        graph.setTitle(petDetailsModel.getPetName() + "'s" + " weight history");
-        graph.getGridLabelRenderer().setLabelsSpace(30);
+        // graph.setTitle(petDetailsModel.getPetName() + "'s" + " weight history");
+        // graph.getGridLabelRenderer().setLabelsSpace(50);
         graph.getGridLabelRenderer().setPadding(50);
+
+        lineGraphSeries = new LineGraphSeries<>();
+        // custom paint to make a dotted line
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+
+        lineGraphSeries.setCustomPaint(paint);
+        lineGraphSeries.setColor(ResourcesCompat.getColor(getResources(), R.color.homeCategory, null));
+        lineGraphSeries.setAnimated(true);
+        lineGraphSeries.setDrawDataPoints(true);
+        lineGraphSeries.setDataPointsRadius(10);
+        lineGraphSeries.setDrawAsPath(true);
+        lineGraphSeries.setDrawBackground(true);
+        lineGraphSeries.setThickness(10);
+        lineGraphSeries.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.graphBackColor, null));
+
+        graph.addSeries(lineGraphSeries);
+        //graph.getSecondScale().addSeries(lineGraphSeries);
+        // set date label formatter.
+        graph.getGridLabelRenderer().setHorizontalLabelsAngle(45);
+        // graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        //graph.getGridLabelRenderer().setLabelHorizontalHeight(0);
+        //graph.getGridLabelRenderer().setVerticalLabelsVAlign(GridLabelRenderer.VerticalLabelsVAlign.ABOVE);
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Weight");
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+        // graph.getGridLabelRenderer().setHighlightZeroLines(false);
+        graph.getGridLabelRenderer().setHumanRounding(true);
+        graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
+        graph.getViewport().setDrawBorder(true);
 
         return rootView;
     }
@@ -135,7 +166,7 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
                 if (!(mObject instanceof ErrorModel)) {
                     petWeightList = (ArrayList<PetWeightModel>) mObject;
 
-                    if (!petWeightList.isEmpty()) {
+                    if (petWeightList != null && !petWeightList.isEmpty()) {
                         setGraphData(petWeightList);
                     }
                 }
@@ -197,6 +228,7 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
 
         dataPoint = new DataPoint[petWeightList.size()];
         List<Date> dateList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < petWeightList.size(); i++) {
 
             PetWeightModel petWeightModel = petWeightList.get(i);
@@ -211,46 +243,20 @@ public class ClientPetGraphFragment extends Fragment implements OnClickEvent, On
             // Debug.trace("time y", dataPoint[i].toString());
         }
 
-        LineGraphSeries lineGraphSeries = new LineGraphSeries<>(dataPoint);
-        graph.addSeries(lineGraphSeries);
-        // set date label formatter.
-        graph.getGridLabelRenderer().setHorizontalLabelsAngle(160);
-        // graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
-        //graph.getGridLabelRenderer().setLabelHorizontalHeight(0);
-        //graph.getGridLabelRenderer().setVerticalLabelsVAlign(GridLabelRenderer.VerticalLabelsVAlign.ABOVE);
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Weight");
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        // graph.getGridLabelRenderer().setHighlightZeroLines(false);
-        // graph.getGridLabelRenderer().setHumanRounding(false);
-        graph.getGridLabelRenderer().setNumHorizontalLabels(dateList.size() - 1); // the number of dates
-        graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
-
-
+        lineGraphSeries.resetData(dataPoint);
         // set manual x bounds to have nice steps
-        // graph.getViewport().setMinX(dateList.get(0).getTime());
-        // graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
-        // graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setDrawBorder(true);
+        graph.getViewport().setMinX(dateList.get(0).getTime());
+        graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
+        graph.getGridLabelRenderer().setNumHorizontalLabels(dateList.size() - 1); // the number of dates
+        graph.getViewport().setXAxisBoundsManual(true);
 
-        // custom paint to make a dotted line
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+        /*enable/disable only the scrolling and not the zooming, you can use this methods: */
+        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        //graph.getViewport().setScrollableY(true); // enables vertical scrolling
+        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
+        // graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
 
-        lineGraphSeries.setCustomPaint(paint);
-        lineGraphSeries.setColor(ResourcesCompat.getColor(getResources(), R.color.homeCategory, null));
-        lineGraphSeries.setAnimated(true);
-        lineGraphSeries.setDrawDataPoints(true);
-        lineGraphSeries.setDataPointsRadius(10);
-        lineGraphSeries.setDrawAsPath(true);
-        lineGraphSeries.setDrawBackground(true);
-        lineGraphSeries.setThickness(10);
-        lineGraphSeries.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.graphBackColor, null));
-
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        // getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     private void getPetWeightInfo() {

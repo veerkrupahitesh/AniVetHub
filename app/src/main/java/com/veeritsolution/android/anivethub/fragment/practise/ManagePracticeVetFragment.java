@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -23,6 +26,7 @@ import com.veeritsolution.android.anivethub.api.RestClient;
 import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
 import com.veeritsolution.android.anivethub.listener.OnClickEvent;
+import com.veeritsolution.android.anivethub.models.ErrorModel;
 import com.veeritsolution.android.anivethub.models.PracticeModel;
 import com.veeritsolution.android.anivethub.models.PractiseLoginModel;
 
@@ -109,12 +113,18 @@ public class ManagePracticeVetFragment extends Fragment implements OnBackPressed
         switch (mRequestCode) {
 
             case GetPracticeVet:
+                if (mObject instanceof ErrorModel) {
+                    ErrorModel errorModel = (ErrorModel) mObject;
+                    ToastHelper.getInstance().showMessage(errorModel.getError());
+                    //listViewEducation.setVisibility(View.GONE);
+                    //tvNoEducationInfo.setVisibility(View.VISIBLE);
+                } else {
+                    practiceList = (ArrayList<PracticeModel>) mObject;
+                    if (practiceList != null) {
 
-                practiceList = (ArrayList<PracticeModel>) mObject;
-                if (practiceList != null) {
-
-                    adpManagePracticeVet = new AdpManagePracticeVet(practiceList);
-                    listViewVetInfo.setAdapter(adpManagePracticeVet);
+                        adpManagePracticeVet = new AdpManagePracticeVet(practiceList);
+                        listViewVetInfo.setAdapter(adpManagePracticeVet);
+                    }
                 }
                 break;
 
@@ -197,5 +207,30 @@ public class ManagePracticeVetFragment extends Fragment implements OnBackPressed
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // if (!fromSignUp) {
+        inflater.inflate(R.menu.other_menu, menu);
+        // }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_home) {
+            // if (!fromSignUp) {
+            homeActivity.removeFragmentUntil(PractiseHomeFragment.class);
+            //  }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

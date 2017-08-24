@@ -1,20 +1,14 @@
 package com.veeritsolution.android.anivethub.firebaseNotification;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -29,7 +23,6 @@ import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
 import com.veeritsolution.android.anivethub.activity.SignInActivity;
 import com.veeritsolution.android.anivethub.activity.SplashActivity;
-import com.veeritsolution.android.anivethub.enums.NotificationType;
 import com.veeritsolution.android.anivethub.helper.PrefHelper;
 import com.veeritsolution.android.anivethub.utility.Constants;
 import com.veeritsolution.android.anivethub.utility.Debug;
@@ -166,8 +159,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, Constants.NOTIFICATION_REQUEST_CODE, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+        String picPath = body.get(Constants.KEY_IMAGEPATH);
 
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NewMessageNotification.notify(getBaseContext(), title, Constants.NOTIFICATION_REQUEST_CODE,
+                messageBody, pendingIntent, picPath);
+      /*  Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         notificationBuilder.setSmallIcon(R.drawable.img_notification_icon);
@@ -199,7 +195,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(Constants.NOTIFICATION_REQUEST_CODE, notificationBuilder.build());
+        notificationManager.notify(Constants.NOTIFICATION_REQUEST_CODE, notificationBuilder.build());*/
     }
 
     private RemoteViews getComplexNotificationView(String message, Map<String, String> messageBody, PendingIntent pendingIntent) {
@@ -276,6 +272,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         return notiStyle;
     }
 
+    /*
+   *
+   *  Code for converting message to image
+   *
+   */
+    public Bitmap buildUpdate(String message, float textSize, int textColor) {
+        Bitmap myBitmap = Bitmap.createBitmap(160, 84, Bitmap.Config.ARGB_8888);
+        Canvas myCanvas = new Canvas(myBitmap);
+        Paint paint = new Paint();
+        Typeface clock = MyApplication.getInstance().FONT_ROBOTO_BOLD;
+        paint.setAntiAlias(true);
+        paint.setSubpixelText(true);
+        paint.setTypeface(clock);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(textColor);
+        paint.setTextSize(textSize);
+        paint.setTextAlign(Paint.Align.CENTER);
+        myCanvas.drawText(message, 80, 60, paint);
+        return myBitmap;
+    }
+
     public class NotificationImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
 
@@ -302,26 +319,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             notificationView.setImageViewBitmap(R.id.img_notification, result);
         }
-    }
-
-    /*
-   *
-   *  Code for converting message to image
-   *
-   */
-    public Bitmap buildUpdate(String message, float textSize, int textColor) {
-        Bitmap myBitmap = Bitmap.createBitmap(160, 84, Bitmap.Config.ARGB_8888);
-        Canvas myCanvas = new Canvas(myBitmap);
-        Paint paint = new Paint();
-        Typeface clock = MyApplication.getInstance().FONT_ROBOTO_BOLD;
-        paint.setAntiAlias(true);
-        paint.setSubpixelText(true);
-        paint.setTypeface(clock);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(textColor);
-        paint.setTextSize(textSize);
-        paint.setTextAlign(Paint.Align.CENTER);
-        myCanvas.drawText(message, 80, 60, paint);
-        return myBitmap;
     }
 }

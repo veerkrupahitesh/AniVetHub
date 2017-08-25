@@ -315,6 +315,8 @@ public class VetSubscriptionInfo extends Fragment implements OnBackPressedEvent,
         if (!packageSettingList.isEmpty()) {
             adpPackageList = new AdpPackageList(getActivity(), packageSettingList);
             recyclerView.setAdapter(adpPackageList);
+        } else {
+            ToastHelper.getInstance().showMessage("No package available");
         }
     }
 

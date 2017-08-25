@@ -19,6 +19,7 @@ import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
 import com.veeritsolution.android.anivethub.fragment.client.ClientHomeFragment;
+import com.veeritsolution.android.anivethub.fragment.practise.PractiseHomeFragment;
 import com.veeritsolution.android.anivethub.fragment.vet.VetHomeFragment;
 import com.veeritsolution.android.anivethub.helper.PrefHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
@@ -48,14 +49,14 @@ public class AboutUsFragment extends Fragment implements OnBackPressedEvent, OnC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        homeActivity = (HomeActivity) getActivity();
         return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        homeActivity = (HomeActivity) getActivity();
+
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -132,10 +133,11 @@ public class AboutUsFragment extends Fragment implements OnBackPressedEvent, OnC
             // homeActivity.removeAllFragment();
             if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.CLIENT_LOGIN) {
                 homeActivity.removeFragmentUntil(ClientHomeFragment.class);
-            } else {
+            } else if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.VET_LOGIN) {
                 homeActivity.removeFragmentUntil(VetHomeFragment.class);
+            } else {
+                homeActivity.removeFragmentUntil(PractiseHomeFragment.class);
             }
-
         }
 
         return super.onOptionsItemSelected(item);

@@ -26,6 +26,7 @@ import com.veeritsolution.android.anivethub.api.RequestCode;
 import com.veeritsolution.android.anivethub.api.RestClient;
 import com.veeritsolution.android.anivethub.customdialog.CustomDialog;
 import com.veeritsolution.android.anivethub.fragment.AppointmentDetailFragment;
+import com.veeritsolution.android.anivethub.fragment.practise.PractiseHomeFragment;
 import com.veeritsolution.android.anivethub.helper.PrefHelper;
 import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
@@ -370,7 +371,11 @@ public class VetAppFragment extends Fragment implements OnClickEvent, DataObserv
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_home) {
-            homeActivity.removeFragmentUntil(VetHomeFragment.class);
+            if (loginUser == Constants.VET_LOGIN) {
+                homeActivity.removeFragmentUntil(VetHomeFragment.class);
+            } else {
+                homeActivity.removeFragmentUntil(PractiseHomeFragment.class);
+            }
         }
 
         return super.onOptionsItemSelected(item);

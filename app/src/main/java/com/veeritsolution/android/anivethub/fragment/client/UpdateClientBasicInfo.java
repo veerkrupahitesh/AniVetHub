@@ -395,6 +395,14 @@ public class UpdateClientBasicInfo extends Fragment implements OnClickEvent, Dat
             case GetCity:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
+
+            case ClientProfilePhotoUpdate:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case ClientBannerPhotoUpdate:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
         }
 
     }

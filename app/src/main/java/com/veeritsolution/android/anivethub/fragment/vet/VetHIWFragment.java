@@ -24,9 +24,12 @@ import android.widget.TextView;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
 import com.veeritsolution.android.anivethub.adapter.AdpViewPager;
+import com.veeritsolution.android.anivethub.fragment.practise.PractiseHomeFragment;
+import com.veeritsolution.android.anivethub.helper.PrefHelper;
 import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
 import com.veeritsolution.android.anivethub.listener.OnClickEvent;
+import com.veeritsolution.android.anivethub.utility.Constants;
 import com.veeritsolution.android.anivethub.utility.ZoomOutPageTransformer;
 
 /**
@@ -44,6 +47,7 @@ public class VetHIWFragment extends Fragment implements OnClickEvent, OnBackPres
     private Button btnPrev, btnNext, btnSkip;
     private HomeActivity homeActivity;
     private TextView tvHeader;
+    private int loginUser;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class VetHIWFragment extends Fragment implements OnClickEvent, OnBackPres
 
         setHasOptionsMenu(true);
         homeActivity = (HomeActivity) getActivity();
+        loginUser = PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0);
         layouts = new int[]{
                 com.veeritsolution.android.anivethub.R.drawable.img_hiw_first_vet,
                 com.veeritsolution.android.anivethub.R.drawable.img_hiw_fifth_vet,
@@ -60,7 +65,7 @@ public class VetHIWFragment extends Fragment implements OnClickEvent, OnBackPres
                 com.veeritsolution.android.anivethub.R.drawable.img_hiw_sixth_vet
         };
 
-        contents = new String[]{getString(com.veeritsolution.android.anivethub.R.string.str_vet_hiw_first_vet),getString(R.string.str_vet_hiw_two_vet),getString(com.veeritsolution.android.anivethub.R.string.str_vet_hiw_three_vet),getString(R.string.str_vet_hiw_four_vet),getString(com.veeritsolution.android.anivethub.R.string.str_vet_hiw_five_vet),getString(R.string.str_vet_hiw_six_vet)};
+        contents = new String[]{getString(com.veeritsolution.android.anivethub.R.string.str_vet_hiw_first_vet), getString(R.string.str_vet_hiw_two_vet), getString(com.veeritsolution.android.anivethub.R.string.str_vet_hiw_three_vet), getString(R.string.str_vet_hiw_four_vet), getString(com.veeritsolution.android.anivethub.R.string.str_vet_hiw_five_vet), getString(R.string.str_vet_hiw_six_vet)};
     }
 
 
@@ -242,8 +247,12 @@ public class VetHIWFragment extends Fragment implements OnClickEvent, OnBackPres
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_home) {
-            
-            homeActivity.removeFragmentUntil(VetHomeFragment.class);
+            if (loginUser == Constants.VET_LOGIN) {
+                homeActivity.removeFragmentUntil(VetHomeFragment.class);
+            } else {
+                homeActivity.removeFragmentUntil(PractiseHomeFragment.class);
+            }
+
         }
 
         return super.onOptionsItemSelected(item);

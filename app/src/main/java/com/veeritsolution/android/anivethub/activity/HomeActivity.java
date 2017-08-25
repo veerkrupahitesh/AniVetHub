@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickEvent, OnB
             if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.CLIENT_LOGIN) {
 
                 loadFirstFragment(new ClientHomeFragment(), null);
+                // loadFirstFragment(new UpdateClientPetInfo(), null);
 
             } else if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.VET_LOGIN) {
                 // if (Utils.isInternetAvailable()) {
@@ -89,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickEvent, OnB
             } else if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.CLINIC_LOGIN) {
 
                 loadFirstFragment(new PractiseHomeFragment(), null);
+                //loadFirstFragment(new PractiseHomeFragment(), null);
             }
         }
 //        Bundle bundle = intent.getExtras();

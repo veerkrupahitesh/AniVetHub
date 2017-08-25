@@ -379,6 +379,14 @@ public class PractiseBasicInfo extends Fragment implements OnClickEvent, OnBackP
             case GetCity:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
+
+            case PractiseProfilePhotoUpload:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case PractiseBannerPhotoUpload:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
         }
     }
 

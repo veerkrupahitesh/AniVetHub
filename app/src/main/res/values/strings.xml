@@ -1,7 +1,7 @@
 <resources>
 
     <!--****************************************social login credentials*****************************************************-->
-    <!--gmail login: anivethub.uk@gmail.com , pass : -->
+    <!--gmail login: anivethub.uk@gmail.com , pass : AniVetHub_123  -->
     <string name="str_google_server_web_key" translatable="false">1060617274828-cekme37p02npeppkjr6js2i8mvsklf5m.apps.googleusercontent.com</string>
     <!--facebook login: Anivethub Veternary , pass :AniVetHub_123 -->
     <string name="facebook_app_id">686621228154109</string>
@@ -169,9 +169,9 @@
     <string name="str_vet_distance">Distance</string>
     <string name="str_vet_kilometer">Kilometer</string>
     <string name="str_vet_search">FILTER SEARCH</string>
-    <string name="str_no_education_info">No education information found \n Add new</string>
-    <string name="str_no_experience_info">No experience information found \n Add new</string>
-    <string name="str_no_expertise_info">No specialization information found \n Add new</string>
+    <string name="str_no_education_info">No education information found</string>
+    <string name="str_no_experience_info">No experience information found</string>
+    <string name="str_no_expertise_info">No specialization information found</string>
     <string name="str_from">From</string>
     <string name="str_to">To</string>
     <string name="str_appointment_date">Appointment Date</string>

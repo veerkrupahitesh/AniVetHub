@@ -36,7 +36,7 @@ import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
 import com.veeritsolution.android.anivethub.adapter.AdpPetPics;
-import com.veeritsolution.android.anivethub.adapter.AdpPetTypeGroupList;
+import com.veeritsolution.android.anivethub.adapter.AdpPetTypeList;
 import com.veeritsolution.android.anivethub.adapter.SpinnerAdapter;
 import com.veeritsolution.android.anivethub.api.ApiList;
 import com.veeritsolution.android.anivethub.api.DataObserver;
@@ -427,7 +427,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
 
     private void beginCrop(Uri source) {
 
-        Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "cropped"));
+        Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), String.valueOf(System.currentTimeMillis())));
 
         switch (apiType) {
 
@@ -481,6 +481,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
             params.put("PetName", petName);
             params.put("PetTypeId", petTypeId);
             params.put("PetBreedId", petBreedId);
+            params.put("PetBreedName", tvPetBreed.getText().toString().trim());
 
             switch (petGender) {
 
@@ -616,8 +617,8 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
             if (listLocation != null && listLocation.size() > 0) {
 
                 listViewLocation.setVisibility(View.VISIBLE);
-                AdpPetTypeGroupList adppetTypeGroupList = new AdpPetTypeGroupList(context, listLocation);
-                listViewLocation.setAdapter(adppetTypeGroupList);
+                AdpPetTypeList adpPetTypeList = new AdpPetTypeList(context, listLocation);
+                listViewLocation.setAdapter(adpPetTypeList);
             } else {
 
                 listViewLocation.setVisibility(View.GONE);
@@ -627,7 +628,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
             listViewLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                    Utils.buttonClickEffect(view);
                     mDialog.dismiss();
 
                     TextView txtLocationName = (TextView) view.findViewById(R.id.txtLocationName);
@@ -648,9 +649,14 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                         } else if (object instanceof PetBreedModel) {
 
                             PetBreedModel petBreedModel = (PetBreedModel) object;
-                            tvPetBreed.setText(petBreedModel.getPetBreedName());
 
                             petBreedId = petBreedModel.getPetBreedId();
+
+                            if (petBreedId == 99999) {
+                                CustomDialog.getInstance().showAddBreed(getActivity(), false);
+                            } else {
+                                tvPetBreed.setText(petBreedModel.getPetBreedName());
+                            }
 
                         }
                     }
@@ -662,6 +668,7 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Utils.buttonClickEffect(view);
                     mDialog.dismiss();
                 }
             });

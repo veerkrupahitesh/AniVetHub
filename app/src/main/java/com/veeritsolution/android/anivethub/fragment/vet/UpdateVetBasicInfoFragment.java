@@ -293,7 +293,16 @@ public class UpdateVetBasicInfoFragment extends Fragment implements OnClickEvent
 
         switch (mRequestCode) {
 
+            case GetVetInfo:
+
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
             case GetCountry:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case VetUpdate:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
 
@@ -302,6 +311,14 @@ public class UpdateVetBasicInfoFragment extends Fragment implements OnClickEvent
                 break;
 
             case GetCity:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case VetProfilePhotoUpdate:
+                ToastHelper.getInstance().showMessage(mError);
+                break;
+
+            case VetBannerPhotoUpdate:
                 ToastHelper.getInstance().showMessage(mError);
                 break;
         }

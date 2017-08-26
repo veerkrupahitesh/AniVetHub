@@ -426,5 +426,4 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
             return true;
         }
     }
-
 }

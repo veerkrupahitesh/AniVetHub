@@ -740,7 +740,7 @@ public class CustomDialog {
         hour[0] = mCurrentTime.get(Calendar.HOUR_OF_DAY);
         minute[0] = mCurrentTime.get(Calendar.MINUTE);
 
-        final TimePickerDialog mTimePicker = new TimePickerDialog(context, R.style.DatePickerDialogTheme,new TimePickerDialog.OnTimeSetListener() {
+        final TimePickerDialog mTimePicker = new TimePickerDialog(context, R.style.DatePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
 
@@ -1125,7 +1125,7 @@ public class CustomDialog {
                 } else {
                     submit.setTag(msg);
                 }
-                submit.setTag(edtOtherReason.getText().toString().trim());
+                //submit.setTag(edtOtherReason.getText().toString().trim());
             }
         });
         //appointmentRejectModel.setRejectionRemarks(edtOtherReason.getText().toString().trim());

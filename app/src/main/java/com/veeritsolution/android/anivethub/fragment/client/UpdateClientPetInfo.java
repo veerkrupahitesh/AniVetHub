@@ -125,8 +125,8 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
         }*/
         genderList = new ArrayList<>();
         genderList.add("Select Gender");
-        genderList.add("Male");
-        genderList.add("Female");
+        genderList.add("Male entire");
+        genderList.add("Female entire");
         genderList.add("Male neutered");
         genderList.add("Female neutered");
     }
@@ -342,12 +342,12 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                 break;
 
             case R.id.tv_petType:
-
+                Utils.buttonClickEffect(view);
                 getPetTypeInfo();
                 break;
 
             case R.id.tv_petBreed:
-
+                Utils.buttonClickEffect(view);
                 if (petTypeId != 0) {
                     getPetBreedInfo(petTypeId);
                 } else {
@@ -390,7 +390,25 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                 //deletePetPic(petPicsModel);
                 break;
 
+            case R.id.btn_submit_addBreed:
+                Utils.buttonClickEffect(view);
+                Object o = view.getTag();
+                if (o != null) {
+                    CustomDialog.getInstance().dismiss();
+                    String petBreed = (String) o;
+                    tvPetBreed.setText(petBreed);
+                } else {
+                    ToastHelper.getInstance().showMessage("Please enter pet breed name");
+                }
+                break;
+
             case R.id.btn_actionCancel:
+                Utils.buttonClickEffect(view);
+                CustomDialog.getInstance().dismiss();
+                break;
+
+            case R.id.img_close:
+                Utils.buttonClickEffect(view);
                 CustomDialog.getInstance().dismiss();
                 break;
         }

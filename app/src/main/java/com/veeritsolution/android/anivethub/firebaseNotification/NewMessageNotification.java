@@ -111,17 +111,17 @@ public class NewMessageNotification {
         // should ensure that the activity in this notification's
         // content intent provides access to the same actions in
         // another way.
-        builder.addAction(
+        /*builder.addAction(
                 R.drawable.img_yes,
                 res.getString(R.string.str_yes),
                 pendingIntent)
                 .addAction(
                         R.drawable.img_close,
                         res.getString(R.string.str_no),
-                        pendingIntent)
+                        pendingIntent)*/
 
-                // Automatically dismiss the notification when it is touched.
-                .setAutoCancel(true);
+        // Automatically dismiss the notification when it is touched.
+        builder.setAutoCancel(true);
 
         notify(context, builder.build());
     }

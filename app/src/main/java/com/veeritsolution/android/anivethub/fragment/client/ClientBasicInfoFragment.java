@@ -753,18 +753,23 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_address));
             return false;
         } else if (phoneno.isEmpty()) {
+            edtPhoneNumber.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_phoneno));
             return false;
         } else if (phoneno.length() < Constants.PHONE_LENGTH) {
+            edtPhoneNumber.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_valid_phoneno));
             return false;
         } else if (!TextUtils.isDigitsOnly(phoneno)) {
+            edtPhoneNumber.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_valid_phoneno));
             return false;
         } else if (email.isEmpty()) {
+            edtEmail.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_email));
             return false;
         } else if (!email.matches(Patterns.EMAIL_ADDRESS.pattern())) {
+            edtEmail.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_valid_email_address));
             return false;
         } else if (country.equals("select country") || country.isEmpty()) {

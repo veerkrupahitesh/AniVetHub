@@ -28,9 +28,10 @@ public class SpinnerSymptomsAdapter extends ArrayAdapter<PetSymptomsModel> {
     public SpinnerSymptomsAdapter(Context context, int resource, List<PetSymptomsModel> petSymptomsModelList) {
         super(context, resource, petSymptomsModelList);
         this.context = context;
-        this.petSymptomsModelList=petSymptomsModelList;
+        this.petSymptomsModelList = petSymptomsModelList;
         this.resource = resource;
     }
+
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -50,7 +51,7 @@ public class SpinnerSymptomsAdapter extends ArrayAdapter<PetSymptomsModel> {
         PetSymptomsModel petSymptomsModel = petSymptomsModelList.get(position);
         convertView.setTag(petSymptomsModel);
 
-        TextView spinnerItem = (TextView)convertView.findViewById(R.id.spinnerItem);
+        TextView spinnerItem = (TextView) convertView.findViewById(R.id.spinnerItem);
         spinnerItem.setTypeface(MyApplication.getInstance().FONT_ROBOTO_LIGHT);
 
         if (position == 0) {

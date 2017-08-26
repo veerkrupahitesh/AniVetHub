@@ -32,6 +32,7 @@ import com.veeritsolution.android.anivethub.api.RestClient;
 import com.veeritsolution.android.anivethub.helper.ToastHelper;
 import com.veeritsolution.android.anivethub.listener.OnBackPressedEvent;
 import com.veeritsolution.android.anivethub.listener.OnClickEvent;
+import com.veeritsolution.android.anivethub.models.ErrorModel;
 import com.veeritsolution.android.anivethub.models.PetDetailsModel;
 import com.veeritsolution.android.anivethub.models.PetSymptomsModel;
 import com.veeritsolution.android.anivethub.models.TreatmentModel;
@@ -50,6 +51,7 @@ import java.util.Locale;
 
 public class ClientPetTreatInfoFragment extends Fragment implements DataObserver, OnClickEvent, OnBackPressedEvent {
 
+    Calendar calFromTime, calToTime;
     // xml components
     private Button btnSave;
     private View rootView;
@@ -57,7 +59,6 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
     private TextView tvHeader, txvFromTime, txvToTime;
     private EditText edtTreatment;
     private Spinner spDiseases;
-
     // object and variable declaration
     private JSONObject params;
     private Bundle bundle;
@@ -72,7 +73,6 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
     private int mYear = mCurrentDate.get(Calendar.YEAR);
     private int mMonth = mCurrentDate.get(Calendar.MONTH);
     private int mDay = mCurrentDate.get(Calendar.DAY_OF_MONTH);
-    Calendar calFromTime, calToTime;
     private long fromTime, toTime;
 
     @Override
@@ -89,19 +89,14 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
             val = bundle.getInt(Constants.FLAG);
             petDetailsModel = (PetDetailsModel) bundle.getSerializable(Constants.PET_DATA);
         }
-        // 0  means edit and 1 means add
-        if (val == 0) {
-            getClientTreatmentInfo();
 
-        } else {
-            getSymptoms();
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_pet_treatment, container, false);
+
         return rootView;
     }
 
@@ -131,6 +126,14 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
         spDiseases = (Spinner) getView().findViewById(R.id.sp_disease);
         btnSave = (Button) getView().findViewById(R.id.btn_save);
         btnSave.setTypeface(MyApplication.getInstance().FONT_ROBOTO_REGULAR);
+
+        // 0  means edit and 1 means add
+        if (val == 0) {
+            getClientTreatmentInfo();
+
+        } else {
+            getSymptoms();
+        }
     }
 
     @Override
@@ -161,42 +164,45 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
 
             case GetPetSymptomsInfo:
                 //  try {
-                petSymptomsModelList = (ArrayList<PetSymptomsModel>) mObject;
-                PetSymptomsModel newPetSymptomsModel = new PetSymptomsModel();
-                newPetSymptomsModel.setSymptomsName("Select Symptoms");
+                if (!(mObject instanceof ErrorModel)) {
+                    petSymptomsModelList = (ArrayList<PetSymptomsModel>) mObject;
+                    PetSymptomsModel newPetSymptomsModel = new PetSymptomsModel();
+                    newPetSymptomsModel.setSymptomsName("Select Symptoms");
 
-                petSymptomsModelList.add(0, newPetSymptomsModel);
-                SpinnerSymptomsAdapter spinner = new SpinnerSymptomsAdapter(getActivity(), R.layout.spinner_row_list, petSymptomsModelList);
-                spDiseases.setAdapter(spinner);
+                    petSymptomsModelList.add(0, newPetSymptomsModel);
+                    SpinnerSymptomsAdapter spinner = new SpinnerSymptomsAdapter(getActivity(),
+                            R.layout.spinner_row_list, petSymptomsModelList);
+                    spDiseases.setAdapter(spinner);
 
-                if (val == 0) {
+                    if (val == 0) {
 
-                    int pos;
-                    for (int i = 0; i < petSymptomsModelList.size(); i++) {
+                        int pos;
+                        for (int i = 0; i < petSymptomsModelList.size(); i++) {
 
-                        if (petTreatmentModel.getSymptomsName().equalsIgnoreCase(petSymptomsModelList.get(i).getSymptomsName())) {
-                            pos = i;
-                            spDiseases.setSelection(pos);
-                            break;
+                            if (petTreatmentModel.getSymptomsName().equalsIgnoreCase(petSymptomsModelList.get(i).getSymptomsName())) {
+                                pos = i;
+                                spDiseases.setSelection(pos);
+                                break;
+                            }
                         }
-                    }
 
+                    }
+                    spDiseases.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+
+                            //petSymptomsModel = (PetSymptomsModel) adapterView.getTag();
+
+                            petSymptomsModel = petSymptomsModelList.get(pos);
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
                 }
-                spDiseases.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-
-                        //petSymptomsModel = (PetSymptomsModel) adapterView.getTag();
-
-                        petSymptomsModel = petSymptomsModelList.get(pos);
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
                 break;
 
             // } catch (Exception e) {
@@ -286,7 +292,13 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
 
             case R.id.btn_save:
 
-                validation();
+                if (validation()) {
+                    if (val == 0) {
+                        ClientPetTreatmentUpdate();
+                    } else {
+                        ClientPetTreatmentInsert();
+                    }
+                }
                 break;
 
 
@@ -356,8 +368,8 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
 
     private void ClientPetTreatmentInsert() {
 
-        params = new JSONObject();
         try {
+            params = new JSONObject();
             params.put("op", "ClientPetTreatmentInsert");
             params.put("ClientPetId", petDetailsModel.getClientPetId());
             params.put("SymptomsId", petSymptomsModel.getSymptomsId());
@@ -389,32 +401,29 @@ public class ClientPetTreatInfoFragment extends Fragment implements DataObserver
         }
     }
 
-    private void validation() {
+    private boolean validation() {
 
-        petSymptomsModel = (PetSymptomsModel) spDiseases.getSelectedItem();
+        // petSymptomsModel = (PetSymptomsModel) spDiseases.getSelectedItem();
 
-        if (petSymptomsModel.getSymptomsName().equals("") || petSymptomsModel.getSymptomsName().equals("Select Symptoms")) {
+        if (spDiseases.getSelectedItemPosition() == 0) {
             spDiseases.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_pet_symptomps));
+            return false;
 
         } else if (txvFromTime.getText().toString().equalsIgnoreCase("")) {
             txvFromTime.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_pet_treatment_From_time));
-
+            return false;
         } else if (txvToTime.getText().toString().equalsIgnoreCase("")) {
             txvToTime.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_pet_treatment_to_time));
-
+            return false;
         } else if (edtTreatment.getText().toString().equalsIgnoreCase("")) {
             edtTreatment.requestFocus();
             ToastHelper.getInstance().showMessage(getString(R.string.str_enter_pet_treatment));
-
+            return false;
         } else {
-            if (val == 0) {
-                ClientPetTreatmentUpdate();
-            } else {
-                ClientPetTreatmentInsert();
-            }
+            return true;
         }
     }
 

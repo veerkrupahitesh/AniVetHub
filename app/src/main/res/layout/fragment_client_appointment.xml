@@ -19,11 +19,12 @@
             android:orientation="vertical">
 
             <ListView
-                android:footerDividersEnabled="true"
-                android:dividerHeight="0.5dp"
                 android:id="@+id/lv_clientAppointment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:dividerHeight="0.5dp"
+                android:fastScrollEnabled="true"
+                android:footerDividersEnabled="true"/>
 
             <TextView
                 android:id="@+id/tv_noAppointmentInfo"

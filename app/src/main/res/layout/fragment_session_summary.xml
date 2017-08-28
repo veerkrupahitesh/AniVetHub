@@ -27,6 +27,7 @@
                 android:layout_weight="1"
                 android:divider="@color/colorListviewDivider"
                 android:dividerHeight="0.5dp"
+                android:fastScrollEnabled="true"
                 android:scrollbars="vertical">
 
             </ListView>

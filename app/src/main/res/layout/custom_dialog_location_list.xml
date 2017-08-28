@@ -77,6 +77,7 @@
                     android:layout_height="match_parent"
                     android:divider="@color/colorListviewDivider"
                     android:dividerHeight="0.5dp"
+                    android:fastScrollEnabled="true"
                     android:scrollbars="vertical"/>
 
                 <TextView

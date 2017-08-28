@@ -39,6 +39,7 @@ public class TabActivity extends AppCompatActivity /*implements ActionBar.TabLis
             R.drawable.img_hospital
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

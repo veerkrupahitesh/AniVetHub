@@ -202,10 +202,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:divider="@null"
-            android:dividerHeight="0.5dp"/>
+            android:dividerHeight="0.5dp"
+            android:fastScrollEnabled="true"/>
 
         <TextView
-            android:textSize="@dimen/_15sdp"
             android:id="@+id/tv_noTreatmentInfo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -213,6 +213,7 @@
             android:gravity="center"
             android:padding="@dimen/_7sdp"
             android:text="No treatments found \nAdd more "
+            android:textSize="@dimen/_15sdp"
             android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>

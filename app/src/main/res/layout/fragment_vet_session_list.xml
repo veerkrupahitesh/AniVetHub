@@ -19,7 +19,8 @@
             android:id="@+id/lstsessionrate"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:fastScrollEnabled="true"/>
 
         <TextView
             android:id="@+id/tv_noSessionRateInfo"
@@ -34,11 +35,11 @@
 
         <Button
             android:id="@+id/btn_addSessionRate"
+            style="@style/buttonStyle"
             android:drawableLeft="@drawable/img_pluse"
             android:onClick="onClick"
             android:padding="@dimen/_5sdp"
             android:text="@string/str_add_session_rate"
-            style="@style/buttonStyle"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -67,7 +67,8 @@
             android:id="@+id/recyler_subscription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:fastScrollEnabled="true"/>
 
     </LinearLayout>
 </LinearLayout>

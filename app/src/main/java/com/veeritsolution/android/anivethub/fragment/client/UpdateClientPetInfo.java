@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +33,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.soundcloud.android.crop.Crop;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
@@ -64,7 +67,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -361,13 +363,23 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
 
                     CustomDialog.getInstance().showAlert(getActivity(), "First insert pet then after add pet photos", false);
                 } else {*/
-                if (petPicsList.size() == 3) {
+                if (petPicsList.size() >= 3) {
                     CustomDialog.getInstance().showAlert(getActivity(), "Maximum three photos of pet allowed to upload", true);
                 } else {
-                    if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
-                            Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.CAMERA))) {
-                        showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), false);
+                    if (Build.VERSION.SDK_INT > 22) {
+                        String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                        //if (shouldShowRequestPermissionRationale(permissions))
+                        requestPermissions(permissions, PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION);
+                    } else {
+                        // start cropping activity for pre-acquired image saved on the device
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .setActivityTitle("Crop")
+                                .setAspectRatio(1, 1)
+                                .setRequestedSize(200, 200)
+                                .start(getContext(), this);
+                        //showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), true);
                     }
                 }
                 // }
@@ -436,8 +448,13 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
                     //cropProfilePhotoFromGallery(data);
                     break;
 
-                case Crop.REQUEST_CROP:
+             /*   case Crop.REQUEST_CROP:
                     handleCrop(resultCode, data);
+                    break;*/
+
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    handleCrop(0, result.getUri().getPath());
                     break;
             }
         }
@@ -446,42 +463,18 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
     private void beginCrop(Uri source) {
 
         Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), String.valueOf(System.currentTimeMillis())));
-
-        switch (apiType) {
-
-            case Constants.API_REQUEST_PROFILE_CAMERA:
-                Crop.of(source, destination)
-                        .asSquare()
-                        .start(getActivity(), this);
-                break;
-
-            case Constants.API_REQUEST_PROFILE_FILE:
-                Crop.of(source, destination)
-                        .asSquare()
-                        .start(getActivity(), this);
-                break;
-        }
     }
 
-    private void handleCrop(int resultCode, final Intent result) {
+    private void handleCrop(int resultCode, final String result) {
 
-        switch (apiType) {
-
-            case Constants.API_REQUEST_PROFILE_CAMERA:
-                uploadPetPhoto(result);
-                break;
-
-            case Constants.API_REQUEST_PROFILE_FILE:
-                uploadPetPhoto(result);
-                break;
-        }
+        uploadPetPhoto(result);
     }
 
-    private void uploadPetPhoto(Intent result) {
+    private void uploadPetPhoto(String result) {
 
-        image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
+        image64Base = Utils.getStringImage(result, ImageUpload.ClientProfile);
         PetPicsModel petPicsModel = new PetPicsModel();
-        petPicsModel.setPicPath(Crop.getOutput(result).getPath());
+        petPicsModel.setPicPath(result);
         petPicsModel.setBase64image(image64Base);
         petPicsList.add(petPicsModel);
         adpPetPics = new AdpPetPics(getActivity(), petPicsList);
@@ -800,6 +793,36 @@ public class UpdateClientPetInfo extends Fragment implements OnClickEvent, OnBac
     public void onBackPressed() {
         // homeActivity.popBackFragment();
         homeActivity.finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // List<String> shouldPermit = new ArrayList<>();
+
+        if (requestCode == PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION) {
+
+            if (grantResults.length > 0 || grantResults.length != 0) {
+
+                if (PermissionClass.verifyPermission(grantResults)) {
+                    // start cropping activity for pre-acquired image saved on the device
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setActivityTitle("Crop")
+                            .setAspectRatio(1, 1)
+                            .setRequestedSize(200, 200)
+                            .start(getContext(), this);
+
+                } else {
+                    permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                    //if (shouldShowRequestPermissionRationale(permissions))
+                    requestPermissions(permissions, PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION);
+                    // PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION_STORAGE_CAMERA, permissionList);
+                }
+            }
+        }
     }
 }
 

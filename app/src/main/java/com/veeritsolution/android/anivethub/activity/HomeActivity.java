@@ -89,17 +89,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickEvent, OnB
             if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.CLIENT_LOGIN) {
 
                 loadFirstFragment(new ClientHomeFragment(), null);
-                // loadFirstFragment(new UpdateClientPetInfo(), null);
+                //loadFirstFragment(new UpdateClientBasicInfo(), null);
 
             } else if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.VET_LOGIN) {
                 // if (Utils.isInternetAvailable()) {
                 //     vetStatusUpdate(Constants.ONLINE_STATUS);
                 // }
                 loadFirstFragment(new VetHomeFragment(), null);
+                //loadFirstFragment(new UpdateVetBasicInfoFragment(), null);
+
             } else if (PrefHelper.getInstance().getInt(PrefHelper.LOGIN_USER, 0) == Constants.CLINIC_LOGIN) {
 
                 loadFirstFragment(new PractiseHomeFragment(), null);
-                //loadFirstFragment(new PractiseHomeFragment(), null);
+                //loadFirstFragment(new UpdatePracBasicInfoFragment(), null);
             }
         }
 //        Bundle bundle = intent.getExtras();

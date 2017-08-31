@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +35,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.soundcloud.android.crop.Crop;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.veeritsolution.android.anivethub.MyApplication;
 import com.veeritsolution.android.anivethub.R;
 import com.veeritsolution.android.anivethub.activity.HomeActivity;
@@ -62,7 +65,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -249,26 +251,44 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
             case R.id.img_selectProfilePhoto:
 
                 Utils.buttonClickEffect(view);
-                if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
-                        Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA))) {
-                    showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), false);
+                if (Build.VERSION.SDK_INT > 22) {
+                    String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                    //if (shouldShowRequestPermissionRationale(permissions))
+                    requestPermissions(permissions, PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION);
                     uploadProfilePhoto = true;
-                    // selectPhoto(getString(R.string.str_select_profile_photo), Constants.REQUEST_CAMERA_PROFILE, Constants.REQUEST_FILE_PROFILE);
-
+                } else {
+                    // start cropping activity for pre-acquired image saved on the device
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setActivityTitle("Crop")
+                            .setAspectRatio(1, 1)
+                            .setRequestedSize(200, 200)
+                            .start(getContext(), this);
+                    uploadProfilePhoto = true;
+                    //showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), true);
                 }
                 break;
 
             case R.id.img_selectBannerPhoto:
 
                 Utils.buttonClickEffect(view);
-                if (PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION,
-                        Arrays.asList(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA))) {
-                    showImageSelect(getActivity(), getString(R.string.str_select_banner_photo), false);
+                if (Build.VERSION.SDK_INT > 22) {
+                    String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                    //if (shouldShowRequestPermissionRationale(permissions))
+                    requestPermissions(permissions, PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION);
                     uploadProfilePhoto = false;
-                    //     selectPhoto(getString(R.string.str_select_banner_photo), Constants.REQUEST_CAMERA_BANNER,
-                    //            Constants.REQUEST_FILE_BANNER);
+                } else {
+                    // start cropping activity for pre-acquired image saved on the device
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setActivityTitle("Crop")
+                            .setAspectRatio(2, 1)
+                            .setRequestedSize(400, 200)
+                            .start(getContext(), this);
+                    uploadProfilePhoto = false;
+                    //showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), true);
                 }
                 break;
 
@@ -501,9 +521,14 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
                     //cropBannerPhotoFromGallery(data);
                     break;
 
-                case Crop.REQUEST_CROP:
+               /* case Crop.REQUEST_CROP:
 
                     handleCrop(resultCode, data);
+                    break;*/
+
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    handleCrop(0, result.getUri().getPath());
                     break;
             }
         } else {
@@ -515,68 +540,21 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
 
         Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "cropped"));
 
-        switch (apiType) {
+    }
 
-            case Constants.API_REQUEST_PROFILE_CAMERA:
+    private void handleCrop(int resultCode, final String result) {
 
-                Crop.of(source, destination)
-                        .withAspect(imgClientProfilePhoto.getLayoutParams().width, imgClientProfilePhoto.getLayoutParams().height)
-                        .start(getActivity(), this);
-                break;
-
-            case Constants.API_REQUEST_PROFILE_FILE:
-
-                Crop.of(source, destination)
-                        .withAspect(imgClientProfilePhoto.getLayoutParams().width, imgClientProfilePhoto.getLayoutParams().height)
-                        .start(getActivity(), this);
-                break;
-
-            case Constants.API_REQUEST_BANNER_CAMERA:
-
-                Crop.of(source, destination)
-                        .withAspect(Utils.getScreenWidth(getActivity()), imgClientBannerPhoto.getLayoutParams().height)
-                        .start(getActivity(), this);
-                break;
-
-            case Constants.API_REQUEST_BANNER_FILE:
-
-                Crop.of(source, destination)
-                        .withAspect(Utils.getScreenWidth(getActivity()), imgClientBannerPhoto.getLayoutParams().height)
-                        .start(getActivity(), this);
-                break;
+        if (uploadProfilePhoto) {
+            uploadProfilePhoto(result);
+        } else {
+            uploadBannerPhoto(result);
         }
     }
 
-    private void handleCrop(int resultCode, final Intent result) {
-
-        switch (apiType) {
-
-            case Constants.API_REQUEST_PROFILE_CAMERA:
-
-                uploadProfilePhoto(result);
-                break;
-
-            case Constants.API_REQUEST_PROFILE_FILE:
-
-                uploadProfilePhoto(result);
-                break;
-
-            case Constants.API_REQUEST_BANNER_CAMERA:
-
-                uploadBannerPhoto(result);
-                break;
-
-            case Constants.API_REQUEST_BANNER_FILE:
-
-                uploadBannerPhoto(result);
-                break;
-        }
-    }
-
-    private void uploadBannerPhoto(Intent result) {
+    private void uploadBannerPhoto(String result) {
         try {
             //CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
-            image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientBanner);
+            image64Base = Utils.getStringImage(result, ImageUpload.ClientBanner);
 
             Map<String, String> params = new HashMap<>();
             params.put("op", ApiList.CLIENT_BANNER_PIC_UPDATE);
@@ -590,43 +568,12 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                SoapObject request = new SoapObject(Constants.NAMESPACE, Constants.CLIENT_BANNER_METHOD_NAME);
-                request.addProperty("op", ApiList.CLIENT_BANNER_PIC_UPDATE);
-                request.addProperty("AuthKey", ApiList.AUTH_KEY);
-                request.addProperty("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
-                request.addProperty("BannerPic", image64Base);
-
-                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-
-                envelope.dotNet = true;
-                envelope.setOutputSoapObject(request);
-                HttpTransportSE androidHttpTransport = new HttpTransportSE("http://admin.anivethub.com/WebService/VetHubData.asmx?op=ClientBannerPicUpdate");
-                try {
-                    androidHttpTransport.call(Constants.SOAP_ACTION + Constants.CLIENT_BANNER_METHOD_NAME, envelope);
-                    SoapPrimitive result1 = (SoapPrimitive) envelope.getResponse();
-                    String str = result1.toString();
-                    Debug.trace("Response", str);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // ToastHelper.getInstance().showMessage("Failed! Please try again Later");
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
-                getUserInfo();
-                return null;
-            }
-        }.execute();*/
     }
 
-    private void uploadProfilePhoto(Intent result) {
+    private void uploadProfilePhoto(String result) {
 
         //CustomDialog.getInstance().showProgress(getActivity(), "Image Uploading...", false);
-        image64Base = Utils.getStringImage(Crop.getOutput(result).getPath(), ImageUpload.ClientProfile);
+        image64Base = Utils.getStringImage(result, ImageUpload.ClientProfile);
 
         Map<String, String> params = new HashMap<>();
         params.put("op", ApiList.CLIENT_PROFILE_PIC_UPDATE);
@@ -636,73 +583,7 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
 
         RestClient.getInstance().post(getActivity(), Request.Method.POST, params, ApiList.CLIENT_PROFILE_PIC_UPDATE,
                 true, RequestCode.ClientProfilePhotoUpdate, this);
-
-        /*new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                SoapObject request = new SoapObject(Constants.NAMESPACE, Constants.CLIENT_PROFILE_METHOD_NAME);
-                request.addProperty("op", ApiList.CLIENT_PROFILE_PIC_UPDATE);
-                request.addProperty("AuthKey", ApiList.AUTH_KEY);
-                request.addProperty("ClientId", String.valueOf(ClientLoginModel.getClientCredentials().getClientId()));
-                request.addProperty("ProfilePic", image64Base);
-
-                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-
-                envelope.dotNet = true;
-                envelope.setOutputSoapObject(request);
-                HttpTransportSE androidHttpTransport = new HttpTransportSE("http://admin.anivethub.com/WebService/VetHubData.asmx?op=ClientProfilePicUpdate");
-                try {
-                    androidHttpTransport.call(Constants.SOAP_ACTION + Constants.CLIENT_PROFILE_METHOD_NAME, envelope);
-                    SoapPrimitive result1 = (SoapPrimitive) envelope.getResponse();
-                    String str = result1.toString();
-                    Debug.trace("Response", str);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // ToastHelper.getInstance().showMessage("Failed! Please try again Later");
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
-                getUserInfo();
-                return null;
-            }
-        }.execute();*/
     }
-
-    /*private void getUserInfo() {
-        try {
-            JSONObject params = new JSONObject();
-            params.put("op", "GetClientInfo");
-            params.put("AuthKey", ApiList.AUTH_KEY);
-            params.put("ClientId", ClientLoginModel.getClientCredentials().getClientId());
-
-            switch (apiType) {
-
-                case Constants.API_REQUEST_PROFILE_CAMERA:
-                    RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                            ApiList.GET_CLIENT_INFO, false, RequestCode.ClientProfilePhotoUpdate, this);
-                    break;
-
-                case Constants.API_REQUEST_PROFILE_FILE:
-                    RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                            ApiList.GET_CLIENT_INFO, false, RequestCode.ClientProfilePhotoUpdate, this);
-                    break;
-
-                case Constants.API_REQUEST_BANNER_CAMERA:
-                    RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                            ApiList.GET_CLIENT_INFO, false, RequestCode.ClientBannerPhotoUpdate, this);
-                    break;
-
-                case Constants.API_REQUEST_BANNER_FILE:
-                    RestClient.getInstance().post(getActivity(), Request.Method.POST, params,
-                            ApiList.GET_CLIENT_INFO, false, RequestCode.ClientBannerPhotoUpdate, this);
-                    break;
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -1223,6 +1104,47 @@ public class ClientBasicInfoFragment extends Fragment implements OnClickEvent, D
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // List<String> shouldPermit = new ArrayList<>();
+
+        if (requestCode == PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION) {
+
+            if (grantResults.length > 0 || grantResults.length != 0) {
+
+                if (PermissionClass.verifyPermission(grantResults)) {
+                    if (uploadProfilePhoto) {
+                        // start cropping activity for pre-acquired image saved on the device
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .setActivityTitle("Crop")
+                                .setAspectRatio(1, 1)
+                                .setRequestedSize(200, 200)
+                                .start(getContext(), this);
+                    } else {
+                        // start cropping activity for pre-acquired image saved on the device
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .setAspectRatio(2, 1)
+                                .setActivityTitle("Crop")
+                                .setRequestedSize(400, 200)
+                                .start(getContext(), this);
+                    }
+
+                    //showImageSelect(getActivity(), getString(R.string.str_select_profile_photo), true);
+                } else {
+                    permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                    //if (shouldShowRequestPermissionRationale(permissions))
+                    requestPermissions(permissions, PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION);
+                    // PermissionClass.checkPermission(getActivity(), PermissionClass.REQUEST_CODE_RUNTIME_PERMISSION_STORAGE_CAMERA, permissionList);
+                }
+            }
         }
     }
 }

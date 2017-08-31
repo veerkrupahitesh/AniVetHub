@@ -85,6 +85,59 @@ public class SignInActivity extends AppCompatActivity implements OnClickEvent, D
     private List<String> accessUserDetailPermission = Arrays.asList("public_profile", "email");
     private AccessToken FBAccessToken;
 
+    public static void initGoogleSdk() {
+        // [START configure_signin]
+        // Configure sign-in to request the userName's ID, email address, and basic
+        // fragment_vet_profile. ID and basic fragment_vet_profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                // .requestServerAuthCode(getString(R.string.str_google_server_key))
+                .requestIdToken(MyApplication.getInstance().getString(R.string.str_google_server_web_key))
+                .requestProfile()
+                //  .requestScopes(new Scope(Constants.SCOPE))
+                .build();
+        // [END configure_signin]
+
+        // [START build_client]
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(MyApplication.getInstance())
+                // .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        // [END build_client]
+    }
+
+    public static void initFacebookSdk() {
+        // Initialize the SDK before executing any other operations,
+        FacebookSdk.sdkInitialize(MyApplication.getInstance());
+        AppEventsLogger.activateApp(MyApplication.getInstance());
+        callbackManager = CallbackManager.Factory.create();
+        Utils.printFbKeyHash();
+    }
+    // [END signInToGoogle]
+
+    // [START signOut]
+    public static void signOutToGoogle() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);/*.setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+
+                        if (status.isSuccess()) {
+
+                        }
+                    }
+                });*/
+    }
+
+    /**
+     * This method destroy the current access token.
+     */
+    public static void logoutToFacebook() {
+        LoginManager.getInstance().logOut();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +182,6 @@ public class SignInActivity extends AppCompatActivity implements OnClickEvent, D
       //  params.put("AuthKey", ApiList.AUTH_KEY);
         Utils.setupOutSideTouchHideKeyboard(findViewById(R.id.activity_sign_in));
     }
-    // [END signInToGoogle]
 
     @Override
     public void onSuccess(RequestCode mRequestCode, Object mObject) {
@@ -268,58 +320,6 @@ public class SignInActivity extends AppCompatActivity implements OnClickEvent, D
                 break;
         }
     }
-
-    public static void initGoogleSdk() {
-        // [START configure_signin]
-        // Configure sign-in to request the userName's ID, email address, and basic
-        // fragment_vet_profile. ID and basic fragment_vet_profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                // .requestServerAuthCode(getString(R.string.str_google_server_key))
-                .requestIdToken(MyApplication.getInstance().getString(R.string.str_google_server_web_key))
-                .requestProfile()
-                //  .requestScopes(new Scope(Constants.SCOPE))
-                .build();
-        // [END configure_signin]
-
-        // [START build_client]
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(MyApplication.getInstance())
-                // .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        // [END build_client]
-    }
-
-    public static void initFacebookSdk() {
-        // Initialize the SDK before executing any other operations,
-        FacebookSdk.sdkInitialize(MyApplication.getInstance());
-        AppEventsLogger.activateApp(MyApplication.getInstance());
-        callbackManager = CallbackManager.Factory.create();
-        Utils.printFbKeyHash();
-    }
-
-    // [START signOut]
-    public static void signOutToGoogle() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);/*.setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-
-                        if (status.isSuccess()) {
-
-                        }
-                    }
-                });*/
-    }
-
-    /**
-     * This method destroy the current access token.
-     */
-    public static void logoutToFacebook() {
-        LoginManager.getInstance().logOut();
-    }
     // [END signOut]
 
     // [START signInToGoogle]
@@ -387,7 +387,7 @@ public class SignInActivity extends AppCompatActivity implements OnClickEvent, D
                         intent = new Intent(SignInActivity.this, SignUpActivity.class);
                         intent.putExtra(Constants.USER_DATA, bundle);
                         startActivity(intent);
-                        finish();
+                        //finish();
                     }
                 }
         );
@@ -434,7 +434,7 @@ public class SignInActivity extends AppCompatActivity implements OnClickEvent, D
         intent = new Intent(this, SignUpActivity.class);
         intent.putExtra(Constants.USER_DATA, bundle);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
 

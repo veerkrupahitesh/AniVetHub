@@ -59,8 +59,14 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:background">@drawable/drw_round_corner_gradient_blue</item>
+    </style>
 
-
+    <style name="cropStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary
+        </item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
